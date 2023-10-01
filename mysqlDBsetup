@@ -6,7 +6,7 @@ grant all privileges on 'ProjectDB' to admin@'localhost';
 
 ON mysql as ADMIN:
 
-create tavle if not ecists Users(
+create table if not exists Users(
     id int not null auto_increment,
     username varchar(20) not null,
     email varchar(100) not null,
