@@ -1,4 +1,4 @@
 # rabbitmqphp
 
 ## Setup MySQL Database
-[2-fix-mysqlsetup](./mysqlDBsetup.md)
+[2-fix-mysqlsetup](./docs/mysqlDBsetup.md)
