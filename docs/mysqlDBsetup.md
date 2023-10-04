@@ -9,7 +9,7 @@ create database ProjectDB;
 
 2. Create admin user
 ```
-create user admin@'localhost' identified by 'adminPass';
+create user 'admin'@'localhost' identified by 'adminPass';
 ```
 
 3. Granting admin user priviledges to the ProjectDB 
