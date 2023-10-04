@@ -1,11 +1,15 @@
 <?php
-    if (isset($id) && isset($pwd) && isset($email)){
-        $id = $_POST['id'];
+    $user = $_POST['id'];
+    $email = $_post['email'];
+    $pwd = $_POST['pwd'];
+    $cfrmpwd = $_POST['cfrmpwd'];
+    if (isset($user) && isset($pwd) && isset($email)){
+        $user = $_POST['id'];
         $email = $_post['email'];
         $pwd = $_POST['pwd'];
         $cfrmpwd = $_POST['cfrmpwd'];
         $error = false;
-        if (empty($id)){
+        if (empty($user)){ # MAKE AN ERROR MSG LOG HAVE TEMPLATE
             $error = true;
             $errorMsg = "Username is empty.";
         }
@@ -21,7 +25,7 @@
             $error = true;
             $errorMsg = "Password is empty.";
         }
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $id)){
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $user)){
             $error = true;
             $errorMsg = "Invalid user id format.";
         }
@@ -33,7 +37,7 @@
             $error = true;
             $errorMsg = "Invalid email format.";
         }
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $id)){
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $user)){
             $error = true;
             $errorMsg = "Invalid user id format.";
         }
@@ -43,6 +47,7 @@
         }
     }
     if(!$error){
+        $passHash = password_hash($pwd, PASSWORD_DEFAULT);
         $db = new mysqli('127.0.0.1', 'testUser', 'test', 'testdb');
 
         if ($db->errno != 0) {
@@ -50,8 +55,16 @@
             exit(0);
         }
         
-        $request = "INSERT INTO Users VALUES id, email, passHash";
+        $request = "INSERT INTO Users (username, email, passHash) VALUES (?, ?, ?)";
+        $stmt = $db->prepare($request);
+        $stmt->bind_param($user, $email, $pwd);
         $response = $mydb->query($query);
+        if ($stmt->execute()) {
+            echo "Registration successful!";
+        }
+        else {
+            echo "Registration failed. Please try again later.";
+        }
         if ($db->errno != 0) {
 
             echo "failed to execute query:".PHP_EOL;

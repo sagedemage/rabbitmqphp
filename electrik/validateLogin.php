@@ -1,15 +1,29 @@
 <?php
-$id = $_POST['id'];
-$pwd = $_POST['pwd'];
-$error = false;
 
-if (isset($id) && isset($pwd)) {
-    // Validate username or email (allowing alphanumeric characters, hyphens, and spaces)
-    if (!preg_match("/^[a-zA-Z0-9-' ]*$/", $id)) {
-        $error = true;
+    if (isset($id) && isset($pwd)) {
+        $user = $_POST['id'];
+        $pwd = $_POST['pwd'];
+        $error = false;
+        // Validate username or email (allowing alphanumeric characters, hyphens, and spaces)
+        if (empty($user)){ # MAKE AN ERROR MSG LOG HAVE TEMPLATE
+            $error = true;
+            $errorMsg = "Username is empty.";
+        }
+        if (empty($pwd)){
+            $error = true;
+            $errorMsg = "Password is empty.";
+        }
+        if (!preg_match("/^[a-zA-Z-' ]*$/", $user)){
+            $error = true;
+            $errorMsg = "Invalid user id format.";
+        }
+        if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,}$/', $pwd)){
+            $error = true;
+            $errorMsg = "Invalid password format.";
+        }
     }
-
     if (!$error) {
+        $passHash = password_hash($pwd, PASSWORD_DEFAULT);
         $db = new mysqli('127.0.0.1', 'testUser', 'test', 'testdb');
 
         if ($db->connect_error) {
@@ -18,10 +32,15 @@ if (isset($id) && isset($pwd)) {
         }
 
         // Use prepared statement to avoid SQL injection
-        $stmt = $db->prepare("SELECT id, passHash FROM Users WHERE id = ?");
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-
+        $request = "SELECT (username, passHash) FROM Users WHERE (?, ?)";
+        $stmt = $db->prepare($request);
+        $stmt->bind_param($user, $passHash);
+        if ($stmt->execute()) {
+            echo "Login successful!";
+        }
+        else {
+            echo "Login failed. Please try again later.";
+        }
         if ($stmt->errno != 0) {
             echo "Failed to execute query:" . PHP_EOL;
             echo __FILE__ . ':' . __LINE__ . ": error: " . $stmt->error . PHP_EOL;
@@ -45,5 +64,4 @@ if (isset($id) && isset($pwd)) {
         // Close the database connection
         $db->close();
     }
-}
 ?>
