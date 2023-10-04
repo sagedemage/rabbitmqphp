@@ -14,7 +14,7 @@ create user 'admin'@'localhost' identified by 'adminPass';
 
 3. Granting admin user priviledges to the ProjectDB 
 ```
-grant all privileges on 'ProjectDB' to admin@'localhost';
+grant all privileges on ProjectDB.* to 'admin'@'localhost';
 ```
 
 ## ON mysql as ADMIN:
