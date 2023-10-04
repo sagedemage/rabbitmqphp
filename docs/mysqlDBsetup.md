@@ -18,8 +18,12 @@ grant all privileges on ProjectDB.* to 'admin'@'localhost';
 ```
 
 ## ON mysql as ADMIN:
+1. Login to admin for MySQL. The password is `adminPass`.  
+```
+mysql -u admin -p
+```
 
-1. Create Users table
+2. Create Users table
 ```
 create table if not exists Users(
     id int not null auto_increment,
