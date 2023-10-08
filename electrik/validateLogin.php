@@ -30,18 +30,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit(0);
 	}
 
-	// SELECT username, password FROM users WHERE username = ?
-	// SELECT username, passHash from Users WHERE username = ? OR email = ?
-
-        $sql = "SELECT username, passHash from Users WHERE username = ?";
+        $sql = "SELECT username, passHash from Users WHERE username = ? OR email = ?";
 
         // Use prepared statement to avoid SQL injection
         $stmt = $db->prepare($sql);
 
 	if ($stmt) {
 	    // bind question marks
-	    $stmt->bind_param("s", $username);
-	    //$stmt->bind_param("ss", $username, $username);
+	    $stmt->bind_param("ss", $username, $username);
 
 	    // execute statement
 	    if ($stmt->execute()) {
