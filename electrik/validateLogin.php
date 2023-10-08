@@ -1,58 +1,69 @@
 <?php
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = $_POST['id'];
-    $pwd = $_POST['pwd'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
     $error = false;
     $errorMsg = "";
 
     // Validate username or email (allowing alphanumeric characters, hyphens, and spaces)
-    if (empty($user)) {
+    if (empty($username)) {
         $error = true;
         $errorMsg = "Username is empty.";
-    } elseif (!preg_match("/^[a-zA-Z-' ]*$/", $user)) {
-        $error = true;
-        $errorMsg = "Invalid user id format.";
-    }
-
-    if (empty($pwd)) {
+    } 
+    
+    if (empty($password)) {
         $error = true;
         $errorMsg = "Password is empty.";
-    } elseif (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,}$/', $pwd)) {
-        $error = true;
-        $errorMsg = "Invalid password format.";
-    }
-
+    } 
+    
     if (!$error) {
-        $db = new mysqli('127.0.0.1', 'testUser', 'test', 'testdb');
+	$host = "localhost";
+	$db_user = "admin";
+	$db_pass = "adminPass";
+	$db_name = "ProjectDB";
+        $db = new mysqli($host, $db_user, $db_pass, $db_name);
 
         if ($db->connect_error) {
             echo "Failed to connect to the database: " . $db->connect_error;
             exit(0);
-        }
+	}
+
+	// SELECT username, password FROM users WHERE username = ?
+	// SELECT username, passHash from Users WHERE username = ? OR email = ?
+
+        $sql = "SELECT username, passHash from Users WHERE username = ?";
 
         // Use prepared statement to avoid SQL injection
-        $request = "SELECT username, passHash FROM Users WHERE username = ?";
+        $stmt = $db->prepare($sql);
 
-        $stmt = $db->prepare($request);
+	if ($stmt) {
+	    // bind question marks
+	    $stmt->bind_param("s", $username);
+	    //$stmt->bind_param("ss", $username, $username);
 
-        if ($stmt) {
-            $stmt->bind_param("s", $user);
-            if ($stmt->execute()) {
-                $stmt->store_result();
-                if ($stmt->num_rows === 1) {
-                    $stmt->bind_result($username, $passHash);
-                    $stmt->fetch();
-                    $stmt->close();
+	    // execute statement
+	    if ($stmt->execute()) {
+		// bind result variables
+		$stmt->bind_result($username, $passHash);
+
+                //$stmt->store_result();
+		// fetch values
+                if ($stmt->fetch()) {
+                    //$stmt->bind_result($username, $passHash);
 
                     // Verify the password (assuming you have stored passwords securely using password_hash)
-                    if (password_verify($pwd, $passHash)) {
+                    if (password_verify($password, $passHash)) {
                         // Authentication successful
                         echo "Authentication successful for user: " . $username;
-                    } else {
+		    } 
+		    else {
                         // Authentication failed
-                        echo "Authentication failed. Invalid username or password.";
+			echo "Authentication failed. Invalid username or password."; 
                     }
-                } else {
+		} 
+		else {
                     echo "User not found.";
                 }
             } else {
@@ -60,12 +71,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             echo "Error in preparing the statement.";
-        }
+	}
+
+	// close statement
+        $stmt->close();
 
         // Close the database connection
         $db->close();
     } else {
-        echo $errorMsg;
+	    echo $errorMsg;
     }
 }
 ?>

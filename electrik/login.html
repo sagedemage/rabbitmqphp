@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -62,17 +62,18 @@
 
 <form action="/validateLogin.php" method="post">
   <div class="container">
-    <label for="id"><b>Username or Email</b></label>
-    <input type="text" placeholder="Enter Username/Email" name="id" id="id" required>
+    <label for="username"><b>Username or Email</b></label>
+    <input type="text" placeholder="Enter Username/Email" name="username" id="username" required>
     
-    <label for="pwd"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="pwd" id="pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-    
-    <button type="submit">Login</button>
-    
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" id="password" pattern="^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,}$" required>
     <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
+      <input type="checkbox" id="remember" name="remember">
+      <label for="remember"> Remember me </label><br>
     </label>
+
+    <button type="submit">Login</button>
+
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
