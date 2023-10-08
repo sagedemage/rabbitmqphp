@@ -1,44 +1,47 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $user = $_POST['id'];
+    $username = $_POST['username'];
     $email = $_POST['email'];
-    $pwd = $_POST['pwd'];
-    $cfrmpwd = $_POST['cfrmpwd'];
+    $password = $_POST['password'];
+    $cfm_pwd = $_POST['confirm_password'];
     $error = false;
     $errorMsg = "";
 
-    if (empty($user)) {
-        $error = true;
-        $errorMsg = "Username is empty.";
-    }
+    // email validation
     if (empty($email)) {
         $error = true;
         $errorMsg = "Email is empty.";
     }
-    if (empty($pwd) || empty($cfrmpwd)) {
-        $error = true;
-        $errorMsg = "Password is empty.";
-    }
-    if (!preg_match("/^[a-zA-Z-' ]*$/", $user)) {
-        $error = true;
-        $errorMsg = "Invalid user id format.";
-    }
-    if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,}$/', $pwd)) {
-        $error = true;
-        $errorMsg = "Invalid password format.";
-    }
-    if (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $email)) {
+    else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = true;
         $errorMsg = "Invalid email format.";
     }
-    if ($pwd !== $cfrmpwd) {
+
+    // username validation
+    if (empty($username)) {
+        $error = true;
+        $errorMsg = "Username is empty.";
+    }
+
+    // password validation
+    if (empty($password) || empty($cfm_pwd)) {
+        $error = true;
+        $errorMsg = "Password is empty.";
+    }
+
+    // check if password match
+    else if ($password !== $cfm_pwd) {
         $error = true;
         $errorMsg = "Passwords do not match.";
     }
 
     if (!$error) {
-        $passHash = password_hash($pwd, PASSWORD_DEFAULT);
-        $db = new mysqli('127.0.0.1', 'testUser', 'test', 'testdb');
+	$passHash = password_hash($pwd, PASSWORD_DEFAULT);
+	$host = "localhost";
+	$user = "admin";
+	$pass = "adminPass";
+	$db_name = "ProjectDB";
+        $db = new mysqli($host, $user, $pass, $db_name);
 
         if ($db->connect_error) {
             echo "Failed to connect to the database: " . $db->connect_error;
@@ -49,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt = $db->prepare($request);
 
         if ($stmt) {
-            $stmt->bind_param("sss", $user, $email, $passHash);
+            $stmt->bind_param("sss", $username, $email, $passHash);
             if ($stmt->execute()) {
                 echo "Registration successful!";
             } else {
