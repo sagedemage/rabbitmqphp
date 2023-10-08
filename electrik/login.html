@@ -1,6 +1,7 @@
 
 <html>
 <head>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -58,26 +59,48 @@ span.psw {
 
 <body>
 
+<div id="header"></div>
+<div id="navbar"></div>
+  
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Load the header and navbar using JavaScript
+      fetch("./header.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("header").innerHTML = data;
+        });
+  
+      fetch("./navbar.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("navbar").innerHTML = data;
+        });
+    });
+  </script>
+
+
 <h2>Login</h2>
 
 <form action="/validateLogin.php" method="post"> <!--route to validateLogin.php for checking-->
 
   <div class="container">
     <label for="id"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username/Email" name="id" required>
+    <input type="text" placeholder="Enter Username" name="id" required>
 
     <label for="pwd"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
         
-    <button type="submit">Login</button>
+    <button type="submit" name="login">Login</button>
     <label>
       <input type="checkbox" checked="checked" name="remember"> Remember me
     </label>
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
+    <button type="button" class="cancelbtn"><a href="./home.html">Cancel</a></button>
+    <span class="psw"><a href="./forgotpassword.html">Forgot password?</a></span>
+    <span class="register">Don't have an account? <a href="./register.html">Sign Up</a></span>
   </div>
 </form>
 
