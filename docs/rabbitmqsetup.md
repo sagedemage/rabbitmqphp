@@ -3,8 +3,8 @@
 ```
 chmod +x rabbitmqsetup.sh
 ```
-3. Run rabbitmqsetup.sh
+2. Run rabbitmqsetup.sh
 ```
 ./rabbitmqsetup.sh
 ```
-4. Log into rabbitmq management using 127.0.0.1:15672 in browser (default username/pass: guest/guest)
+3. Log into rabbitmq management using 127.0.0.1:15672 in browser (default username/pass: guest/guest)
