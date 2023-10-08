@@ -27,8 +27,8 @@ mysql -u admin -p ProjectDB
 ```
 create table if not exists Users(
     id int not null auto_increment,
-    username varchar(20) not null,
-    email varchar(100) not null,
+    username varchar(30) not null,
+    email varchar(255) not null,
     passHash varchar(255) not null,
     primary key(id),
     unique (email),
@@ -38,7 +38,7 @@ create table if not exists Users(
 OR
 
 ```
-create table if not exists Users(id int not null auto_increment, username varchar(20) not null, email varchar(100) not null, passHash varchar(255) not null, primary key(id), unique (email), unique (username));
+create table if not exists Users(id int not null auto_increment, username varchar(30) not null, email varchar(255) not null, passHash varchar(255) not null, primary key(id), unique (email), unique (username));
 ```
 
 select user, host, authentication_string from mysql.user; //NOT NEEDED
