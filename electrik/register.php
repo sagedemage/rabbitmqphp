@@ -36,12 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if (!$error) {
-	$passHash = password_hash($pwd, PASSWORD_DEFAULT);
+	$passHash = password_hash($password, PASSWORD_DEFAULT);
 	$host = "localhost";
-	$user = "admin";
-	$pass = "adminPass";
+	$db_user = "admin";
+	$db_pass = "adminPass";
 	$db_name = "ProjectDB";
-        $db = new mysqli($host, $user, $pass, $db_name);
+        $db = new mysqli($host, $db_user, $db_pass, $db_name);
 
         if ($db->connect_error) {
             echo "Failed to connect to the database: " . $db->connect_error;
@@ -68,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             echo "Error in preparing the statement: " . $db->error;
         }
 
+	// close connections
         $stmt->close();
         $db->close();
     } else {
