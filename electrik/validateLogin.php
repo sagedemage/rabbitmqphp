@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $stmt->fetch();
             $stmt->close();
             if (password_verify($pwd, $passHash)) {
-                echo "Authentication successful for user: " . $username;
+                echo "Authentication successful for user: " . $userId;
                 //session_start(); // Start a session
                 //$_SESSION['user_id'] = $userId; // Store user information in the session
                 //header("Location: home/html"); // MAKE WELCOME PAGE FOR SESSION

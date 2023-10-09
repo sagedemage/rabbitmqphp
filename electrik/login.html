@@ -61,24 +61,6 @@ span.psw {
 
 <div id="header"></div>
 <div id="navbar"></div>
-  
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Load the header and navbar using JavaScript
-      fetch("./header.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("header").innerHTML = data;
-        });
-  
-      fetch("./navbar.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("navbar").innerHTML = data;
-        });
-    });
-  </script>
-
 
 <h2>Login</h2>
 
