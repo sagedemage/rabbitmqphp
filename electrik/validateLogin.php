@@ -21,7 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     }
 
     if (!$error) {
-        $db = new mysqli('localhost', 'Users', 'adminPass', 'ProjectDB');
+        $host = "localhost";
+        $db_user = "admin";
+        $db_pass = "adminPass";
+        $db_name = "ProjectDB";
+        $db = new mysqli($host, $db_user, $db_pass, $db_name);
 
         if ($db->connect_error) {
             echo "Failed to connect to the database: " . $db->connect_error;
