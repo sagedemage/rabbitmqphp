@@ -12,24 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         $errorMsgs[] = "Username is empty.";
     } 
     else {
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $user)) {
-            $error = true;
-            $errorMsgs[] = "Invalid user id format.";
-        }
-        else{
-            $user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); 
-        }
+        $user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); 
     }
 
     if (!isset($pwd) || empty($pwd)) {
         $error = true;
         $errorMsgs[] = "Password is empty.";
-    }
-    else {
-        if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,}$/', $pwd)) {
-            $error = true;
-            $errorMsgs[] = "Invalid password format.";
-        }    
     }
 
     if (!$error) {

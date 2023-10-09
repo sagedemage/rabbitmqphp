@@ -32,14 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
             $error = true;
             $errorMsgs[] = "Confirmation Password is empty.";
         }
-        if (!preg_match("/^[a-zA-Z-' ]*$/", $user)){
-            $error = true;
-            $errorMsgs[] = "Invalid user id format.";
-        }
-        if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,}$/', $pwd)){
-            $error = true;
-            $errorMsgs[] = "Invalid password format.";
-        }
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
             $error = true;
             $errorMsgs[] = "Invalid email format.";
