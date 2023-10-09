@@ -11,7 +11,7 @@ Here are the dependencies that are required to run the web server and to do deve
 7. php-mysql
 8. rabbitmq-server
 
-Command to run to install the web server dependencies
+The command to run to install the web server dependencies
 ```
 sudo apt install apache2 mysql-common mysql-server php php-common php-amqp php-mysql rabbitmq-server
 ```
@@ -21,7 +21,7 @@ sudo apt install apache2 mysql-common mysql-server php php-common php-amqp php-m
 2. git
 3. ssh
 
-Command to install the development dependencies
+The command to run to install the development dependencies
 ```
 sudo apt install vim git ssh
 ```
