@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
     $user = $_POST['id'];
     $email = $_POST['email'];
