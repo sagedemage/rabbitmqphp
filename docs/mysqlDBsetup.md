@@ -40,6 +40,18 @@ OR
 ```
 create table if not exists Users(id int not null auto_increment, username varchar(30) not null, email varchar(255) not null, passHash varchar(255) not null, primary key(id), unique (email), unique (username));
 ```
+3. Create PasswordResetTokens table
+```
+CREATE TABLE PasswordResetTokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    token VARCHAR(64) NOT NULL,
+    timestamp TIMESTAMP NOT NULL,
+    UNIQUE KEY unique_email_token (email, token),
+    INDEX (timestamp)
+);
+```
 
+   
 select user, host, authentication_string from mysql.user; //NOT NEEDED
 
