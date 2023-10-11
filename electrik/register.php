@@ -1,42 +1,41 @@
 <?php
 ini_set('display_errors', 1);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
     $user = $_POST['id'];
     $email = $_POST['email'];
     $pwd = $_POST['pwd'];
     $cfrmpwd = $_POST['cfrmpwd'];
-        
+
     $error = false;
     $errorMsgs = array();
-    if (isset($user) && isset($pwd) && isset($email)){
+    if (isset($user) && isset($pwd) && isset($email)) {
 
-        if (empty($user) || !isset($user)){ # MAKE AN ERROR MSG LOG HAVE TEMPLATE
+        if (empty($user) || !isset($user)) { # MAKE AN ERROR MSG LOG HAVE TEMPLATE
             $error = true;
             $errorMsgs[] = "Username is empty.";
-        }
-        else{
+        } else {
             $user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); # SANITIZE
         }
-        if (empty($email || !isset($email))){
+        if (empty($email) || !isset($email)) {
             $error = true;
             $errorMsgs[] = "Email is empty.";
-        }
-        else{
+        } else {
             $email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
         }
-        if (empty($pwd) || !isset($pwd)){
+        if (empty($pwd) || !isset($pwd)) {
             $error = true;
             $errorMsgs[] = "Password is empty.";
         }
-        if (empty($cfrmpwd) || !isset($cfrmpwd)){
+        if (empty($cfrmpwd) || !isset($cfrmpwd)) {
             $error = true;
             $errorMsgs[] = "Confirmation Password is empty.";
         }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = true;
             $errorMsgs[] = "Invalid email format.";
         }
-        if ($pwd != $cfrmpwd){
+        if ($pwd != $cfrmpwd) {
             $error = true;
             $errorMsgs[] = "Passwords do not match.";
         }
@@ -56,11 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 
         $request = "INSERT INTO Users (username, email, passHash) VALUES (?, ?, ?)";
         $stmt = $db->prepare($request);
-        
+
         if ($stmt) {
             $stmt->bind_param("sss", $user, $email, $passHash);
             if ($stmt->execute()) {
-                echo "Registration successful!";
+                // Redirect the user to the home page after successful registration
+                header("Location: home.html");
+                exit;
             } else {
                 echo "Registration failed. Please try again later.";
             }
@@ -70,8 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
         }
 
         $db->close();
-    }
-    else {
+    } else {
         foreach ($errorMsgs as $error) {
             echo $error . '<br>';
             error_log($error, 3, "error.log");
@@ -79,4 +79,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
     }
 }
 ?>
-        

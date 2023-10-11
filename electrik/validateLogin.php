@@ -33,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
 
         // Use prepared statement to avoid SQL injection
-        $request = "SELECT username, passHash FROM Users WHERE username=?";
+        $request = "SELECT username, passHash FROM Users WHERE username=? OR email=?";
         $stmt = $db->prepare($request);
-        $stmt->bind_param("s", $user);
+        $stmt->bind_param("ss", $user, $user);
         if ($stmt->execute()) {
             // Fetch the result
             $stmt->bind_result($userId, $passHash);
@@ -43,9 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $stmt->close();
             if (password_verify($pwd, $passHash)) {
                 echo "Authentication successful for user: " . $userId;
-                //session_start(); // Start a session
-                //$_SESSION['user_id'] = $userId; // Store user information in the session
-                //header("Location: home/html"); // MAKE WELCOME PAGE FOR SESSION
+                session_start(); // Start a session
+                $_SESSION['user_id'] = $userId; // Store user information in the session
+                header("Location: home.html"); // Redirect the user to the home page
+                exit; // Make sure to exit to stop further script execution
             } else {
                 $errorMsg = "Authentication failed. Invalid username or password.";
                 
