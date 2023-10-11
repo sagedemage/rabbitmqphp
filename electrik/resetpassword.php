@@ -46,15 +46,12 @@ if (isset($_GET['email'], $_GET['token'])) {
                         } else {
                             $passHash = password_hash($new_password, PASSWORD_DEFAULT);
 
-                            // Reconnect to the database for the password update
-                            $host = "localhost";
-                            $db_user = "admin";
-                            $db_pass = "adminPass";
-                            $db_name = "ProjectDB";
-                    
-                            // Create a database connection
-                            $db = new mysqli($host, $db_user, $db_pass, $db_name);
-                            
+                            //$host = "localhost";
+                            //$db_user = "admin";
+                            //$db_pass = "adminPass";
+                            //$db_name = "ProjectDB";
+                            //$db = new mysqli($host, $db_user, $db_pass, $db_name);
+
                             if ($db->connect_errno != 0) {
                                 echo "Failed to connect to the database: " . $db->connect_error;
                                 exit(0);
@@ -66,12 +63,11 @@ if (isset($_GET['email'], $_GET['token'])) {
                             if ($stmt) {
                                 $stmt->bind_param("ss", $passHash, $email);
                                 if ($stmt->execute()) {
-                                    $host = "localhost";
-                                    $db_user = "admin";
-                                    $db_pass = "adminPass";
-                                    $db_name = "ProjectDB";
-
-                                    $db = new mysqli($host, $db_user, $db_pass, $db_name);
+                                    //$host = "localhost";
+                                    //$db_user = "admin";
+                                    //$db_pass = "adminPass";
+                                    //$db_name = "ProjectDB";
+                                    //$db = new mysqli($host, $db_user, $db_pass, $db_name);
 
                                     if ($db->connect_errno != 0) {
                                         echo "Failed to connect to the database: " . $db->connect_error;
