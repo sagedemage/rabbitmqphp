@@ -33,9 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
 
         // Use prepared statement to avoid SQL injection
-        $request = "SELECT username, passHash FROM Users WHERE username=?";
+        $request = "SELECT username, passHash FROM Users WHERE username=? OR email=?";
         $stmt = $db->prepare($request);
-        $stmt->bind_param("s", $user);
+        $stmt->bind_param("ss", $user, $user);
         if ($stmt->execute()) {
             // Fetch the result
             $stmt->bind_result($userId, $passHash);
