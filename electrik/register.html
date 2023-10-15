@@ -1,5 +1,5 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -58,9 +58,13 @@ span.psw {
 
 <body>
 
-<h2>Register</h2>
+<h2>Register Account</h2>
+
 
 <form action="/register.php" method="post"> <!--route to validateLogin.php for checking-->
+  
+<form action="/registerAcct.php" method="post">
+
 
   <div class="container">
     <label for="id"><b>Username</b></label>
@@ -73,7 +77,11 @@ span.psw {
     <input type="password" placeholder="Enter Password" name="pwd" required>
 
     <label for="cfrmpwd"><b>Confirm Password</b></label>
+
     <input type="password" placeholder="Confirm Password" name="cfrmpwd" required>
+=======
+    <input type="password" placeholder="Confirm Password" name="cfrmpwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+
         
     <button type="submit" name="confirm">Submit</button>
   </div>
@@ -85,4 +93,3 @@ span.psw {
 
 </body>
 </html>
-
