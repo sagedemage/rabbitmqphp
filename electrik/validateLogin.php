@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $user = $_POST['id'];
     $pwd = $_POST['pwd'];
@@ -43,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $stmt->close();
             if (password_verify($pwd, $passHash)) {
                 echo "Authentication successful for user: " . $userId;
-                session_start(); // Start a session
+
+              
                 $_SESSION['user_id'] = $userId; // Store user information in the session
                 header("Location: home.html"); // Redirect the user to the home page
                 exit; // Make sure to exit to stop further script execution
