@@ -1,16 +1,31 @@
 <?php
-$id = $_POST['id'];
-$pwd = $_POST['pwd'];
-$error = false;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $user = $_POST['id'];
+    $pwd = $_POST['pwd'];
+    $error = false;
+    $errorMsgs = array();
 
-if (isset($id) && isset($pwd)) {
-    // Validate username or email (allowing alphanumeric characters, hyphens, and spaces)
-    if (!preg_match("/^[a-zA-Z0-9-' ]*$/", $id)) {
+    // Validation and sanitization code here...
+
+    if (!isset($user) || empty($user)) {
         $error = true;
+        $errorMsgs[] = "Username is empty.";
+    } 
+    else {
+        $user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); 
+    }
+
+    if (!isset($pwd) || empty($pwd)) {
+        $error = true;
+        $errorMsgs[] = "Password is empty.";
     }
 
     if (!$error) {
-        $db = new mysqli('127.0.0.1', 'testUser', 'test', 'testdb');
+        $host = "localhost";
+        $db_user = "admin";
+        $db_pass = "adminPass";
+        $db_name = "ProjectDB";
+        $db = new mysqli($host, $db_user, $db_pass, $db_name);
 
         if ($db->connect_error) {
             echo "Failed to connect to the database: " . $db->connect_error;
@@ -18,32 +33,35 @@ if (isset($id) && isset($pwd)) {
         }
 
         // Use prepared statement to avoid SQL injection
-        $stmt = $db->prepare("SELECT id, passHash FROM Users WHERE id = ?");
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
-
-        if ($stmt->errno != 0) {
-            echo "Failed to execute query:" . PHP_EOL;
-            echo __FILE__ . ':' . __LINE__ . ": error: " . $stmt->error . PHP_EOL;
-            exit(0);
+        $request = "SELECT username, passHash FROM Users WHERE username=? OR email=?";
+        $stmt = $db->prepare($request);
+        $stmt->bind_param("ss", $user, $user);
+        if ($stmt->execute()) {
+            // Fetch the result
+            $stmt->bind_result($userId, $passHash);
+            $stmt->fetch();
+            $stmt->close();
+            if (password_verify($pwd, $passHash)) {
+                echo "Authentication successful for user: " . $userId;
+                session_start(); // Start a session
+                $_SESSION['user_id'] = $userId; // Store user information in the session
+                header("Location: home.html"); // Redirect the user to the home page
+                exit; // Make sure to exit to stop further script execution
+            } else {
+                $errorMsg = "Authentication failed. Invalid username or password.";
+                
+            }
+        } 
+        else {
+            $errorMsg = "Login failed. Please try again later.";
         }
-
-        // Fetch the result
-        $stmt->bind_result($userId, $passHash);
-        $stmt->fetch();
-        $stmt->close();
-
-        // Verify the password (assuming you have stored passwords securely using password_hash)
-        if (password_verify($pwd, $passHash)) {
-            // Authentication successful
-            echo "Authentication successful for user: " . $userId;
-        } else {
-            // Authentication failed
-            echo "Authentication failed. Invalid username or password.";
-        }
-
-        // Close the database connection
         $db->close();
+    }
+    if ($error) {
+        foreach ($errorMsgs as $error) {
+            echo $error . '<br>';
+            error_log($error, 3, "error.log");
+        }
     }
 }
 ?>

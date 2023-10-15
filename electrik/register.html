@@ -60,7 +60,11 @@ span.psw {
 
 <h2>Register Account</h2>
 
+
+<form action="/register.php" method="post"> <!--route to validateLogin.php for checking-->
+  
 <form action="/registerAcct.php" method="post">
+
 
   <div class="container">
     <label for="id"><b>Username</b></label>
@@ -70,16 +74,16 @@ span.psw {
     <input type="text" placeholder="Enter Email" name="email" required>
 
     <label for="pwd"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+    <input type="password" placeholder="Enter Password" name="pwd" required>
 
     <label for="cfrmpwd"><b>Confirm Password</b></label>
-    <input type="password" placeholder="Confirm Password" name="cfrmpwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+    <input type="password" placeholder="Confirm Password" name="cfrmpwd" required>
         
-    <button type="submit">Submit</button>
+    <button type="submit" name="confirm">Submit</button>
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
+    <button type="button" class="cancelbtn"><a href="./home.html">Cancel</a></button>
   </div>
 </form>
 
