@@ -60,6 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
             $stmt->bind_param("sss", $user, $email, $passHash);
             if ($stmt->execute()) {
                 // Redirect the user to the home page after successful registration
+                session_start(); //start a session
+                $_SESSION['username'] = $user; //store the username in the session
+                
                 header("Location: home.html");
                 exit;
             } else {
