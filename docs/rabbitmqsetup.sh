@@ -1,4 +1,7 @@
 #!/bin/sh
+## Install Ubuntu VM Dependencies
+sudo apt install apache2 mysql-common mysql-server php php-common php-amqp php-mysql
+sudo apt install vim git gitk ssh
 
 sudo apt-get install curl gnupg apt-transport-https -y
 
@@ -44,11 +47,11 @@ sudo apt-get install -y erlang-base \
 sudo apt-get install rabbitmq-server -y --fix-missing
 
 ## Install essential dependencies
-sudo apt-get update -y
 sudo apt-get install curl gnupg -y
 
 ## Enable apt HTTPS Transport
 sudo apt-get install apt-transport-https
+sudo apt-get upgrade -y
 
 ## Enable rabbitmq management plugin
 sudo rabbitmq-plugins enable rabbitmq_management
