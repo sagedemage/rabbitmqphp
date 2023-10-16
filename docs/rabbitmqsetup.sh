@@ -1,7 +1,7 @@
 #!/bin/sh
 ## Install Ubuntu VM Dependencies
-sudo apt install apache2 mysql-common mysql-server php php-common php-amqp php-mysql
-sudo apt install vim git gitk ssh
+sudo apt install apache2 mysql-common mysql-server php php-common php-amqp php-mysql -y
+sudo apt install vim git gitk ssh -y
 
 sudo apt-get install curl gnupg apt-transport-https -y
 
