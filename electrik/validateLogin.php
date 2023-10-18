@@ -51,18 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                 header("Location: home.html"); // Redirect the user to the home page
                 exit; // Make sure to exit to stop further script execution
             } else {
-                $errorMsg = "Authentication failed. Invalid username or password.";
-                //Redirect back to the login page with an error message
-                header("Location: login.html?error" . urlencode($errorMsg));
-                exit;
+                // Display a popup message for invalid username and password
+                echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
+                
 
                 
             }
         } else {
             $errorMsg = "Login failed. Please try again later.";
-            //Redirect back to the login page with an error message
-            header("Location: login.html?error" . urlencode($errorMsg));
-            exit;
+            
         }
         $db->close();
     }
