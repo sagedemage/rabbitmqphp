@@ -12,6 +12,6 @@ if (isset($_SESSION['username'])) {
 }
 
 //Redirect the user to the homepafe after logging out
-header("Location: home.html");
+header("Location: login.html");
 exit;
 ?>
