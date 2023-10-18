@@ -30,11 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 	if (!$error) {
 		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
+		$pwdHash = password_hash($pwd, PASSWORD_BCRYPT);
 		/* Send login request to server */
 		$request = array();
 		$request['type'] = "Login";
 		$request['username'] = $user;
-		$request['password'] = $pwd;
+		$request['password'] = $pwHash;
 		$response = $client->send_request($request);
 
 		echo $response;

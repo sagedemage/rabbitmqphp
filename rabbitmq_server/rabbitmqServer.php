@@ -24,17 +24,18 @@ function doLogin($username, $password) {
 
 	/* Login the user */
 	// Use prepared statement to avoid SQL injection
-	$request = "SELECT username, passHash FROM Users WHERE username=? OR email=?";
+	$request = "SELECT username, passHash, salt FROM Users WHERE username=? OR email=?";
 	$stmt = $db->prepare($request);
-	$stmt->bind_param("ss", $username, $username);
+	$stmt->bind_param("sss", $username, $username);
 	if ($stmt->execute()) {
 		// Fetch the result
-		$stmt->bind_result($userId, $passHash);
+		$stmt->bind_result($userId, $passHash, $salt);
 		$stmt->fetch();
 		$stmt->close();
 
+		$testHash = password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]);
 		/* Password Validation */
-		if (password_verify($password, $passHash)) {
+		if ($testHash == $passHash) {
 			session_start(); // Start a session
 			$_SESSION['user_id'] = $userId; // Store user information in the session
 			header("Location: home.html"); // Redirect the user to the home page
@@ -55,7 +56,8 @@ function doLogin($username, $password) {
 
 function doRegister($email, $username, $password) {
 	/* Register a User */
-	$passHash = password_hash($password, PASSWORD_DEFAULT);
+	$salt = bin2hex(random_bytes(16));
+	$passHash = password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]);
 	$host = "localhost";
 	$db_user = "admin";
 	$db_pass = "adminPass";
