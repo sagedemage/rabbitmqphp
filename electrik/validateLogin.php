@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $user = $_POST['id'];
@@ -44,19 +44,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             $stmt->fetch();
             $stmt->close();
             if (password_verify($pwd, $passHash)) {
-                echo "Authentication successful for user: " . $userId;
 
-              
+                session_start(); //start a session
+                
                 $_SESSION['user_id'] = $userId; // Store user information in the session
                 header("Location: home.html"); // Redirect the user to the home page
                 exit; // Make sure to exit to stop further script execution
             } else {
                 $errorMsg = "Authentication failed. Invalid username or password.";
+                //redirect back to the login page with an error message
+                header("Location: login.html?error=" . urlencode($errorMsg));
+                exit;
                 
             }
         } 
         else {
             $errorMsg = "Login failed. Please try again later.";
+            //redirect back to the login page with an erro message
+            header("Location: login.html?error=" . urldecode($errorMsg));
+            exit;
         }
         $db->close();
     }
