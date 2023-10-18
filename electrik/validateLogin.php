@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             } else {
                 // Display a popup message for invalid username and password
                 echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
+                echo '<script>window.location.href = "./login.html";</script>';
                 
 
                 
