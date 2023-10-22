@@ -45,6 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             if (password_verify($pwd, $passHash)) {
                 echo "Authentication successful for user: " . $userId;
 
+                //set a session cookie to persist authentication
+                setcookie('user_id', $userId, time() + 3600, '/'); //Expires on 1 hour
+
                 session_start();
 
                 $_SESSION['user_id'] = $userId; // Store user information in the session
