@@ -20,8 +20,18 @@
   <a href="forgotpassword.html">RESET PASSWORD</a>
   <a href="register.html">REGISTER</a>
   <a href="contact.html">CONTACT</a>
-  <a href="./login.html" class="right">LOGIN</a> <!--need to check if user is already logged in, if so must be replaced with logout-->
   <a href="logout.html" class="right">LOGOUT</a>
+
+  <?php
+  session_start();
+
+  if (isset($_SESSION['USER_ID'])) {
+    
+    echo "You are logged in as: " . $_SESSION['user_id'];
+  } else {
+    echo "You are not logged in.";
+  }
+  ?>
 </div>
 
 </body>
