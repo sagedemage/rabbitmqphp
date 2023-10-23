@@ -41,7 +41,6 @@ function doLogin($username, $password) {
 
 			$db->close();
 			return "Authentication successful for user: " . $userId;
-			//exit; // Make sure to exit to stop further script execution
 		} else {
 			$db->close();
 			return "Authentication failed. Invalid username or password.";
