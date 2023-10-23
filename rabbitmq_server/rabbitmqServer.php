@@ -24,16 +24,16 @@ function doLogin($username, $password) {
 
 	/* Login the user */
 	// Use prepared statement to avoid SQL injection
-	$request = "SELECT username, passHash, salt FROM Users WHERE username=? OR email=?";
+	$request = "SELECT username, passHash FROM Users WHERE username=? OR email=?";
 	$stmt = $db->prepare($request);
 	$stmt->bind_param("sss", $username, $username);
 	if ($stmt->execute()) {
 		// Fetch the result
-		$stmt->bind_result($userId, $passHash, $salt);
+		$stmt->bind_result($userId, $passHash);
 		$stmt->fetch();
 		$stmt->close();
 
-		$testHash = password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]);
+		$testHash = password_hash($password, PASSWORD_DEFAULT);
 		/* Password Validation */
 		if ($testHash == $passHash) {
 			session_start(); // Start a session
@@ -56,8 +56,7 @@ function doLogin($username, $password) {
 
 function doRegister($email, $username, $password) {
 	/* Register a User */
-	$salt = bin2hex(random_bytes(16));
-	$passHash = password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]);
+	$passHash = password_hash($password, PASSWORD_DEFAULT);
 	$host = "localhost";
 	$db_user = "admin";
 	$db_pass = "adminPass";
