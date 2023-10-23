@@ -50,12 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
 		/* Send register request to server */
-		$pwdHash = password_hash($pwd, PASSWORD_BCRYPT);
 		$request = array();
 		$request['type'] = "Register";
 		$request['email'] = $email;
 		$request['username'] = $user;
-		$request['password'] = $pwdHash;
+		$request['password'] = $pwd;
 		$response = $client->send_request($request);
 
 		echo $response;

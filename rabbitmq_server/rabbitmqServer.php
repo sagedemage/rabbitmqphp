@@ -26,16 +26,15 @@ function doLogin($username, $password) {
 	// Use prepared statement to avoid SQL injection
 	$request = "SELECT username, passHash FROM Users WHERE username=? OR email=?";
 	$stmt = $db->prepare($request);
-	$stmt->bind_param("sss", $username, $username);
+	$stmt->bind_param("ss", $username, $username);
 	if ($stmt->execute()) {
 		// Fetch the result
 		$stmt->bind_result($userId, $passHash);
 		$stmt->fetch();
 		$stmt->close();
 
-		$testHash = password_hash($password, PASSWORD_DEFAULT);
 		/* Password Validation */
-		if ($testHash == $passHash) {
+		if (password_verify($password, $passHash)) {
 			session_start(); // Start a session
 			$_SESSION['user_id'] = $userId; // Store user information in the session
 			header("Location: home.html"); // Redirect the user to the home page
