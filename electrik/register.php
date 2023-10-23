@@ -21,13 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 			$error = true;
 			$errorMsgs[] = "Username is empty.";
 		} else {
-			//$user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); # SANITIZE
+			$user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); # SANITIZE
 		}
 		if (empty($email) || !isset($email)) {
 			$error = true;
 			$errorMsgs[] = "Email is empty.";
 		} else {
-			//$email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+			$email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
 		}
 		if (empty($pwd) || !isset($pwd)) {
 			$error = true;
