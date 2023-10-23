@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 		$request = array();
 		$request['type'] = "Login";
 		$request['username'] = $user;
-		$request['password'] = $pwHash;
+		$request['password'] = $pwdHash;
 		$response = $client->send_request($request);
 
 		echo $response;
