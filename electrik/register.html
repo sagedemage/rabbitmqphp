@@ -81,6 +81,16 @@ span.psw {
 				<button type="button" class="cancelbtn"><a href="./home.html">Cancel</a></button>
 			</div>
 		</form>
+		<script>
+			function validateForm() {
+				var passwordInput = document.getElementById("pwd");
+				if (passwordInput.value.length < 8) {
+					alert("Password must be at least 8 characters long.");
+					return false;
+				}
+				return true; 
+			}
+		</script>
 
 	</body>
 </html>
