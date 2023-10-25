@@ -40,7 +40,7 @@ function doLogin($username, $password) {
 			header("Location: home.html"); // Redirect the user to the home page
 
 			$db->close();
-			return "Authentication successful for user: " . $userId;
+			return "Authentication successful.";
 		} else {
 			$db->close();
 			return "Authentication failed. Invalid username or password.";
