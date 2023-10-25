@@ -58,25 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 		$response = $client->send_request($request);
 
 		echo $response;
-
-        if ($stmt) {
-            $stmt->bind_param("sss", $user, $email, $passHash);
-            if ($stmt->execute()) {
-                // Redirect the user to the home page after successful registration
-                session_start(); //start a session
-                $_SESSION['username'] = $user; //store the username in the session
-                
-                header("Location: home.html");
-                exit;
-            } else {
-                echo "Registration failed. Please try again later.";
-            }
-            $stmt->close();
-        } else {
-            echo "Failed to prepare the SQL statement.";
-        }
-
-        $db->close();
+		
     }
 	else if ($error) {
 		foreach ($errorMsgs as $error) {
