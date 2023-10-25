@@ -30,6 +30,7 @@ create table if not exists Users(
     username varchar(30) not null,
     email varchar(255) not null,
     passHash varchar(255) not null,
+    salt binary(16),
     primary key(id),
     unique (email),
     unique (username)

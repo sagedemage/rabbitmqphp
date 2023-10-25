@@ -41,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $to = $email;
                 $subject = 'Password Reset';
                 $message = 'Click the following link to reset your password: ' . $resetLink; 
-                $headers = 'From: electrik@google.com' . "\r\n" .
-                    'Reply-To: electrik@google.com' . "\r\n" .
+                $headers = 'From: electrik@gmail.com' . "\r\n" .
+                    'Reply-To: electrik@gmail.com' . "\r\n" .
                     'X-Mailer: PHP/' . phpversion();
 
                 if (mail($to, $subject, $message, $headers)) {
