@@ -7,7 +7,6 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
 /* Client */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-	//header('Access-Control-Allow-Origin: *');
 	$user = $_POST['id'];
 	$pwd = $_POST['pwd'];
 	$error = false;
