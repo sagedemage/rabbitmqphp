@@ -56,11 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
 			echo '<script>console.log("Authentication successful.");</script>';
 		}
-	} else {
-		// Display a popup message for invalid username or password
-		echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
-		echo '<script>window.location.href = "./login.html";</script>';
-	}
+		else if ($data->{"msg"} === "Authentication failed. Invalid username or password.") {
+			// Display a popup message for invalid username or password
+			echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
+			echo '<script>window.location.href = "./login.html";</script>';
+		}
+	} 
+
 } else if ($error) {
 	foreach ($errorMsgs as $error) {
 		echo $error . '<br>';

@@ -53,9 +53,12 @@ function doLogin($username, $password) {
 			
 			header('Content-type: application/json');
 			return json_encode($data);
-		} else {
+		} 
+		else {
 			$db->close();
-			return "Authentication failed. Invalid username or password.";
+			$data = [ "msg" => "Authentication failed. Invalid username or password." ];
+			header('Content-type: application/json');
+			return json_encode($data);
 		}
 	} 
 	else {
