@@ -62,8 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 			//Redirect the user to the login page
 			header("Location: login.html");
 			exit;
-		} else $response; //Registration failed; display the error message
-	} 
+		} else {
+			echo $response; //Registration failed; display the error message
+		 } 
 	else if ($error) {
 		foreach ($errorMsgs as $error) {
 			echo $error . '<br>';
