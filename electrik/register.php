@@ -57,8 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 		$request['password'] = $pwd;
 		$response = $client->send_request($request);
 
-		echo $response;
-
+		//Check if the registration was successful
+		if ($response === "Registration successful.") {
+			//Redirect the user to the login page
+			header("Location: login.html");
+			exit;
+		} else $response; //Registration failed; display the error message
 	} 
 	else if ($error) {
 		foreach ($errorMsgs as $error) {
