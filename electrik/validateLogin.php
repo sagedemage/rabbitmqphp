@@ -38,8 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
 		// Check if the login response is successful, and then set a session cookie
 		if ($response === "Authentication successful.") {
+			// Cookie attributes
+			$name = "user_id";
+			$value = $user;
+			$expires_or_options = time() + 3600;
+			$path = "/";
+			$domain = "";
+			$secure = false;
+			$httponly = true;
+
 			// Set a session cookie to persist authentication
-			setcookie('user_id', $user, time() + 3600, '/');
+			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $httponly);
+
 			echo '<script>console.log("Authentication successful.");</script>';
 		} else {
 			// Display a popup message for invalid username or password
