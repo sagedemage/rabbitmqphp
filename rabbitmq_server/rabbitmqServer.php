@@ -35,12 +35,24 @@ function doLogin($username, $password) {
 
 		/* Password Validation */
 		if (password_verify($password, $passHash)) {
-			session_start(); // Start a session
-			$_SESSION['user_id'] = $userId; // Store user information in the session
-			header("Location: home.html"); // Redirect the user to the home page
-
 			$db->close();
-			return "Authentication successful.";
+
+			// Cookie attributes
+			$cipher = "aes-128-gcm";
+			$key = "123";
+			$tag = null;
+
+			if (in_array($cipher, openssl_get_cipher_methods())) {
+				// Encrypt data
+				$ivlen = openssl_cipher_iv_length($cipher);
+				$iv = openssl_random_pseudo_bytes($ivlen);
+				$cipher_text = openssl_encrypt($username, $cipher, $key, $options=0, $iv, $tag);
+			}
+
+			$data = [ "msg" => "Authentication successful.", "cipher_text" => $cipher_text ];
+			
+			header('Content-type: application/json');
+			return json_encode($data);
 		} else {
 			$db->close();
 			return "Authentication failed. Invalid username or password.";

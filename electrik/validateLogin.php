@@ -7,6 +7,7 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
 /* Client */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+	//header('Access-Control-Allow-Origin: *');
 	$user = $_POST['id'];
 	$pwd = $_POST['pwd'];
 	$error = false;
@@ -34,33 +35,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 		$request['type'] = "Login";
 		$request['username'] = $user;
 		$request['password'] = $pwd;
+
 		$response = $client->send_request($request);
 
+		// Only encrypt the value of the cookie
+		$data = json_decode($response);
+
 		// Check if the login response is successful, and then set a session cookie
-		if ($response === "Authentication successful.") {
+		if ($data->{"msg"} === "Authentication successful.") {
 			// Cookie attributes
 			$name = "user_id";
-			$value = $user;
+			$value = $data->{"cipher_text"};
 			$expires_or_options = time() + 3600;
 			$path = "/";
 			$domain = "";
 			$secure = false;
-			$httponly = true;
+			$http_only = true;
 
 			// Set a session cookie to persist authentication
-			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $httponly);
+			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $http_only);
 
 			echo '<script>console.log("Authentication successful.");</script>';
-		} else {
-			// Display a popup message for invalid username or password
-			echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
-			echo '<script>window.location.href = "./login.html";</script>';
 		}
-	} else if ($error) {
-		foreach ($errorMsgs as $error) {
-			echo $error . '<br>';
-			error_log($error, 3, "error.log");
-		}
+	} else {
+		// Display a popup message for invalid username or password
+		echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
+		echo '<script>window.location.href = "./login.html";</script>';
+	}
+} else if ($error) {
+	foreach ($errorMsgs as $error) {
+		echo $error . '<br>';
+		error_log($error, 3, "error.log");
 	}
 }
 ?>
