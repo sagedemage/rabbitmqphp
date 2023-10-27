@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 			$path = "/";
 			$domain = "";
 			$secure = false;
-			$http_only = true;
+			$http_only = false;
 
 			// Set a session cookie to persist authentication
 			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $http_only);
