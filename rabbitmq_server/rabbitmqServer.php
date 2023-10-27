@@ -35,23 +35,33 @@ function doLogin($username, $password) {
 
 		/* Password Validation */
 		if (password_verify($password, $passHash)) {
-			$db->close();
+			//$db->close();
+
+			// 8 bits in character
+			// 256: 32 chracters
+			// 128: 16 chracters
 
 			// Cookie attributes
-			$cipher = "aes-128-gcm";
-			$key = "123";
-			$tag = null;
+			$cipher = "AES-128-CBC";
+			$key = "wordwordwordword";
 
-			if (in_array($cipher, openssl_get_cipher_methods())) {
-				// Encrypt data
-				$ivlen = openssl_cipher_iv_length($cipher);
-				$iv = openssl_random_pseudo_bytes($ivlen);
-				$cipher_text = openssl_encrypt($username, $cipher, $key, $options=0, $iv, $tag);
-			}
+			// Encrypt data
+			$ivlen = openssl_cipher_iv_length($cipher);
+
+			// store iv in database
+			$iv = openssl_random_pseudo_bytes($ivlen);
+
+			$cipher_text_raw = openssl_encrypt($username, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+
+			$hmac = hash_hmac('sha256', $cipher_text_raw, $key, $as_binary=true);
+
+			$cipher_text = base64_encode($iv.$hmac.$cipher_text_raw);
 
 			$data = [ "msg" => "Authentication successful.", "cipher_text" => $cipher_text ];
-			
+
 			header('Content-type: application/json');
+
+			$db->close();
 			return json_encode($data);
 		} 
 		else {
@@ -116,7 +126,32 @@ function doRegister($email, $username, $password) {
 		$db->close();
 		return "Registration failed. Please try again later.";
 	}
-} 
+}
+
+function verifyCookieSession($username_cipher_text) {
+	// 8 bits in character
+	// 256: 32 chracters
+	// 128: 16 chracters
+
+	// Cookie attributes
+	$cipher = "AES-128-CBC";
+	$key = "wordwordwordword";
+
+	$c = base64_decode($username_cipher_text);
+
+	$ivlen = openssl_cipher_iv_length($cipher);
+	$iv = substr($c, 0, $ivlen);
+	$hmac = substr($c, $ivlen, $sha2len=32);
+	$ciphertext_raw = substr($c, $ivlen+$sha2len);
+	$original_plaintext = openssl_decrypt($ciphertext_raw, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+	$calcmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
+
+	if (hash_equals($hmac, $calcmac)) {
+		return $original_plaintext;
+	}
+
+	return false;
+}
 
 function requestProcessor($request) {
 	echo "received request".PHP_EOL;
@@ -130,6 +165,8 @@ function requestProcessor($request) {
 		return doLogin($request['username'], $request['password']);
 	case "Register":
 		return doRegister($request['email'], $request['username'], $request['password']);
+	case "Session":
+		return verifyCookieSession($request['username_cipher_text']);
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }
