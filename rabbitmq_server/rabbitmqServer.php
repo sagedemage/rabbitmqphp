@@ -37,13 +37,11 @@ function doLogin($username, $password) {
 		if (password_verify($password, $passHash)) {
 			//$db->close();
 
-			// 8 bits in character
-			// 256: 32 chracters
-			// 128: 16 chracters
-
 			// Cookie attributes
 			$cipher = "AES-128-CBC";
-			$key = "wordwordwordword";
+			$env = parse_ini_file('env.ini');
+
+			$key = $env["OPENSSL_KEY"]; 
 
 			// Encrypt data
 			$ivlen = openssl_cipher_iv_length($cipher);
@@ -129,13 +127,11 @@ function doRegister($email, $username, $password) {
 }
 
 function verifyCookieSession($username_cipher_text) {
-	// 8 bits in character
-	// 256: 32 chracters
-	// 128: 16 chracters
-
 	// Cookie attributes
 	$cipher = "AES-128-CBC";
-	$key = "wordwordwordword";
+
+	$env = parse_ini_file('env.ini');
+	$key = $env["OPENSSL_KEY"]; 
 
 	$c = base64_decode($username_cipher_text);
 
