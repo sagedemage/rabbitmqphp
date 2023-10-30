@@ -9,9 +9,15 @@ if (isset($_SESSION['username'])) {
 
     //Destroy the session
     session_destroy();
+
+    //Clear the session cookie
+    setcookie("name", "", time() - 3600, "/");
+
+
+     //Redirect the user to the homepafe after logging out
+     header("Location: login.html");
+     exit;
+
 }
 
-//Redirect the user to the homepafe after logging out
-header("Location: login.html");
-exit;
 ?>
