@@ -11,7 +11,8 @@ if (isset($_SESSION['username'])) {
     session_destroy();
 
     //Clear the session cookie
-    setcookie("$name", "", time() - 3600, "/");
+    $name = "user_id";
+    setcookie($name, "", time() - 3600, "/");
 
 
      //Redirect the user to the homepafe after logging out
