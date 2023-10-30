@@ -111,7 +111,6 @@ function doRegister($email, $username, $password) {
 
 	if ($stmt->execute()) {
 		// Redirect the user to the home page after successful registration
-		//header("Location: home.html");
 		$stmt->close();
 		$db->close();
 		return "Registration success.";
