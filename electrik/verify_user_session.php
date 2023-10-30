@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		/* Send login request to server */
 		$request = array();
 		$request['type'] = "Session";
-		// 'username_cipher_text'
 		$request['username_cipher_text'] = $user_id;
 
 		$response = $client->send_request($request);

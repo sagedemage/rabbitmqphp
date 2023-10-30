@@ -35,8 +35,6 @@ function doLogin($username, $password) {
 
 		/* Password Validation */
 		if (password_verify($password, $passHash)) {
-			//$db->close();
-
 			// Cookie attributes
 			$cipher = "AES-128-CBC";
 			$env = parse_ini_file('env.ini');
@@ -46,7 +44,6 @@ function doLogin($username, $password) {
 			// Encrypt data
 			$ivlen = openssl_cipher_iv_length($cipher);
 
-			// store iv in database
 			$iv = openssl_random_pseudo_bytes($ivlen);
 
 			$cipher_text_raw = openssl_encrypt($username, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
