@@ -7,25 +7,25 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
 /* Client */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-	$user = $_POST['id'];
-	$pwd = $_POST['pwd'];
-	$error = false;
-	$errorMsgs = array();
+    $user = $_POST['id'];
+    $pwd = $_POST['pwd'];
+    $error = false;
+    $errorMsgs = array();
 
-	// Validation and sanitization code here...
+    // Validation and sanitization code here...
 
-	if (!isset($user) || empty($user)) {
-		$error = true;
-		$errorMsgs[] = "Username is empty.";
-	} 
-	else {
-		$user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); 
-	}
+    if (!isset($user) || empty($user)) {
+        $error = true;
+        $errorMsgs[] = "Username is empty.";
+    } 
+    else {
+        $user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); 
+    }
 
-	if (!isset($pwd) || empty($pwd)) {
-		$error = true;
-		$errorMsgs[] = "Password is empty.";
-	}
+    if (!isset($pwd) || empty($pwd)) {
+        $error = true;
+        $errorMsgs[] = "Password is empty.";
+    }
 
 	if (!$error) {
 		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
