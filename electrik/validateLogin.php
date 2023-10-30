@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 			// Set a session cookie to persist authentication
 			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $http_only);
 
-			//Redirect to the dashboard
-			header("Location: index.html");
+			// Redirect to the dashboard
+			header("Location: dashboard.html");
 			exit;
 		}
 		else if ($data->{"msg"} === "Authentication failed. Invalid username or password.") {
