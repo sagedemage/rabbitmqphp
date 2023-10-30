@@ -35,15 +35,35 @@ function doLogin($username, $password) {
 
 		/* Password Validation */
 		if (password_verify($password, $passHash)) {
-			session_start(); // Start a session
-			$_SESSION['user_id'] = $userId; // Store user information in the session
-			header("Location: home.html"); // Redirect the user to the home page
+			// Cookie attributes
+			$cipher = "AES-128-CBC";
+			$env = parse_ini_file('env.ini');
+
+			$key = $env["OPENSSL_KEY"]; 
+
+			// Encrypt data
+			$ivlen = openssl_cipher_iv_length($cipher);
+
+			$iv = openssl_random_pseudo_bytes($ivlen);
+
+			$cipher_text_raw = openssl_encrypt($username, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+
+			$hmac = hash_hmac('sha256', $cipher_text_raw, $key, $as_binary=true);
+
+			$cipher_text = base64_encode($iv.$hmac.$cipher_text_raw);
+
+			$data = [ "msg" => "Authentication successful.", "cipher_text" => $cipher_text ];
+
+			header('Content-type: application/json');
 
 			$db->close();
-			return "Authentication successful for user: " . $userId;
-		} else {
+			return json_encode($data);
+		} 
+		else {
 			$db->close();
-			return "Authentication failed. Invalid username or password.";
+			$data = [ "msg" => "Authentication failed. Invalid username or password." ];
+			header('Content-type: application/json');
+			return json_encode($data);
 		}
 	} 
 	else {
@@ -91,7 +111,6 @@ function doRegister($email, $username, $password) {
 
 	if ($stmt->execute()) {
 		// Redirect the user to the home page after successful registration
-		//header("Location: home.html");
 		$stmt->close();
 		$db->close();
 		return "Registration success.";
@@ -101,7 +120,30 @@ function doRegister($email, $username, $password) {
 		$db->close();
 		return "Registration failed. Please try again later.";
 	}
-} 
+}
+
+function verifyCookieSession($username_cipher_text) {
+	// Cookie attributes
+	$cipher = "AES-128-CBC";
+
+	$env = parse_ini_file('env.ini');
+	$key = $env["OPENSSL_KEY"]; 
+
+	$c = base64_decode($username_cipher_text);
+
+	$ivlen = openssl_cipher_iv_length($cipher);
+	$iv = substr($c, 0, $ivlen);
+	$hmac = substr($c, $ivlen, $sha2len=32);
+	$ciphertext_raw = substr($c, $ivlen+$sha2len);
+	$original_plaintext = openssl_decrypt($ciphertext_raw, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+	$calcmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
+
+	if (hash_equals($hmac, $calcmac)) {
+		return $original_plaintext;
+	}
+
+	return false;
+}
 
 function requestProcessor($request) {
 	echo "received request".PHP_EOL;
@@ -115,6 +157,8 @@ function requestProcessor($request) {
 		return doLogin($request['username'], $request['password']);
 	case "Register":
 		return doRegister($request['email'], $request['username'], $request['password']);
+	case "Session":
+		return verifyCookieSession($request['username_cipher_text']);
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }

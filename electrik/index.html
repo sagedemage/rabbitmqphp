@@ -16,11 +16,25 @@
 </div>
 
 <div class="navbar">
-  <a href="home.html">HOME</a>
+  <a href="aboutus.html">ABOUT US</a>
   <a href="forgotpassword.html">RESET PASSWORD</a>
   <a href="register.html">REGISTER</a>
-  <a href="./login.html" class="right">LOGIN</a> <!--need to check if user is already logged in, if so must be replaced with logout-->
-  <a href="logout.html" class="right">LOGOUT</a>
+  <a href="contact.html">CONTACT</a>
+  <a href="login.html">LOGIN</a>
+  <a href="dashboard.html">DASHBOARD</a>
+  <a href="logout.php" class="right">LOGOUT</a>
+
+
+  <?php
+  session_start();
+
+  if (isset($_SESSION['USER_ID'])) {
+    
+    echo "You are logged in as: " . $_SESSION['user_id'];
+  } else {
+    echo "You are not logged in.";
+  }
+  ?>
 </div>
 
 </body>

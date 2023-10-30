@@ -57,8 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 		$request['password'] = $pwd;
 		$response = $client->send_request($request);
 
-		echo $response;
-
+		if ($response === "Registration success.") {
+			echo '<script>alert("Registration success.");</script>';
+			echo '<script>window.location.href = "./login.html";</script>';
+		}
+		else {
+			echo "<script>alert(\"$response\");</script>";
+			echo '<script>window.location.href = "./register.html";</script>';
+		}
 	} 
 	else if ($error) {
 		foreach ($errorMsgs as $error) {
