@@ -33,6 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 			$error = true;
 			$errorMsgs[] = "Password is empty.";
 		}
+		if (strlen($pwd) < 8) {
+		} else {
+			$error = true;
+			$errorMsgs[] = "Password must be at least 8 characters long.";
+		}		
 		if (empty($cfrmpwd) || !isset($cfrmpwd)) {
 			$error = true;
 			$errorMsgs[] = "Confirmation Password is empty.";
