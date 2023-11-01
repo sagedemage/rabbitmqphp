@@ -72,7 +72,11 @@ function doLogin($username, $password) {
 	}
 }
 
-function doRegister($email, $username, $password) {
+function doRegister($email, $username, $password) {		
+	//Password less than 8 characters
+	if (strlen($password) < 8) {
+		return "Password must be at least 8 characters long";
+	}
 	/* Register a User */
 	$passHash = password_hash($password, PASSWORD_DEFAULT);
 	$host = "localhost";
@@ -87,11 +91,6 @@ function doRegister($email, $username, $password) {
 		$db->close();
 		exit(0);
 	}
-
-	//Password less than 8 characters
-    if (strlen($password) < 8) {
-        return "Password must be at least 8 characters long";
-    }
 
 	// Username exist in database
 	$request = "select * from Users where username = '$username'";
