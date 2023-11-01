@@ -28,5 +28,5 @@ function logError($error, $fileName) {
 		fwrite($file, $errors);
 	}
 }
-
+//add connection to rabbitMQ
 ?>
