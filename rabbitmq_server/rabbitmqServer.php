@@ -7,8 +7,9 @@ require_once('rabbitmq_lib/get_host_info.inc');
 require_once('rabbitmq_lib/rabbitMQLib.inc');
 
 function requestProcessor($request) {
+	// External Client
 	// send request to receiver
-	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+	$client = new rabbitMQClient("testRabbitMQClient.ini", "testServer");
 
 
 	$response = $client->send_request($request);
@@ -16,7 +17,8 @@ function requestProcessor($request) {
 	return $response;
 }
 
-$server = new rabbitMQServer("testRabbitMQ.ini", "testServer");
+// Internal Server
+$server = new rabbitMQServer("testRabbitMQServer.ini", "testServer");
 echo "testRabbitMQServer BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
 echo "testRabbitMQServer END".PHP_EOL;
