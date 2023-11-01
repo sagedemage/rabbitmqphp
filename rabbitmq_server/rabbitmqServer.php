@@ -81,11 +81,17 @@ function doRegister($email, $username, $password) {
 	$db_name = "ProjectDB";
 	$db = new mysqli($host, $db_user, $db_pass, $db_name);
 
+	
 	if ($db->connect_errno != 0) {
 		echo "Failed to connect to the database: " . $db->connect_error;
 		$db->close();
 		exit(0);
 	}
+
+	//Password less than 8 characters
+    if (strlen($password) < 8) {
+        return "Password must be at least 8 characters long";
+    }
 
 	// Username exist in database
 	$request = "select * from Users where username = '$username'";
