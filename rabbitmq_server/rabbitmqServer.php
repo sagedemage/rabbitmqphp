@@ -9,8 +9,7 @@ require_once('rabbitmq_lib/rabbitMQLib.inc');
 function requestProcessor($request) {
 	// External Client
 	// send request to receiver
-	$client = new rabbitMQClient("testRabbitMQClient.ini", "testServer");
-
+	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
 	$response = $client->send_request($request);
 	
@@ -18,9 +17,9 @@ function requestProcessor($request) {
 }
 
 // Internal Server
-$server = new rabbitMQServer("testRabbitMQServer.ini", "testServer");
-echo "testRabbitMQServer BEGIN".PHP_EOL;
+$server = new rabbitMQServer("testRabbitMQ.ini", "testServer");
+echo "RabbitMQ Server BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
-echo "testRabbitMQServer END".PHP_EOL;
+echo "RabbitMQ Server END".PHP_EOL;
 
 ?>
