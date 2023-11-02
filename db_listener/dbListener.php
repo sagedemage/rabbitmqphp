@@ -2,9 +2,9 @@
 <?php
 ini_set('display_errors', 1);
 
-require_once('../rabbitmq_lib/path.inc');
-require_once('../rabbitmq_lib/get_host_info.inc');
-require_once('../rabbitmq_lib/rabbitMQLib.inc');
+require_once('rabbitmq_lib/path.inc');
+require_once('rabbitmq_lib/get_host_info.inc');
+require_once('rabbitmq_lib/rabbitMQLib.inc');
 
 /* Server */
 function doLogin($username, $password) {
@@ -164,7 +164,7 @@ function requestProcessor($request) {
 }
 
 $server = new rabbitMQServer("testRabbitMQ.ini", "testServer");
-echo "testRabbitMQServer BEGIN".PHP_EOL;
+echo "DB Listener BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
-echo "testRabbitMQServer END".PHP_EOL;
+echo "DB Listener END".PHP_EOL;
 ?>

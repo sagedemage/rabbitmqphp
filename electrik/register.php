@@ -5,6 +5,11 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
+function showError($errorMsg) {
+	echo "<script>alert(\"$errorMsg\");</script>";
+	echo '<script>window.location.href = "./register.html";</script>';
+}
+
 /* Client */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 	$user = $_POST['id'];
@@ -19,31 +24,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 
 		if (empty($user) || !isset($user)) { # MAKE AN ERROR MSG LOG HAVE TEMPLATE
 			$error = true;
-			$errorMsgs[] = "Username is empty.";
+			$errorMsg = "Username is empty.";
+			showError($errorMsg);
+			
 		} else {
 			$user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); # SANITIZE
 		}
 		if (empty($email) || !isset($email)) {
 			$error = true;
-			$errorMsgs[] = "Email is empty.";
+			$errorMsg = "Email is empty.";
+			showError($errorMsg);
+
 		} else {
 			$email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
 		}
 		if (empty($pwd) || !isset($pwd)) {
 			$error = true;
-			$errorMsgs[] = "Password is empty.";
+			$errorMsg = "Password is empty.";
+			showError($errorMsg);
 		}
 		if (empty($cfrmpwd) || !isset($cfrmpwd)) {
 			$error = true;
-			$errorMsgs[] = "Confirmation Password is empty.";
+			$errorMsg = "Confirmation Password is empty.";
+			showError($errorMsg);
 		}
 		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$error = true;
-			$errorMsgs[] = "Invalid email format.";
+			$errorMsg = "Invalid email format.";
+			showError($errorMsg);
 		}
 		if ($pwd != $cfrmpwd) {
 			$error = true;
-			$errorMsgs[] = "Passwords do not match.";
+			$errorMsg = "Passwords do not match.";
+			showError($errorMsg);
 		}
 	}
 	if (!$error) {
@@ -66,11 +79,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 			echo '<script>window.location.href = "./register.html";</script>';
 		}
 	} 
-	else if ($error) {
-		foreach ($errorMsgs as $error) {
-			echo $error . '<br>';
-			error_log($error, 3, "error.log");
-		}
-	}
 }
 ?>
