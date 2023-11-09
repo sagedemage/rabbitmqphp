@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background-image: url('logback.jpg'); 
+      background-image: url('logback.jpg'); /* Replace 'your-background-image.jpg' with the path to your image */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -18,11 +19,12 @@
     }
 
     form {
-      border: 3px solid #f1f1f1;
+      border: 3px solid #E6E6FA;
       width: 50%; /* Adjust the width as needed */
     }
 
-    input[type=text], input[type=password] {
+    input[type=text],
+    input[type=password] {
       width: 100%;
       padding: 12px 20px;
       margin: 8px 0;
@@ -65,44 +67,47 @@
         display: block;
         float: none;
       }
+
       .cancelbtn {
         width: 100%;
       }
     }
   </style>
 </head>
+
 <body>
 
-<?php include('navbar.php'); ?>
+  <?php include('navbar.php'); ?>
 
-<div id="header"></div>
-<div id="navbar"></div>
+  <div id="header"></div>
+  <div id="navbar"></div>
 
-<h2 style="text-align: center; color: white;">Login</h2>
+  <h2 style="text-align: center; color: white;">Login</h2>
 
-<form action="/validateLogin.php" method="post">
-  <div class="container">
-    <label for="id" style="color: white;"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="id" required>
+  <form action="/validateLogin.php" method="post">
+    <div class="container">
+      <label for="id" style="color: white;"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="id" required>
 
-    <label for="pwd" style="color: white;"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="pwd" required>
-        
-    <button type="submit" name="login">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember" style="color: white;"> Remember me
-    </label>
-  </div>
+      <label for="pwd" style="color: white;"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="pwd" required>
 
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn"><a href="./index.php" style="color: white;">Back</a></button>
-    <span class="psw" style="color: white;"><a href="./forgotpassword.html">Forgot password?</a></span>
-    <span class="register" style="color: white;">Don't have an account? <a href="./register.html">Sign Up</a></span>
-  </div>
-</form>
+      <button type="submit" name="login">Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember" style="color: white;"> Remember me
+      </label>
+    </div>
 
-<?php include('footer.php'); ?>
+    <div class="container" style="background-color: #E6E6FA;">
+      <button type="button" class="cancelbtn"><a href="./index.php" style="color: white;">Back</a></button>
+      <span class="psw" style="color: white;"><a href="./forgotpassword.html">Forgot password?</a></span>
+      <span class="register" style="color: white;">Don't have an account? <a href="./register.html">Sign Up</a></span>
+    </div>
+  </form>
+
+  <?php include('footer.php'); ?>
 </body>
+
 </html>
 
 
