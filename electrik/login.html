@@ -17,12 +17,10 @@
 
     form {
       border: 3px solid #800080;
-      background-color: #FFFFFF; /* Updated background color */
+      background-color: #FFFFFF;
       padding: 20px;
       width: 50%;
-      display: flex;
-      flex-direction: column; /* Align items vertically */
-      align-items: center;
+      text-align: center;
     }
 
     input[type=text],
@@ -59,13 +57,17 @@
       padding: 16px;
     }
 
+    h2 {
+      color: white;
+    }
+
     span.psw {
       float: right;
       padding-top: 16px;
     }
 
     .container a {
-      color: #800080; /* Updated link color */
+      color: #800080;
     }
 
     @media screen and (max-width: 300px) {
@@ -88,26 +90,26 @@
   <div id="header"></div>
   <div id="navbar"></div>
 
-  <h2 style="text-align: center; color: white;">Login</h2>
+  <h2>Login</h2>
 
   <form action="/validateLogin.php" method="post">
     <div class="container">
-      <label for="id" style="color: #800080;"><b>Username</b></label>
+      <label for="id"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="id" required>
 
-      <label for="pwd" style="color: #800080;"><b>Password</b></label>
+      <label for="pwd"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="pwd" required>
 
       <button type="submit" name="login">Login</button>
       <label>
-        <input type="checkbox" checked="checked" name="remember" style="color: #800080;"> Remember me
+        <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
     </div>
 
     <div class="container">
-      <button type="button" class="cancelbtn"><a href="./index.php" style="color: #800080;">Back</a></button>
-      <span class="psw"><a href="./forgotpassword.html" style="color: #800080;">Forgot password?</a></span>
-      <span class="register"><a href="./register.html" style="color: #800080;">Don't have an account? Sign Up</a></span>
+      <button type="button" class="cancelbtn"><a href="./index.php">Back</a></button>
+      <span class="psw"><a href="./forgotpassword.html">Forgot password?</a></span>
+      <span class="register"><a href="./register.html">Don't have an account? Sign Up</a></span>
     </div>
   </form>
 
@@ -115,5 +117,6 @@
 </body>
 
 </html>
+
 
 
