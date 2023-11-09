@@ -1,7 +1,15 @@
-<nav>
-  <a href="index.php">HOME</a>
-  <a href="aboutus.php">ABOUT US</a>
-  <a href="register.html" class="right">REGISTER</a>
-  <a href="login.html" class="right">LOGIN</a>
-  </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="index.php">HOME</a>
+    <a class="navbar-brand" href="aboutus.php">ABOUT US</a>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="navbar-brand" href="register.html">REGISTER</a>
+        </li>
+        <li class="nav-item">
+            <a class="navbar-brand" href="login.html">LOGIN</a>
+        </li>
+    </ul>
 </nav>
+
+
+
