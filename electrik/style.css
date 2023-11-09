@@ -36,7 +36,7 @@ body {
 
 /* Additional styles for navigation links */
 .navbar a.right {
-  float: none;
+  float: right;
 }
 
 /* Add responsive styles here */
