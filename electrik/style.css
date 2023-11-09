@@ -1,130 +1,97 @@
-/* style.css */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  background-color: #f8f9fa; /* Light gray background */
+  padding: 0;
+  background-color: #f0f0f0;
 }
 
-.header {
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
+}
+
+h2 {
   text-align: center;
-  background: #007bff; /* Blue header */
-  color: white;
+  color: #333;
 }
 
-.header h1 {
-  font-size: 40px;
-}
-
-.navbar {
+.login-form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #343a40; /* Dark gray navbar */
-  overflow: hidden;
-  padding: 15px;
+  flex-direction: column;
 }
 
-.navbar a {
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+.form-group {
+  margin-bottom: 15px;
 }
 
-.navbar a.right {
-  float: right;
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
 }
 
-.navbar a:hover {
-  background-color: #555; /* Darker gray on hover */
-  color: #fff; /* White text on hover */
-}
-
-/* Additional styles for navigation links */
-.navbar a.right {
-  float: right;
-}
-
-/* Footer styles */
-footer {
-  text-align: center;
+input[type="text"],
+input[type="password"] {
+  width: 100%;
   padding: 10px;
-  background-color: #343a40; /* Dark gray footer */
-  color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
 }
 
-/* Dashboard navbar styles */
-.dashboard-navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #007bff; /* Blue navbar for dashboard */
-  overflow: hidden;
-  padding: 15px;
-}
-
-.dashboard-navbar a {
-  color: white;
-  text-decoration: none;
-  padding: 10px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.dashboard-navbar a:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  color: #fff; /* White text on hover */
-}
-
-/* Dropdown styles */
-.dropdown {
-  float: right;
-  display: inline-block;
-}
-
-.dropbtn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 15px;
+.login-btn {
+  background-color: #3498db;
+  color: #fff;
+  padding: 12px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+.login-btn:hover {
+  background-color: #2980b9;
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
+.checkbox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.checkbox input {
+  margin-right: 5px;
+}
+
+.links a {
   text-decoration: none;
-  display: block;
+  color: #3498db;
+  margin-right: 15px;
+  cursor: pointer;
 }
 
-.dropdown-content a:hover {
-  background-color: #ddd;
+.links a:hover {
+  text-decoration: underline;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
+.register p {
+  text-align: center;
+  margin-top: 15px;
 }
 
-/* Responsive styles */
-@media screen and (max-width: 600px) {
-  .navbar {
-    flex-direction: column;
-  }
-
-  .navbar a.right {
-    float: none;
-    text-align: center;
-  }
+.register a {
+  color: #e74c3c;
+  text-decoration: none;
 }
+
+.register a:hover {
+  text-decoration: underline;
+}
+
 
 
