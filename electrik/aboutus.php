@@ -14,7 +14,6 @@
 
 <?php include('navbar.php');?>
 
-
 <main>
   <section>
     <h2>Our Company</h2>
