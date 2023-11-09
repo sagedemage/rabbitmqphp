@@ -28,7 +28,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
+  background-color: #0077cc; /* Pleasant blue color */
   overflow: hidden;
   padding: 10px 20px;
 }
@@ -42,7 +42,7 @@ body {
 }
 
 .navbar a:hover {
-  background-color: #555;
+  background-color: #005c99; /* Slightly darker blue on hover */
 }
 
 .navbar a.right {
