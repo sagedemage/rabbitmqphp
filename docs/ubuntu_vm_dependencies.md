@@ -1,19 +1,28 @@
 # Ubuntu VM Dependencies
-Here are the dependencies that are required to run the web server and to do development on the Ubuntu VM.
+Here are the dependencies that are required to run the Front-end VM and Back-end VM.
 
-## Web Server Dependencies
+## Front-end VM Dependencies
 1. apache2
-2. mysql-common
-3. mysql-server
-4. php
-5. php-common
-6. php-amqp
-7. php-mysql
-8. rabbitmq-server
+2. php
+3. php-common
+4. php-amqp
 
-The command to run to install the **web server dependencies**.
+The command to run to install the **front-end VM dependencies**.
 ```
-sudo apt install apache2 mysql-common mysql-server php php-common php-amqp php-mysql rabbitmq-server
+sudo apt install apache2 php php-common php-amqp
+```
+## Back-end VM Dependencies
+1. mysql-common
+2. mysql-server
+3. php
+4. php-common
+5. php-amqp
+6. php-mysql
+7. rabbitmq-server
+
+The command to run to install the **back-end VM dependencies**.
+```
+sudo apt install mysql-common mysql-server php php-common php-amqp php-mysql rabbitmq-server
 ```
 
 ## Development Dependencies
