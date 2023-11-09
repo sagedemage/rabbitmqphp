@@ -8,8 +8,6 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       background-color: #483D8B;
-      background-position: center;
-      background-repeat: no-repeat;
       margin: 0;
       height: 100vh;
       display: flex;
@@ -18,8 +16,13 @@
     }
 
     form {
-      border: 3px solid #483D8B;
-      width: 50%; /* Adjust the width as needed */
+      border: 3px solid #800080;
+      background-color: #FFFFFF; /* Updated background color */
+      padding: 20px;
+      width: 50%;
+      display: flex;
+      flex-direction: column; /* Align items vertically */
+      align-items: center;
     }
 
     input[type=text],
@@ -62,7 +65,7 @@
     }
 
     .container a {
-      color: white;
+      color: #800080; /* Updated link color */
     }
 
     @media screen and (max-width: 300px) {
@@ -89,22 +92,22 @@
 
   <form action="/validateLogin.php" method="post">
     <div class="container">
-      <label for="id" style="color: white;"><b>Username</b></label>
+      <label for="id" style="color: #800080;"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="id" required>
 
-      <label for="pwd" style="color: white;"><b>Password</b></label>
+      <label for="pwd" style="color: #800080;"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="pwd" required>
 
       <button type="submit" name="login">Login</button>
       <label>
-        <input type="checkbox" checked="checked" name="remember" style="color: white;"> Remember me
+        <input type="checkbox" checked="checked" name="remember" style="color: #800080;"> Remember me
       </label>
     </div>
 
-    <div class="container" style="background-color: #483D8B;">
-      <button type="button" class="cancelbtn"><a href="./index.php" style="color: white;">Back</a></button>
-      <span class="psw" style="color: white;"><a href="./forgotpassword.html">Forgot password?</a></span>
-      <span class="register" style="color: white;">Don't have an account? <a href="./register.html">Sign Up</a></span>
+    <div class="container">
+      <button type="button" class="cancelbtn"><a href="./index.php" style="color: #800080;">Back</a></button>
+      <span class="psw"><a href="./forgotpassword.html" style="color: #800080;">Forgot password?</a></span>
+      <span class="register"><a href="./register.html" style="color: #800080;">Don't have an account? Sign Up</a></span>
     </div>
   </form>
 
@@ -112,6 +115,5 @@
 </body>
 
 </html>
-
 
 
