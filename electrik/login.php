@@ -98,7 +98,7 @@
   <?php include('navbar.php'); ?>
 
   <div id="header"></div>
-  <div id="navbar"></div>
+  
 
   <h2 style="text-align: center;">LOGIN</h2>
 
