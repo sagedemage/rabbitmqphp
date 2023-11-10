@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,18 +12,18 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       background-color: rgba(0, 47, 255, 0.61);
+      display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0; /* Ensure no default margin */
+      margin: 0;
     }
 
     form {
       border: 3px solid #f1f1f1;
       width: 50%;
-      margin: 0 auto;
-      margin-top: 50px;
-      background-color: #ffffff; /* Add a background color to the form */
-      padding: 20px; /* Add padding to the form */
+      margin: 50px auto 0;
+      background-color: #ffffff;
+      padding: 20px;
     }
 
     input[type=text],
@@ -81,9 +81,6 @@
 <body>
 
   <?php include('navbar.php'); ?>
-
-  <div id="header"></div>
-  <div id="navbar"></div>
 
   <h2 style="text-align: center;">LOGIN</h2>
 
