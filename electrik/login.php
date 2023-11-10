@@ -37,6 +37,10 @@
       margin-right: 10px; /* Add margin to the right of each navbar item */
     }
 
+    .ml-auto {
+      margin-left: auto !important; /* Move the ml-auto to the left */
+    }
+
     form {
       border: 3px solid #f1f1f1;
       width: 50%;
@@ -133,6 +137,5 @@
 </body>
 
 </html>
-
 
 
