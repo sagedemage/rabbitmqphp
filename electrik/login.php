@@ -82,10 +82,10 @@
 
   <?php include('navbar.php'); ?>
 
-  <h2 style="text-align: center;">LOGIN</h2>
+  <div class="container">
+    <h2 style="text-align: center;">LOGIN</h2>
 
-  <form action="/validateLogin.php" method="post">
-    <div class="container">
+    <form action="/validateLogin.php" method="post">
       <label for="id"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="id" required>
 
@@ -96,14 +96,12 @@
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
-    </div>
 
-    <div class="container">
       <button type="button" class="cancelbtn"><a href="./index.php">Back</a></button>
       <span class="psw"><a href="./forgotpassword.html">Forgot password?</a></span>
       <span class="register">Don't have an account? <a href="./register.html">Sign Up</a></span>
-    </div>
-  </form>
+    </form>
+  </div>
 
   <?php include('footer.php'); ?>
 
