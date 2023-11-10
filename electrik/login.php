@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background-color:rgba(0, 47, 255, 0.61);
+      
       align-items: center;
       justify-content: center;
     }
