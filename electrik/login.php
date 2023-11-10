@@ -16,12 +16,12 @@
       align-items: center;
       justify-content: center;
       margin: 0;
+      height: 100vh;
     }
 
     form {
       border: 3px solid #f1f1f1;
       width: 50%;
-      margin: 50px auto 0;
       background-color: #ffffff;
       padding: 20px;
     }
@@ -110,6 +110,5 @@
 </body>
 
 </html>
-
 
 
