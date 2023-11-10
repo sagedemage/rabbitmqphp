@@ -16,31 +16,6 @@
       justify-content: center;
     }
 
-    /* Add styles for the custom navbar */
-    nav {
-      background-color: #343a40; /* Set the background color */
-      padding: 10px; /* Add padding to the navbar */
-      margin-bottom: 20px; /* Add margin to separate from the content */
-    }
-
-    .navbar-brand {
-      color: #ffffff !important; /* Set the text color to white */
-      margin-right: 20px; /* Add margin to the right of each navbar item */
-    }
-
-    .navbar-nav {
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-item {
-      margin-right: 10px; /* Add margin to the right of each navbar item */
-    }
-
-    .ml-auto {
-      margin-left: auto !important; /* Move the ml-auto to the left */
-    }
-
     form {
       border: 3px solid #f1f1f1;
       width: 50%;
@@ -87,6 +62,22 @@
     span.psw {
       float: right;
       padding-top: 16px;
+    }
+
+    /* Add styles for the custom navbar */
+    nav {
+      background-color: #343a40; /* Set the background color */
+      padding: 10px; /* Add padding to the navbar */
+      margin-bottom: 20px; /* Add margin to separate from the content */
+    }
+
+    .navbar-brand {
+      color: #ffffff !important; /* Set the text color to white */
+      margin-right: 20px; /* Add margin to the right of each navbar item */
+    }
+
+    .ms-auto {
+      margin-left: auto !important;
     }
 
     @media screen and (max-width: 300px) {
@@ -137,5 +128,6 @@
 </body>
 
 </html>
+
 
 
