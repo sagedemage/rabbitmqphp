@@ -16,6 +16,27 @@
       justify-content: center;
     }
 
+    /* Add styles for the custom navbar */
+    nav {
+      background-color: #343a40; /* Set the background color */
+      padding: 10px; /* Add padding to the navbar */
+      margin-bottom: 20px; /* Add margin to separate from the content */
+    }
+
+    .navbar-brand {
+      color: #ffffff !important; /* Set the text color to white */
+      margin-right: 20px; /* Add margin to the right of each navbar item */
+    }
+
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-item {
+      margin-right: 10px; /* Add margin to the right of each navbar item */
+    }
+
     form {
       border: 3px solid #f1f1f1;
       width: 50%;
@@ -73,32 +94,6 @@
       .cancelbtn {
         width: 100%;
       }
-
-       /* Add styles for the custom navbar */
-  nav {
-    background-color: #343a40; /* Set the background color */
-    padding: 10px; /* Add padding to the navbar */
-    margin-bottom: 20px; /* Add margin to separate from the content */
-  }
-
-  .navbar-brand {
-    color: #ffffff !important; /* Set the text color to white */
-    margin-right: 20px; /* Add margin to the right of each navbar item */
-  }
-
-  .navbar-nav {
-    display: flex;
-    align-items: center;
-  }
-
-  .nav-item {
-    margin-right: 10px; /* Add margin to the right of each navbar item */
-  }
-
-
-
-
-
     }
   </style>
 </head>
