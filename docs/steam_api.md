@@ -1,6 +1,7 @@
 # Steam API
 
-API 1: https://api.steampowered.com/IStoreService/GetAppList/v1/?key=<api_key>
+## GetAppList API 
+URL: https://api.steampowered.com/IStoreService/GetAppList/v1/?key=<api_key>
 
 Response Data:
 ```
@@ -18,8 +19,8 @@ Response Data:
 	}
 }
 ```
-
-API 2: https://api.steampowered.com/IStoreService/GetMostPopularTags/v1/?key=<api_key>
+## GetMostPopularTags API
+URL: https://api.steampowered.com/IStoreService/GetMostPopularTags/v1/?key=<api_key>
 
 Response Data:
 ```
@@ -36,7 +37,8 @@ Response Data:
 }
 ```
 
-API 3: https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=<api_key>&steamids=<steam_id>
+## GetPlayerSummaries API
+URL: https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=<api_key>&steamids=<steam_id>
 
 Response Data:
 ```
@@ -66,7 +68,8 @@ Response Data:
 }
 ```
 
-API 4: https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=<api_key>&steamid=<steam_id>
+## GetOwnedGames API
+URL: https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=<api_key>&steamid=<steam_id>
 
 Response Data:
 ```
