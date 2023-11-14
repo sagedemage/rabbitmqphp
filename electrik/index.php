@@ -44,7 +44,7 @@
 session_start();
 
 if (isset($_SESSION['USER_ID'])) {
-  echo "You are logged in as: " . $_SESSION['user_id'];
+  echo "You are logged in as: " . $_SESSION['USER_ID'];
 } else {
   echo "You are not logged in.";
 }
