@@ -13,7 +13,7 @@
     integrity="sha384-e3r0CxPrMZl2UcKc6lAt/koyToT5FSAu4b7/WFg3IkKBAfxyFsXcAnO9DDCpHEhL"
     crossorigin="anonymous"></script>
   
-  style>
+  <style>
     body {
       font-family: Arial, Helvetica, sans-serif;
       background-color: rgba(0, 47, 255, 0.61);
