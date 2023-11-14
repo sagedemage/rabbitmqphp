@@ -1,12 +1,38 @@
 <!-- navbar.php -->
 
+<style>
+    .navbar-nav {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-color: #333;
+    }
+
+    .nav-item {
+        margin-right: 10px;
+    }
+
+    .nav-link {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    .nav-link:hover:not(.active) {
+        background-color: #111;
+    }
+
+    .active {
+        background-color: #04AA6D;
+    }
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#" style="font-size: 1.5em;">Electrik</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -16,9 +42,7 @@
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'aboutus.php') echo 'active'; ?>" href="aboutus.php">About Us</a>
                 </li>
             </ul>
-        </div>
-        <div class="ms-auto">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'registerAcct.php') echo 'active'; ?>" href="registerAcct.php">Register</a>
                 </li>
@@ -29,4 +53,3 @@
         </div>
     </div>
 </nav>
-
