@@ -1,11 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.php">HOME</a>
-    <a class="navbar-brand" href="aboutus.php">ABOUT US</a>
-    <div class="ms-auto">
-        <a class="navbar-brand" href="register.html">REGISTER</a>
-        <a class="navbar-brand" href="login.html">LOGIN</a>
-    </div>
-</nav>
+/* style.css */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgba(0, 47, 255, 0.61);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+.container {
+    padding: 20px;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
 
 
 
