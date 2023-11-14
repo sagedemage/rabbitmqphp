@@ -8,11 +8,11 @@
 </head>
 <body>
 
+<?php include('navbar.php');?>
+
 <header>
   <h1>About Us</h1>
 </header>
-
-<?php include('navbar.php');?>
 
 <main>
   <section>
