@@ -29,6 +29,8 @@
 
     <?php include('navbar.php'); ?>
 
+	<h2 style="text-align: center;">REGISTER</h2>
+
     <div class="form-container">
         <form action="/register.php" method="post" accept-charset="utf-8">
             <!-- Route to validateLogin.php for checking -->
