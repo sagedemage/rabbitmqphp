@@ -9,6 +9,15 @@
   <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-oVf3yoD1Q81a1PyRZXf+VdCmbso9g2U5MWZtUwnlfxI5cUJVOFl5WKIbShc6BbQ" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-lhQfs5gIvKGp8r+8Em+RmA8w2/3cGLCnUc9/7IeDJdzmfa/iRs2t5u8Zn6QAr4p" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha384-e3r0CxPrMZl2UcKc6lAt/koyToT5FSAu4b7/WFg3IkKBAfxyFsXcAnO9DDCpHEhL" crossorigin="anonymous"></script>
+
+  
+  <script>
+  $(document).ready(function () {
+    $('#carouselExample').carousel();
+  });
+</script>
+
+
 </head>
 <body>
 
@@ -55,12 +64,6 @@ if (isset($_SESSION['USER_ID'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 
-
-<script>
-  $(document).ready(function () {
-    $('#carouselExample').carousel();
-  });
-</script>
 
 
 </body>
