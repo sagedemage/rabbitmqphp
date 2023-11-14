@@ -20,7 +20,7 @@
 </div>
 
 <!-- Slide Deck -->
-<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExample" class="carousel slide d-flex justify-content-center" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="https://via.placeholder.com/1000x400" class="d-block w-100" alt="Slide 1">
