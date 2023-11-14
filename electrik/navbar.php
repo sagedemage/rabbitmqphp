@@ -16,7 +16,7 @@
                     <a class="nav-link" href="aboutus.php">About Us</a>
                 </li>
                 <li class="nav-item ms-auto">
-                    <a class="nav-link" href="register.html">Register</a>
+                    <a class="nav-link" href="registerAcct.php">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="login.php">Login</a>
