@@ -23,10 +23,10 @@
 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="Slide 1">
+            <img src="https://via.placeholder.com/1000x400" class="d-block w-100" alt="Slide 1">
         </div>
         <div class="carousel-item">
-            <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="Slide 2">
+            <img src="https://via.placeholder.com/1000x400" class="d-block w-100" alt="Slide 2">
         </div>
         <!-- Add more slides as needed -->
     </div>
