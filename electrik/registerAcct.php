@@ -56,7 +56,7 @@
 
         <div class="container">
             <button type="submit" name="confirm">Submit</button>
-            <button type="button" class="caacncelbtn" onclick="window.location.href='./index.php'">Cancel</button>
+            <button type="button" class="cancelbtn" onclick="window.location.href='./index.php'">Cancel</button>
         </div>
     </form>
 </div>
