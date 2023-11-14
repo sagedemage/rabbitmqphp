@@ -23,10 +23,7 @@
 
 <?php include('navbar.php'); ?>
 
-<div class="header">
-  <h1>ELECTRIK</h1>
-  
-</div>
+
 
 <!-- Slide Deck -->
 <div id="carouselExample" class="carousel slide d-flex justify-content-center" data-bs-ride="carousel">
