@@ -14,6 +14,7 @@
     .nav-item.register-login {
         border-right: 1px solid #bbb;
         padding-right: 10px;
+        margin-right: 0; /* Reset the margin to override the previous style */
     }
 
     .nav-link {
@@ -32,6 +33,9 @@
         background-color: #04AA6D;
     }
 </style>
+
+
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
