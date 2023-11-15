@@ -16,7 +16,11 @@
     }
     .nav-item:last-child {
         margin-right: 0;
+        border-right: 1px solid #bbb;
+        padding-right: 10px; /* Add some padding to the last item to separate it from the border */
     }
+
+
 
     .nav-link {
         display: block;
