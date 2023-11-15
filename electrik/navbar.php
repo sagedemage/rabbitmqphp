@@ -7,17 +7,15 @@
         background-color: #333;
     }
 
-
     .nav-item {
         margin-right: 10px;
     }
 
-
     .nav-item.register-login {
         border-right: 1px solid #bbb;
         padding-right: 10px;
+        float: right; /* Added float:right */
     }
-
 
     .nav-link {
         display: block;
@@ -27,17 +25,14 @@
         text-decoration: none;
     }
 
-
     .nav-link:hover:not(.active) {
         background-color: #111;
     }
-
 
     .active {
         background-color: #04AA6D;
     }
 </style>
-
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -62,8 +57,5 @@
         </div>
     </div>
 </nav>
-
-
-
 
 
