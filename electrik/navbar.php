@@ -1,3 +1,5 @@
+<!-- navbar.php -->
+
 <style>
     .navbar-nav {
         display: flex;
@@ -32,10 +34,11 @@
     .active {
         background-color: #04AA6D;
     }
+
+    .no-border {
+        border-right: none;
+    }
 </style>
-
-
-
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -49,16 +52,17 @@
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'aboutus.php') echo 'active'; ?>" href="aboutus.php">About Us</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item register-login">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'registerAcct.php') echo 'active'; ?>" href="registerAcct.php">Register</a>
                 </li>
-                <li class="nav-item register-login">
+                <li class="nav-item no-border register-login">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active'; ?>" href="login.php">Login</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 
 
