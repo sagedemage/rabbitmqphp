@@ -14,7 +14,6 @@
     .nav-item.register-login {
         border-right: 1px solid #bbb;
         padding-right: 10px;
-        float: right; /* Added float:right */
     }
 
     .nav-link {
