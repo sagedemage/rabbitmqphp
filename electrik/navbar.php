@@ -12,8 +12,10 @@
 
     .nav-item {
         margin-right: 10px;
-        border-right: 1px solid #bbb;
-        padding-right: 10px
+       
+    }
+    .nav-item:last-child {
+        margin-right: 0;
     }
 
     .nav-link {
