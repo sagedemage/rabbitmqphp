@@ -12,6 +12,8 @@
 
     .nav-item {
         margin-right: 10px;
+        border-right: 1px solid #bbb;
+        padding-right: 10px
     }
 
     .nav-link {
