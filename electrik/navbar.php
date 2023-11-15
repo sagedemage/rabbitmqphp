@@ -14,7 +14,6 @@
     }
 
     .nav-item.register-login {
-        border-right: 1px solid #bbb;
         padding-right: 10px;
         margin-right: 0; /* Reset the margin to override the previous style */
     }
@@ -56,13 +55,12 @@
                 <li class="nav-item">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'registerAcct.php') echo 'active'; ?>" href="registerAcct.php">Register</a>
                 </li>
-                <li class="nav-item no-border register-login">
-                    <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active'; ?>" href="login.php">Login</a>
+                <li class="nav-item register-login">
+                    <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active no-border'; ?>" href="login.php">Login</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
 
 
