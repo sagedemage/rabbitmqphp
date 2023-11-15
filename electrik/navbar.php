@@ -1,5 +1,3 @@
-<!-- navbar.php -->
-
 <style>
     .navbar-nav {
         display: flex;
@@ -7,19 +5,18 @@
         margin: 0;
         padding: 0;
         background-color: #333;
-        justify-content: space-between;
     }
+
 
     .nav-item {
         margin-right: 10px;
-       
-    }
-    .nav-item:last-child {
-        margin-right: 0;
-        border-right: 1px solid #bbb;
-        padding-right: 10px; /* Add some padding to the last item to separate it from the border */
     }
 
+
+    .nav-item.register-login {
+        border-right: 1px solid #bbb;
+        padding-right: 10px;
+    }
 
 
     .nav-link {
@@ -30,16 +27,17 @@
         text-decoration: none;
     }
 
+
     .nav-link:hover:not(.active) {
         background-color: #111;
     }
 
+
     .active {
         background-color: #04AA6D;
     }
-
-    
 </style>
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -52,18 +50,20 @@
                 <li class="nav-item">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'aboutus.php') echo 'active'; ?>" href="aboutus.php">About Us</a>
                 </li>
-
-                
-
             </ul>
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
+                <li class="nav-item register-login">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'registerAcct.php') echo 'active'; ?>" href="registerAcct.php">Register</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item register-login">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active'; ?>" href="login.php">Login</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
+
+
+
+
