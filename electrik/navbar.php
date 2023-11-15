@@ -45,6 +45,13 @@
                 <li class="nav-item">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'aboutus.php') echo 'active'; ?>" href="aboutus.php">About Us</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link terms-link" href="terms.html">Terms of Service</a>
+                </li>
+
+
+
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
