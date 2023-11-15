@@ -36,5 +36,8 @@
     sudo systemctl stop apache2
     sudo systemctl start apache2
     ```
+    
+8. You should be able to access the HTTPS version of the website at [https://www.electrik.com](https://www.electrik.com)
+
 
 
