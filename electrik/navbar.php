@@ -45,7 +45,7 @@
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'aboutus.php') echo 'active'; ?>" href="aboutus.php">About Us</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item register-login">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'registerAcct.php') echo 'active'; ?>" href="registerAcct.php">Register</a>
                 </li>
