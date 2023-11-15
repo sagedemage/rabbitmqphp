@@ -28,6 +28,10 @@
     .active {
         background-color: #04AA6D;
     }
+
+    .terms-link {
+        color: white;
+    }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
