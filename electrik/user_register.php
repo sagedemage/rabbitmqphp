@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 		}
 		else {
 			echo "<script>alert(\"$response\");</script>";
-			echo '<script>window.location.href = "./registerAcct.php";</script>';
+			echo '<script>window.location.href = "./register.php";</script>';
 		}
 	} 
 }
