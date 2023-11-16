@@ -71,7 +71,7 @@
 
     /* Add styles for the custom navbar */
     nav {
-      background-color: #343a40; /* Set the background color */
+      
       padding: 10px; /* Add padding to the navbar */
       margin-bottom: 20px; /* Add margin to separate from the content */
     }
