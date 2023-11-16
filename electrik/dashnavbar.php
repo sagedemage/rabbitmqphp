@@ -6,7 +6,7 @@
             <button class="dropbtn">ACCOUNT</button>
             <div class="dropdown-content">
                 <a href="dashbaord.php">DASHBOARD</a>
-                <a href="forgotpassword.html">RESET PASSWORD</a>
+                <a href="forgotpassword.php">RESET PASSWORD</a>
                 <a href="logout.php">LOGOUT</a>
             </div>
         </div>

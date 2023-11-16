@@ -123,8 +123,9 @@
 
     <div class="container" style="background-color:#f1f1f1">
       <button type="button" class="cancelbtn"><a href="./index.php">Back</a></button>
-      <span class="psw"><a href="./forgotpassword.html">Forgot password?</a></span>
-      <span class="register">Don't have an account? <a href="./register.html">Sign Up</a></span>
+      <span class="psw"><a href="./forgotpassword.php">Forgot password?</a></span>
+      <span class="register">Don't have an account? <a href="./register.php
+      ">Sign Up</a></span>
     </div>
   </form>
 
