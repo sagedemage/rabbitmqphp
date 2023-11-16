@@ -53,7 +53,7 @@
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'registerAcct.php') echo 'active'; ?>" href="register.php">REGISTER</a>
+                    <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'register.php') echo 'active'; ?>" href="register.php">REGISTER</a>
                 </li>
                 <li class="nav-item register-login">
                     <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active no-border'; ?>" href="login.php">LOGIN</a>
