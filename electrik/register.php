@@ -109,7 +109,7 @@
 
   <h2 style="text-align: center;">REGISTER</h2>
 
-  <form action="/validateLogin.php" method="post">
+  <form action="/user_register.php" method="post">
     <div class="container">
       <label for="id"><b>Username</b></label>
       <input type="text" placeholder="Enter Username" name="id" required>
