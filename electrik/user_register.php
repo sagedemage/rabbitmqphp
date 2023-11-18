@@ -7,7 +7,7 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
 function showError($errorMsg) {
 	echo "<script>alert(\"$errorMsg\");</script>";
-	echo '<script>window.location.href = "./register.php";</script>';
+	echo '<script>window.location.href = "./register.php";</script>'; 
 }
 
 /* Client */
