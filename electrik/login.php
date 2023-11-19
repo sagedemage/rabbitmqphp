@@ -12,7 +12,7 @@
 <?php include('navbar.php'); ?>
 
 <div class="container mt-5">
-    <h2 style="text-align: center;>Login</h2>
+    <h2>Login</h2>
 
     <form action="/validateLogin.php" method="post">
         <div class="mb-3">
