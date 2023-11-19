@@ -23,7 +23,7 @@ if (isset($_SESSION['USER_ID'])) {
 }
 ?>
 
-<?php include('footer.php'); ?>
+
 <div class="footer">
     &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
 </div>
