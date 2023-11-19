@@ -12,10 +12,10 @@
 <body>
 
     <!-- Include the common header and navbar -->
-    <?php include('navbar.php'); ?>
-
+    <?php include('dashnav.php'); ?>
+	
     <div class="container mt-5">
-        <h1 class="text-center">Dashboard page</h1>
+        <h1 class="text-center">Game Recommendation Portal</h1>
         <p>This is the dashboard page</p>
     </div>
 
