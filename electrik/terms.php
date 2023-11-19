@@ -36,14 +36,14 @@
 
 <div class="container mt-5">
     <h1 class="text-center">Terms of Service</h1>
-    <p>Here are the terms and conditions for using our website...</p>
+    <p>Here are the terms and conditions for using our website.</p>
 
 
-    <!-- Add your content here -->
+   
 
 
     <!-- Example section -->
-    <<h1 class="text-center">Introduction</h1>
+    <h1 class="text-center">Introduction</h1>
     <p>These are the terms of use for electrik.com and its connected webpages, microsites, and portals...</p>
 
 
