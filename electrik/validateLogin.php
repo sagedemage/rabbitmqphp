@@ -55,13 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $http_only);
 
 			// Redirect to the dashboard
-			header("Location: dashboard.html");
+			header("Location: dashboard.php");
 			exit;
 		}
 		else if ($data->{"msg"} === "Authentication failed. Invalid username or password.") {
 			// Display a popup message for invalid username or password
 			echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
-			echo '<script>window.location.href = "./login.html";</script>';
+			echo '<script>window.location.href = "./login.php";</script>';
 		}
 	} 
 
