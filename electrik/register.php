@@ -12,7 +12,7 @@
 <?php include('navbar.php'); ?>
 
 <div class="container mt-5">
-    <h2>Register Account</h2>
+<h2 class="text-center">Register Account</h2>
 
     <form action="/user_register.php" method="post" accept-charset="utf-8">
         <div class="mb-3">
