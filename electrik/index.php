@@ -17,14 +17,7 @@
 
 </div>
 
-<div class="navbar">
-  <a href="aboutus.html">ABOUT US</a>
-  <a href="forgotpassword.html">RESET PASSWORD</a>
-  <a href="register.html">REGISTER</a>
-  <a href="contact.html">CONTACT</a>
-  <a href="login.html">LOGIN</a>
-  <a href="dashboard.html">DASHBOARD</a>
-  <a href="logout.php" class="right">LOGOUT</a>
+
 
 
   <?php
@@ -37,7 +30,7 @@
     echo "You are not logged in.";
   }
   ?>
-</div>
+
 <?php include('footer.php'); ?>
 
 </body>
