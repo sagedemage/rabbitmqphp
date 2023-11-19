@@ -6,16 +6,6 @@
 </footer>
 
 
-<style>
-    /* Style the Terms of Service link in the footer */
-    .terms-link {
-        color: white;
-        text-decoration: none; /* Remove underline */
-    }
 
 
-    /* Hover effect for the Terms of Service link */
-    .terms-link:hover {
-        text-decoration: underline;
-    }
-</style>
+
