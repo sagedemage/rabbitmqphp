@@ -39,7 +39,7 @@
     </form>
 
     <div class="mt-3">
-        <a class="btn btn-secondary" href="./home.html">Cancel</a>
+        <a class="btn btn-secondary" href="./index.php">Cancel</a>
     </div>
 </div>
 
