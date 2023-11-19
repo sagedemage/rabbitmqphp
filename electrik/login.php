@@ -34,8 +34,8 @@
     </form>
 
     <div class="mt-3">
-        <a class="btn btn-secondary" href="./index.html">Back</a>
-        <span class="psw"><a href="./forgotpassword.html">Forgot password?</a></span>
+        <a class="btn btn-secondary" href="./index.php">Back</a>
+        <span class="psw"><a href="./forgotpassword.php">Forgot password?</a></span>
         <span class="register">Don't have an account? <a href="./register.php">Sign Up</a></span>
     </div>
 </div>
