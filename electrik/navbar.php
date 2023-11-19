@@ -18,17 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="login.php">Login</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Services
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Service 1</a></li>
-                        <li><a class="dropdown-item" href="#">Service 2</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Other Services</a></li>
-                    </ul>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="contact.php">Contact</a>
                 </li>
