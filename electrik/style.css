@@ -54,6 +54,7 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  margin-top: auto;
 }
 
 /* Style the Terms of Service link in the footer */
@@ -87,3 +88,6 @@ form {
   margin: 20px auto;
 }
 
+.container{
+  flex: 1;
+}
