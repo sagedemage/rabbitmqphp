@@ -10,10 +10,7 @@
 </head>
 <body>
 
-<div class="header">
-    <h1>ELECTRIK</h1>
-    <p>Welcome to Group Electrik</p>
-</div>
+
 
 <?php include('navbar.php'); ?>
 
