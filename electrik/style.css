@@ -84,11 +84,33 @@ body {
  form {
   max-width: 400px;
   margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
  }
  
  .container{
   flex: 1;
  }
  
- 
+ /* Style the Submit button */
+button[type="submit"] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Style the Cancel button for both register.php and login.php */
+.cancelbtn {
+  width: 100%;
+  padding: 10px 18px;
+  background-color: #f44336;
+  margin-top: 8px; /* Add margin to separate from the Submit button */
+}
+
+
  
