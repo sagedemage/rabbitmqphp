@@ -94,17 +94,4 @@ body {
  }
  
  
-/* Center the content in the header and main sections */
-header, main {
-  text-align: center;
-}
-
-/* Style for sections within main */
-main section {
-  max-width: 800px; /* Set a maximum width for better readability on larger screens */
-  margin: 0 auto;   /* Center the section horizontally */
-  padding: 20px;    /* Add padding for better spacing */
-}
-
-
  
