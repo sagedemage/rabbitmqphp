@@ -35,7 +35,7 @@
 
 
 <div class="container mt-5">
-    <h1>Terms of Service</h1>
+    <h1 class="text-center">Terms of Service</h1>
     <p>Here are the terms and conditions for using our website...</p>
 
 
@@ -43,21 +43,21 @@
 
 
     <!-- Example section -->
-    <h1>Introduction</h1>
+    <<h1 class="text-center">Introduction</h1>
     <p>These are the terms of use for electrik.com and its connected webpages, microsites, and portals...</p>
 
 
-    <h1>Access to the Site</h1>
+    <h1 class="text-center">Access to the Site</h1>
    <p>It is your responsibility to ensure your computer system meets all the necessary technical specifications to enable you to access and use the Site and is compatible with the Site. We may, from time to time, restrict access to certain features, parts or content of the Site to users who have registered with us (such as access to the Services support program features and pages). You must ensure that any registration details you provide are accurate. If you use or create a log-in ID (such as a username and password or other identifier) as part of our security procedures, you must treat such information as confidential and must not reveal it to anyone else. You are responsible for all activities that occur under your log-in ID and must notify us immediately of any unauthorized use or other security breach of which you become aware. We reserve the right to disable any log-in ID, at any time, if in our opinion you have failed to comply with any of the provisions of these terms of use or if any details you provide for the purposes of registering as a user prove to be false. We cannot guarantee the continuous, uninterrupted or error-free operability of the Site. There may be times when certain features, parts or content of the Site, or the entire Site, become unavailable (whether on a scheduled or unscheduled basis) or are modified, suspended or withdrawn by us, in our sole discretion, without notice to you. You agree that we will not be liable to you or to any third party for any unavailability, modification, suspension or withdrawal of the Site, or any features, parts or content of the Site.
    </p>
 
 
-   <h1>What you are allowed to do</h1>
+   <h1 class="text-center">What you are allowed to do</h1>
    <p>Except as necessary for your evaluation and use of the Services, you may only use the Site for non-commercial use and only in accordance with these terms of use. You may retrieve and display content from the Site on a computer screen, print and copy individual pages and, subject to the next section, store such pages in electronic form. Additional terms may also apply to certain features, parts or content of the Site and, where they apply, will be displayed before you access the relevant features, parts or content.
    </p>
 
 
-   <h1>What you are not allowed to do</h1>
+   <h1 class="text-center">What you are not allowed to do</h1>
    <p>Except to the extent expressly set out in these Terms, you are not allowed to:
    </p>
    <ul>
@@ -68,12 +68,12 @@
    </ul>
 
 
-   <h1>Intellectual Property Rights</h1>
+   <h1 class="text-center">Intellectual Property Rights</h1>
    <p>All intellectual property rights in any content of the Site (including text, graphics, software, photographs and other images, videos, sound, trade marks and logos) are owned by us or our licensors. Except as expressly set out here, nothing in these terms of use gives you any rights in respect of any intellectual property owned by us or our licensors and you acknowledge that you do not acquire any ownership rights by downloading content from the Site. If you print off, copy or store pages from the Site (only as permitted by these terms of use), you must ensure that any copyright, trade mark or other intellectual property right notices contained in the original content are reproduced.
    </p>
 
 
-   <h1>Content</h1>
+   <h1 class="text-center">Content</h1>
    <p>We may change the format and content of the Site from time to time. You agree that your use of the Site is on an ‘as is’ and ‘as available’ basis and at your sole risk.
    </p>
 
@@ -87,7 +87,7 @@
    </p>
 
 
-   <h1>Your Personal information</h1>
+   <h1 class="text-center">Your Personal information</h1>
 
 
    <p>Use of your personal information submitted to or via the Site is governed by our privacy policy.
@@ -96,7 +96,7 @@
 
 
 
-   <h1>External Links</h1>
+   <h1 class="text-center">External Links</h1>
 
 
    <p>The Site may, from time to time, include links to external sites, which may include links to third party offers and promotions. We include these to provide you with access to information, products or services that you may find useful or interesting. We are not responsible for the content of these sites or for anything provided by them and do not guarantee that they will be continuously available. The fact that we include links to such external sites does not imply any endorsement of or association with their operators or promoters.
@@ -105,10 +105,10 @@
 
 
 
-   <h1>DMCA Notice and Procedure</h1>
+   <h1 class="text-center">DMCA Notice and Procedure</h1>
 
 
-   <h1>NOTICE AND PROCEDURE FOR MAKING CLAIMS OF COPYRIGHT INFRINGEMENT IN ACCORDANCE WITH THE DIGITAL MILLENNIUM COPYRIGHT ACT (DMCA).
+   <h1 class="text-center">NOTICE AND PROCEDURE FOR MAKING CLAIMS OF COPYRIGHT INFRINGEMENT IN ACCORDANCE WITH THE DIGITAL MILLENNIUM COPYRIGHT ACT (DMCA).
    </h1>
 
 
@@ -118,7 +118,7 @@
 
 
 
-   <h1>Notification</h1>
+   <h1 class="text-center">Notification</h1>
 
 
    <p>If you believe that your work was copied or posted on our Website in a way that constitutes copyright infringement, please contact our designated agent at the email address below:
@@ -168,7 +168,7 @@
 
 
 
-   <h1>Counter Notification</h1>
+   <h1 class="text-center">Counter Notification</h1>
 
 
    <p>To be effective, a Counter Notification must be a written communication provided to Eectrik's Designated Agent that includes substantially the following:</p>
@@ -198,7 +198,7 @@
    </ol>
 
 
-   <h1>Account Termination</h1>
+   <h1 class="text-center">Account Termination</h1>
    <p>Electrik may, in appropriate circumstances, terminate an account holder or subscriber to the Site if he or she is a repeat infringer. If you believe that an account holder or subscriber is a repeat infringer, please follow the instructions above to contact electrik's DMCA agent and provide information sufficient for us to verify that the account holder or subscriber is a repeat infringer.
    </p>
 
