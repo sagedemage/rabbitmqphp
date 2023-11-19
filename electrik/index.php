@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<?php include('navbar.php'); ?>
+
 
 <div class="header">
   
@@ -17,7 +17,7 @@
 
 </div>
 
-
+<?php include('navbar.php'); ?>
 
 
   <?php
