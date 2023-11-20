@@ -3,9 +3,9 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="style.css"> <!-- Link to your CSS stylesheet for additional styling -->
    <title>Dashboard</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="style.css"> <!-- Link to your CSS stylesheet for additional styling -->
 </head>
 <body>
 
