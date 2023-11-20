@@ -1,30 +1,19 @@
 <!-- upcomingGames.php -->
 
 <?php
+ini_set('display_errors', 1);
 function getUpcomingGames() {
-    $apiKey = '7077B51AC45030DB2B70BBAECA86B8B2';
-    $apiUrl = "https://api.steampowered.com/IStoreService/GetAppList/v1/?key=$apiKey";
+    $apiKey = '8ACEC2BCC36C5A84BAB32F2A71B0A7F1';
+	$apiUrl = "https://api.steampowered.com/IStoreService/GetAppList/v1/?key=$apiKey";
 
-    $ch = curl_init();
+   	$curl = curl_init($apiUrl);
+   	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+   	$response = curl_exec($curl);
+	curl_close($curl);
 
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_URL, $apiUrl);
-
-    $result = curl_exec($ch);
-
-    if ($result === false) {
-        die('Failed to fetch data from Steam API. cURL Error: ' . curl_error($ch));
-    }
-
-    curl_close($ch);
-
-    $decodedResult = json_decode($result, true);
-
-    if ($decodedResult && isset($decodedResult['response']['apps'])) {
-        return $decodedResult;
-    } else {
-        return false;
-    }
+	echo $response;
 }
+
+getUpcomingGames()
+
 ?>
