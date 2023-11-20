@@ -127,4 +127,7 @@ form {
   border: none;
 }
 
+.dropdown-menu {
+  z-index: 1000; /* You can adjust this value as needed */
+}
 
