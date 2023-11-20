@@ -24,10 +24,12 @@
                   <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'aboutus.php') echo 'active'; ?>" href="aboutus.php">About Us</a>
               </li>
           </ul>
-          <form class="d-flex ms-auto"> <!-- Use "ms-auto" to push the form to the right -->
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+
+          <form class="d-flex">
+              <input class="form-control me-2 custom-search" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+
           <ul class="navbar-nav"> <!-- Add a new unordered list for "Login" and "Register" links -->
               <li class="nav-item">
                   <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'register.php') echo 'active'; ?>" href="register.php">Register</a>
