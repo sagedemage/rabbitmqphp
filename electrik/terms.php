@@ -32,23 +32,7 @@
    </p>
 
 
-   <h1 class="text-center">What you are allowed to do</h1>
-   <p>Except as necessary for your evaluation and use of the Services, you may only use the Site for non-commercial use and only in accordance with these terms of use. You may retrieve and display content from the Site on a computer screen, print and copy individual pages and, subject to the next section, store such pages in electronic form. Additional terms may also apply to certain features, parts or content of the Site and, where they apply, will be displayed before you access the relevant features, parts or content.
-   </p>
-
-
-   <h1 class="text-center">What you are not allowed to do</h1>
-   <p>Except to the extent expressly set out in these Terms, you are not allowed to:
-   </p>
-   <ul>
-       <li>store pages of the Site on a server or other storage device connected to a network or create an electronic database by systematically downloading and storing all of the pages of the Site;</li>
-       <li>remove or change any content of the Site or attempt to circumvent security or interfere with the proper working of the Site or the servers on which it is hosted; or</li>
-       <li>create links to the Site from any other website, without our prior written consent, although you may link from a website that is operated by you provided the link is not misleading or deceptive and fairly indicates its destination, you do not imply that we endorse you, your website, or any products or services you offer, you link to (and do not frame or replicate) the home page of the Site, and the linked website does not contain any content that is unlawful, threatening, abusive, defamatory, pornographic, obscene, vulgar, indecent, offensive or which infringes on the intellectual property rights or other rights of any third party. You must only use the Site and anything available from the Site for lawful purposes (complying with all applicable laws and regulations), in a responsible manner, and not in a way that might damage our name or reputation or that of any of our affiliates. All rights granted to you under these terms of use will terminate immediately in the event that you are in breach of any of them.
-       </li>
-   </ul>
-
-
-   <h1 class="text-center">Intellectual Property Rights</h1>
+      <h1 class="text-center">Intellectual Property Rights</h1>
    <p>All intellectual property rights in any content of the Site (including text, graphics, software, photographs and other images, videos, sound, trade marks and logos) are owned by us or our licensors. Except as expressly set out here, nothing in these terms of use gives you any rights in respect of any intellectual property owned by us or our licensors and you acknowledge that you do not acquire any ownership rights by downloading content from the Site. If you print off, copy or store pages from the Site (only as permitted by these terms of use), you must ensure that any copyright, trade mark or other intellectual property right notices contained in the original content are reproduced.
    </p>
 
@@ -84,38 +68,7 @@
 
 
 
-
-   <h1 class="text-center">DMCA Notice and Procedure</h1>
-
-
-   <h1 class="text-center">NOTICE AND PROCEDURE FOR MAKING CLAIMS OF COPYRIGHT INFRINGEMENT IN ACCORDANCE WITH THE DIGITAL MILLENNIUM COPYRIGHT ACT (DMCA).
-   </h1>
-
-
-   <p>Electirk.com will respond to allegations of copyright violations in accordance with the Digital Millennium Copyright Act (DMCA). The DMCA provides a process for a copyright owner to give notification to an online service provider concerning alleged copyright infringement. When a valid DMCA notification is received, the service provider responds under this process by taking down the offending content. On taking down content under the DMCA, we will take reasonable steps to contact the owner of the removed content so that a counter-notification may be filed. On receiving a valid counter-notification, we generally restore the content in question, unless we receive notice from the notification provider that a legal action has been filed seeking a court order to restrain the alleged infringer from engaging in the infringing activity. Electrik may provide copies of such notices to the participants in the dispute or to any other third parties, at our discretion and as required by law. Electrik’s privacy policy does not protect information provided in these notices. NOTE: THE FOLLOWING INFORMATION IS PROVIDED EXCLUSIVELY FOR NOTIFYING ELECTRIKTHAT YOUR COPYRIGHTED MATERIAL MAY HAVE BEEN INFRINGED. ALL OTHER INQUIRIES, SUCH AS REQUESTS FOR TECHNICAL ASSISTANCE, REPORTS OF EMAIL ABUSE, AND DATA PROTECTION OR PRIVACY REQUIREMENTS, WILL NOT RECEIVE A RESPONSE THROUGH THIS PROCESS.
-   </p>
-
-
-
-
-   <h1 class="text-center">Notification</h1>
-
-
-   <p>If you believe that your work was copied or posted on our Website in a way that constitutes copyright infringement, please contact our designated agent at the email address below:
-   </p>
-
-
-   <p>Electrik Copyright Agent Electrik®, Inc. 10800 NE 8th Street, Suite 600 Bellevue, WA, 98004 Email: legal@electrik.com
-   </p>
-
-
-   <p>If your concern is with content you posted to any electrik.com webpage, please note that by submitting, posting, or displaying your content on our site, you grant Electrik0 and its end users a worldwide, royalty-free, non-exclusive license as specified in these Terms.
-   </p>
-
-
-
-
-   <p>If your content has not been posted to any Electriksite previous, your notification must include the following information:
+  <p>If your content has not been posted to any Electriksite previous, your notification must include the following information:
    </p>
    <ol>
        <li>A description of the copyrighted work you claim to have been infringed. If you are not the owner of the copyrighted work, you must also include your electronic or digital signature as a person authorized to act on behalf of the copyright owner;
