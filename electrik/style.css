@@ -122,7 +122,9 @@ form {
 }
 
 .custom-search {
-  background-color: #3498db; /* Replace with your desired background color */
+  background-color: #ffffff; /* Replace with your desired background color */
   color: white; /* Set text color to white or another suitable color */
+  border: none;
 }
+
 
