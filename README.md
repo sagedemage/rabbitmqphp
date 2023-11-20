@@ -11,3 +11,6 @@
 
 ## Steam API
 [Steam API](./docs/steam_api.md)
+
+## Setup HTTPS for the Website
+[Setup HTTPS for the Website](./docs/setup_https_for_website.md)
