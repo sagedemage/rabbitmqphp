@@ -1,0 +1,57 @@
+<!-- upcomingGames.php -->
+
+<?php
+function getUpcomingGames() {
+    // ... Your PHP logic here ...
+}
+?>
+
+<!-- upcomingGames.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Games</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #game-container {
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 20px;
+        }
+
+        .game-card {
+            display: inline-block;
+            margin-right: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <?php
+    include 'upcomingGames.php';
+
+    $gamesData = getUpcomingGames();
+
+    if ($gamesData) {
+        // Display the result (you might want to format it appropriately)
+        echo "<pre>";
+        print_r($gamesData);
+        echo "</pre>";
+        echo "API call successful!";
+    } else {
+        echo "API call failed or data format unexpected.";
+    }
+    ?>
+</div>
+
+</body>
+</
