@@ -59,7 +59,7 @@ ul {
 .navbar a:hover,
 .dashboard-navbar a:hover {
   background-color: #555; /* Change the background color on hover */
-  color: black;
+  color: rgb(253, 253, 253);
 }
 
 /* Content and footer styling */
