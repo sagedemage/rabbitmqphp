@@ -31,7 +31,7 @@
               <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
 
-          <ul class="navbar-nav"> <!-- Add a new unordered list for the "Account" dropdown -->
+          <ul class="navbar-nav ms-auto"> <!-- Move the "Account" dropdown to the far right -->
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                       data-bs-toggle="dropdown" aria-expanded="false">
