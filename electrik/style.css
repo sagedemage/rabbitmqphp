@@ -117,4 +117,7 @@ form {
   margin-top: 20px;
 }
 
+.custom-bg {
+  background-color: #3498db; /* Use the color code that matches your footer color */
+}
 
