@@ -31,19 +31,15 @@
               <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
 
-          <ul class="navbar-nav ms-auto"> <!-- Move the "Account" dropdown to the far right -->
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                      data-bs-toggle="dropdown" aria-expanded="false">
-                      Account
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                      <li><a class="dropdown-item" href="resetpassword.php">Reset Password</a></li>
-                      <li><a class="dropdown-item" href="#">Option 3</a></li>
-                  </ul>
-              </li>
-          </ul>
+          <ul class="navbar-nav ms-auto"> <!-- Move the "Account" links to the far right -->
+            <li class="nav-item">
+               <a class="nav-link" href="logout.php">Logout</a>
+            </li>
+            <li class="nav-item">
+               <a class="nav-link" href="resetpassword.php">Reset Password</a>
+            </li>
+         </ul>
+
       </div>
   </div>
 </nav>
