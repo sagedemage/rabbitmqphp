@@ -1,13 +1,3 @@
-<!-- upcomingGames.php -->
-
-<?php
-function getUpcomingGames() {
-// ... Your PHP logic here ...
-}
-?>
-
-<!-- upcomingGames.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,7 +5,7 @@ function getUpcomingGames() {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Steam Games</title>
 		<style>
-		
+
 		body {
 			font-family: Arial, sans-serif;
 		}
@@ -36,22 +26,6 @@ function getUpcomingGames() {
 	</head>
 	<body>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-		<script>
-			const apiKey = '8ACEC2BCC36C5A84BAB32F2A71B0A7F1'; 
-
-			axios.get('https://api.steampowered.com/IStoreService/GetAppList/v1/?key=' + apiKey)
-				.then(function (response) {
-					// handle success
-					console.log(response);
-				})
-				.catch(function (error) {
-					// handle error
-					console.log(error);
-				})
-				.finally(function () {
-					// always executed
-				});
-		</script>
+		<script src="upcomingGames.js"></script>
 	</body>
-	</
+</html>
