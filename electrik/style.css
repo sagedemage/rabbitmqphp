@@ -3,20 +3,19 @@
 /* Body and general styling */
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #ffA500;
+  background-color: #3498db; /* Set the background color for the body */
   margin: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
- }
- 
- .header {
+}
+
+.header {
   padding: 10px;
   text-align: center;
   background: #1abc9c;
   color: white;
- }
- /* style.css */
+}
 
 /* Example style for headings */
 h1 {
@@ -37,7 +36,7 @@ ul {
 /* Additional styles for the navbar */
 .navbar {
   overflow: hidden;
-  background-color: #333;
+  background-color: #3498db; /* Set the background color for the navbar */
 }
 
 .navbar a {
@@ -59,18 +58,35 @@ ul {
   color: black;
 }
 
+/* Additional styles for the dashboard navbar */
+.dashboard-navbar {
+  background-color: #3498db; /* Set the background color for the dashboard navbar */
+  padding: 15px;
+}
 
+.dashboard-navbar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  margin: 0 10px;
+}
 
- 
- 
- /* Content and footer styling */
- .content {
+.dashboard-navbar a.right {
+  float: right;
+}
+
+.dashboard-navbar a:hover {
+  background-color: #555;
+}
+
+/* Content and footer styling */
+.content {
   flex: 1;
   padding: 20px;
- }
- 
- .footer {
-  background-color: #3498db; /* Contrasting color for the footer */
+}
+
+.footer {
+  background-color: #3498db; /* Keep the background color for the footer */
   color: white;
   text-align: center;
   padding: 10px;
@@ -78,40 +94,44 @@ ul {
   bottom: 0;
   width: 100%;
   margin-top: auto;
- }
- 
- /* Style the Terms of Service link in the footer */
- .terms-link {
+}
+
+/* Style the Terms of Service link in the footer */
+.terms-link {
   color: white;
   text-decoration: none; /* Remove underline */
- }
- 
- /* Hover effect for the Terms of Service link */
- .terms-link:hover {
+}
+
+/* Hover effect for the Terms of Service link */
+.terms-link:hover {
   text-decoration: underline;
- }
- 
- /* Center-align the content */
- main {
+}
+
+/* Center-align the content */
+main {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
- }
- 
- section {
+}
+
+section {
   max-width: 600px; /* Set a maximum width for better readability */
   margin-bottom: 20px; /* Add some space between sections */
- }
- 
- form {
+}
+
+form {
   max-width: 400px;
   margin: 20px auto;
- }
- 
- .container{
+}
+
+.container {
   flex: 1;
- }
- 
- 
- 
+}
+
+/* Additional styles for the dashboard content */
+.dashboard-content {
+  margin-top: 20px;
+}
+
+
