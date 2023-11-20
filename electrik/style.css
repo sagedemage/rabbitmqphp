@@ -121,3 +121,8 @@ form {
   background-color: #3498db; /* Use the color code that matches your footer color */
 }
 
+.custom-search {
+  background-color: #3498db; /* Replace with your desired background color */
+  color: white; /* Set text color to white or another suitable color */
+}
+
