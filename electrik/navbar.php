@@ -35,9 +35,7 @@
               <li class="nav-item">
                   <a class="nav-link <?php if(basename($_SERVER['PHP_SELF']) == 'login.php') echo 'active no-border'; ?>" href="login.php">Login</a>
               </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="contact.php">Contact</a>
-              </li>
+              
           </ul>
       </div>
   </div>
