@@ -3,7 +3,7 @@
 /* Body and general styling */
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #3498db; /* Set the background color for the body */
+  background-color: #ffa500; /* Set the background color for the body */
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -34,12 +34,14 @@ ul {
 }
 
 /* Additional styles for the navbar */
-.navbar {
+.navbar,
+.dashboard-navbar {
   overflow: hidden;
-  background-color: #3498db; /* Set the background color for the navbar */
+  background-color: #3498db; /* Change the background color for the navbar */
 }
 
-.navbar a {
+.navbar a,
+.dashboard-navbar a {
   float: left;
   display: block;
   color: white;
@@ -49,34 +51,15 @@ ul {
   transition: background-color 0.3s; /* Add transition for smooth color change */
 }
 
-.navbar a.right {
-  float: right;
-}
-
-.navbar a:hover {
-  background-color: #555; /* Change the background color on hover */
-  color: black;
-}
-
-/* Additional styles for the dashboard navbar */
-.dashboard-navbar {
-  background-color: #3498db; /* Set the background color for the dashboard navbar */
-  padding: 15px;
-}
-
-.dashboard-navbar a {
-  color: white;
-  text-decoration: none;
-  padding: 10px;
-  margin: 0 10px;
-}
-
+.navbar a.right,
 .dashboard-navbar a.right {
   float: right;
 }
 
+.navbar a:hover,
 .dashboard-navbar a:hover {
-  background-color: #555;
+  background-color: #555; /* Change the background color on hover */
+  color: black;
 }
 
 /* Content and footer styling */
@@ -86,7 +69,7 @@ ul {
 }
 
 .footer {
-  background-color: #3498db; /* Keep the background color for the footer */
+  background-color: #3498db; /* Contrasting color for the footer */
   color: white;
   text-align: center;
   padding: 10px;
