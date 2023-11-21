@@ -37,6 +37,9 @@
         </div>
 
         <button type="submit" class="btn btn-primary" name="confirm">Submit</button>
+    
+        <a href="./index.php" class="btn btn-secondary">Cancel</a>
+
     </form>
 
     <div class="mt-3">
