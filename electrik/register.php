@@ -42,9 +42,6 @@
 
     </form>
 
-    <div class="mt-3">
-        <a class="btn btn-secondary" href="./index.php">Cancel</a>
-    </div>
 </div>
 
 <!-- Include the common footer -->
