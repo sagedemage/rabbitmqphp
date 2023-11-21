@@ -9,10 +9,11 @@ require_once('rabbitmq_lib/rabbitMQLib.inc');
 /* Server */
 function doLogin($username, $password) {
 	/* Connect to Database */
-	$host = "localhost";
-	$db_user = "admin";
-	$db_pass = "adminPass";
-	$db_name = "ProjectDB";
+	$env = parse_ini_file('env.ini');
+	$host = $env["HOST"];
+	$db_user = $env["MYSQL_USERNAME"];
+	$db_pass = $env["MYSQL_PASSWORD"];
+	$db_name = $env["DATABASE_NAME"];
 	$db = new mysqli($host, $db_user, $db_pass, $db_name);
 
 	if ($db->connect_error) {
@@ -75,10 +76,13 @@ function doLogin($username, $password) {
 function doRegister($email, $username, $password) {
 	/* Register a User */
 	$passHash = password_hash($password, PASSWORD_DEFAULT);
-	$host = "localhost";
-	$db_user = "admin";
-	$db_pass = "adminPass";
-	$db_name = "ProjectDB";
+
+	/* Connect to Database */
+	$env = parse_ini_file('env.ini');
+	$host = $env["HOST"];
+	$db_user = $env["MYSQL_USERNAME"];
+	$db_pass = $env["MYSQL_PASSWORD"];
+	$db_name = $env["DATABASE_NAME"];
 	$db = new mysqli($host, $db_user, $db_pass, $db_name);
 
 	if ($db->connect_errno != 0) {
