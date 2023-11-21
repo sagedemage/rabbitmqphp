@@ -18,25 +18,34 @@
     <h1 class="text-center">Game Recommendation Portal</h1>
 </div>
 
+
+<!-- Cards below the carousel -->
 <div class="container mt-5">
-    <div class="row row-cols-1 row-cols-md-2 g-4 align-items-start">
-        <?php
-        // Loop to create six cards
-        for ($i = 1; $i <= 6; $i++) {
-            echo '
-            <div class="col">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="Card ' . $i . '">
-                    <div class="card-body">
-                        <h5 class="card-title">Card ' . $i . ' title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>';
-        }
-        ?>
+    <div class="card-group">
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 1">
+            <div class="card-body">
+                <h5 class="card-title">Card 1</h5>
+                <p class="card-text">Some text for Card 1.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 2">
+            <div class="card-body">
+                <h5 class="card-title">Card 2</h5>
+                <p class="card-text">Some text for Card 2.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
+            <div class="card-body">
+                <h5 class="card-title">Card 3</h5>
+                <p class="card-text">Some text for Card 3.</p>
+            </div>
+        </div>
     </div>
 </div>
+
 
 <!-- Include the common footer -->
 <div class="footer">
