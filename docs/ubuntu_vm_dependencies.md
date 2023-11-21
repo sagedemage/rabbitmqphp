@@ -18,11 +18,12 @@ sudo apt install apache2 php php-common php-amqp
 4. php-common
 5. php-amqp
 6. php-mysql
-7. rabbitmq-server
+7. php-curl
+8. rabbitmq-server
 
 The command to run to install the **back-end VM dependencies**.
 ```
-sudo apt install mysql-common mysql-server php php-common php-amqp php-mysql rabbitmq-server
+sudo apt install mysql-common mysql-server php php-common php-amqp php-mysql php-curl rabbitmq-server
 ```
 
 ## Development Dependencies
