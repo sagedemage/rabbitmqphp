@@ -43,6 +43,34 @@
                 <p class="card-text">Some text for Card 3.</p>
             </div>
         </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
+            <div class="card-body">
+                <h5 class="card-title">Card 4</h5>
+                <p class="card-text">Some text for Card 4.</p>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
+            <div class="card-body">
+                <h5 class="card-title">Card 5</h5>
+                <p class="card-text">Some text for Card 5.</p>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
+            <div class="card-body">
+                <h5 class="card-title">Card 6</h5>
+                <p class="card-text">Some text for Card 6.</p>
+            </div>
+        </div>
     </div>
 </div>
 
