@@ -7,7 +7,7 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
 function showError($errorMsg) {
 	echo "<script>alert(\"$errorMsg\");</script>";
-	echo '<script>window.location.href = "./register.html";</script>';
+	echo '<script>window.location.href = "./register.php";</script>';
 }
 
 /* Client */
@@ -72,11 +72,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 
 		if ($response === "Registration success.") {
 			echo '<script>alert("Registration success.");</script>';
-			echo '<script>window.location.href = "./login.html";</script>';
+			echo '<script>window.location.href = "./login.php";</script>';
 		}
 		else {
 			echo "<script>alert(\"$response\");</script>";
-			echo '<script>window.location.href = "./register.html";</script>';
+			echo '<script>window.location.href = "./register.php";</script>';
 		}
 	} 
 }
