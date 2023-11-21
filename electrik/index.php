@@ -66,6 +66,56 @@ if (isset($_SESSION['USER_ID'])) {
   </button>
 </div>
 
+
+
+
+<!-- Cards below the carousel -->
+<div class="container mt-5">
+    <div class="card-group">
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 1">
+            <div class="card-body">
+                <h5 class="card-title">Card 1</h5>
+                <p class="card-text">Some text for Card 1.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 2">
+            <div class="card-body">
+                <h5 class="card-title">Card 2</h5>
+                <p class="card-text">Some text for Card 2.</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
+            <div class="card-body">
+                <h5 class="card-title">Card 3</h5>
+                <p class="card-text">Some text for Card 3.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="footer">
    &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
 </div>
