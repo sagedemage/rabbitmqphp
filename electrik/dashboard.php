@@ -21,58 +21,64 @@
 
 <!-- Cards below the carousel -->
 <div class="container mt-5">
-    <div class="card-group">
-        <div class="card">
-            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 1">
-            <div class="card-body">
-                <h5 class="card-title">Card 1</h5>
-                <p class="card-text">Some text for Card 1.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 2">
-            <div class="card-body">
-                <h5 class="card-title">Card 2</h5>
-                <p class="card-text">Some text for Card 2.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
-            <div class="card-body">
-                <h5 class="card-title">Card 3</h5>
-                <p class="card-text">Some text for Card 3.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
-            <div class="card-body">
-                <h5 class="card-title">Card 4</h5>
-                <p class="card-text">Some text for Card 4.</p>
-            </div>
-        </div>
-
-
-
-        <div class="card">
-            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
-            <div class="card-body">
-                <h5 class="card-title">Card 5</h5>
-                <p class="card-text">Some text for Card 5.</p>
-            </div>
-        </div>
-
-
-
-        <div class="card">
-            <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
-            <div class="card-body">
-                <h5 class="card-title">Card 6</h5>
-                <p class="card-text">Some text for Card 6.</p>
-            </div>
-        </div>
-    </div>
+   <div class="row row-cols-1 row-cols-md-4 g-4">
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 1">
+               <div class="card-body">
+                   <h5 class="card-title">Card 1</h5>
+                   <p class="card-text">Some text for Card 1.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 2">
+               <div class="card-body">
+                   <h5 class="card-title">Card 2</h5>
+                   <p class="card-text">Some text for Card 2.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
+               <div class="card-body">
+                   <h5 class="card-title">Card 3</h5>
+                   <p class="card-text">Some text for Card 3.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 4">
+               <div class="card-body">
+                   <h5 class="card-title">Card 4</h5>
+                   <p class="card-text">Some text for Card 4.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 5">
+               <div class="card-body">
+                   <h5 class="card-title">Card 5</h5>
+                   <p class="card-text">Some text for Card 5.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 6">
+               <div class="card-body">
+                   <h5 class="card-title">Card 6</h5>
+                   <p class="card-text">Some text for Card 6.</p>
+               </div>
+           </div>
+       </div>
+   </div>
 </div>
+
 
 
 <!-- Include the common footer -->
