@@ -17,7 +17,7 @@
       <div class="card-body">
          <h2 class="card-title text-center">Login</h2>
 
-         <form action="/user_login.php" method="post" accept-charset="utf-8">
+         <form action="/validateLogin.php" method="post" accept-charset="utf-8">
             <div class="mb-3">
                <label for="id" class="form-label"><b>Username</b></label>
                <input id="id" type="text" class="form-control" placeholder="Enter Username" name="id" required>
