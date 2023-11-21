@@ -76,6 +76,74 @@
                </div>
            </div>
        </div>
+
+
+       div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 6">
+               <div class="card-body">
+                   <h5 class="card-title">Card 7</h5>
+                   <p class="card-text">Some text for Card 7.</p>
+               </div>
+           </div>
+       </div>
+
+
+       div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 6">
+               <div class="card-body">
+                   <h5 class="card-title">Card 8</h5>
+                   <p class="card-text">Some text for Card 8.</p>
+               </div>
+           </div>
+       </div>
+
+
+       div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 6">
+               <div class="card-body">
+                   <h5 class="card-title">Card 9</h5>
+                   <p class="card-text">Some text for Card 9.</p>
+               </div>
+           </div>
+       </div>
+
+
+       div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 6">
+               <div class="card-body">
+                   <h5 class="card-title">Card 10</h5>
+                   <p class="card-text">Some text for Card 10.</p>
+               </div>
+           </div>
+       </div>
+
+
+       div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 6">
+               <div class="card-body">
+                   <h5 class="card-title">Card 11</h5>
+                   <p class="card-text">Some text for Card 11.</p>
+               </div>
+           </div>
+       </div>
+
+
+       div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 6">
+               <div class="card-body">
+                   <h5 class="card-title">Card 12</h5>
+                   <p class="card-text">Some text for Card 12.</p>
+               </div>
+           </div>
+       </div>
+
+
    </div>
 </div>
 
