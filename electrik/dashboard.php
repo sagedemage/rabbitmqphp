@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="style.css"> <!-- Link to your CSS stylesheet for additional styling -->
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Dashboard</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="style.css"> <!-- Link to your CSS stylesheet for additional styling -->
 </head>
 <body>
 
@@ -15,13 +15,13 @@
 <?php include('dashnav.php'); ?>
 
 <div class="container mt-5">
-    <h1 class="text-center">Game Recommendation Portal</h1>
+   <h1 class="text-center">Game Recommendation Portal</h1>
 </div>
-
 
 <!-- Cards below the carousel -->
 <div class="container mt-5">
    <div class="row row-cols-1 row-cols-md-4 g-4">
+       <!-- Cards from the original code -->
        <div class="col">
            <div class="card">
                <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 1">
@@ -77,14 +77,67 @@
            </div>
        </div>
 
-
-      
-
-
+       <!-- New cards -->
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 7">
+               <div class="card-body">
+                   <h5 class="card-title">Card 7</h5>
+                   <p class="card-text">Some text for Card 7.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 8">
+               <div class="card-body">
+                   <h5 class="card-title">Card 8</h5>
+                   <p class="card-text">Some text for Card 8.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 9">
+               <div class="card-body">
+                   <h5 class="card-title">Card 9</h5>
+                   <p class="card-text">Some text for Card 9.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 10">
+               <div class="card-body">
+                   <h5 class="card-title">Card 10</h5>
+                   <p class="card-text">Some text for Card 10.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 11">
+               <div class="card-body">
+                   <h5 class="card-title">Card 11</h5>
+                   <p class="card-text">Some text for Card 11.</p>
+               </div>
+           </div>
+       </div>
+       <div class="col">
+           <div class="card">
+               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 12">
+               <div class="card-body">
+                   <h5 class="card-title">Card 12</h5>
+                   <p class="card-text">Some text for Card 12.</p>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
 
 <!-- Include the common footer -->
 <div class="footer">
-    &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
+   &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
 </div>
 
 <!-- Bootstrap JS (optional, but required for some features) -->
@@ -93,27 +146,29 @@
 <!-- Your existing script for user session verification -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-    function get_cookie_value(cookie_name) {
-        let decodedCookie = decodeURIComponent(document.cookie);
-        const cookieValue = decodedCookie
-            .split("; ")
-            .find((row) => row.startsWith(cookie_name + "="))
-            ?.split("=")[1];
-        return cookieValue;
-    }
-    let user_id = get_cookie_value("user_id");
-    axios.post('/verify_user_session.php', {
-        user_id: user_id,
-    })
-        .then(function(response) {
-            if (response.data !== true) {
-                location.href = "/login.php";
-            }
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
+   function get_cookie_value(cookie_name) {
+       let decodedCookie = decodeURIComponent(document.cookie);
+       const cookieValue = decodedCookie
+           .split("; ")
+           .find((row) => row.startsWith(cookie_name + "="))
+           ?.split("=")[1];
+       return cookieValue;
+   }
+   let user_id = get_cookie_value("user_id");
+   axios.post('/verify_user_session.php', {
+       user_id: user_id,
+   })
+       .then(function(response) {
+           if (response.data !== true) {
+               location.href = "/login.php";
+           }
+       })
+       .catch(function(error) {
+           console.log(error);
+       });
 </script>
 
 </body>
 </html>
+
+
