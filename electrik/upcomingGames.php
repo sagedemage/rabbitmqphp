@@ -2,18 +2,17 @@
 
 <?php
 ini_set('display_errors', 1);
-function getUpcomingGames() {
-    $apiKey = '8ACEC2BCC36C5A84BAB32F2A71B0A7F1';
-	$apiUrl = "https://api.steampowered.com/IStoreService/GetAppList/v1/?key=$apiKey";
 
-   	$curl = curl_init($apiUrl);
-   	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-   	$response = curl_exec($curl);
-	curl_close($curl);
+require_once('../rabbitmq_lib/path.inc');
+require_once('../rabbitmq_lib/get_host_info.inc');
+require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
-	echo $response;
-}
 
-getUpcomingGames()
+$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
+/* Send register request to server */
+$request = array();
+$request['type'] = "GetAppList";
+$response = $client->send_request($request);
+echo $response;
 ?>

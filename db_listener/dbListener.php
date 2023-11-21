@@ -145,6 +145,21 @@ function verifyCookieSession($username_cipher_text) {
 	return false;
 }
 
+
+function getAppList() {
+	// Steam API to get App List
+	$env = parse_ini_file('env.ini');
+	$apiKey = $env["STEAM_WEB_API_KEY"];
+	$apiUrl = "https://api.steampowered.com/IStoreService/GetAppList/v1/?key=$apiKey";
+
+	$curl = curl_init($apiUrl);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($curl);
+	curl_close($curl);
+
+	return $response;
+}
+
 function requestProcessor($request) {
 	echo "received request".PHP_EOL;
 	var_dump($request);
@@ -159,6 +174,8 @@ function requestProcessor($request) {
 		return doRegister($request['email'], $request['username'], $request['password']);
 	case "Session":
 		return verifyCookieSession($request['username_cipher_text']);
+	case "GetAppList":
+		return getAppList();
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }
