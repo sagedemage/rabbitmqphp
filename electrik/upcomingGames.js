@@ -7,9 +7,7 @@
 	}
 }*/
 
-const apiKey = '8ACEC2BCC36C5A84BAB32F2A71B0A7F1'; 
-
-axios.get('https://api.steampowered.com/IStoreService/GetAppList/v1/?key=' + apiKey)
+axios.get('/upcomingGames.php')
 	.then(function (response) {
 		// handle success
 		console.log(response);

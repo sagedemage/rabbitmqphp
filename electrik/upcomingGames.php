@@ -1,6 +1,5 @@
-<!-- upcomingGames.php -->
-
 <?php
+header("content-type: application/json");
 ini_set('display_errors', 1);
 
 require_once('../rabbitmq_lib/path.inc');
