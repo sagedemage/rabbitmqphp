@@ -15,7 +15,7 @@
 <?php include('dashnav.php'); ?>
 
 <div class="container mt-5">
-   <h1 class="text-center">Game Recommendation Portal</h1>
+   <h1 class="text-center display-4 fw-bold text-primary">Game Recommendation Portal</h1>
 </div>
 
 <!-- Cards below the carousel -->
