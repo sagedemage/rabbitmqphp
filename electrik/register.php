@@ -49,19 +49,19 @@
         <form action="/user_register.php" method="post" accept-charset="utf-8">
           <div class="form-group mb-3">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Enter email" name="email" required>
 		  </div>
 		 <div class="form-group mb-3">
             <label for="exampleInputEmail1">Username</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="text" class="form-control" id="id" aria-describedby="id" placeholder="Enter Username" name="id" required>
           </div>
           <div class="form-group mb-3">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password" name="pwd" required>
 		  </div>
 		  <div class="form-group mb-3">
             <label for="exampleInputPassword1">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password" ame="cfrmpwd" required>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
           <a href="./index.php" class="btn btn-secondary">Cancel</a>
