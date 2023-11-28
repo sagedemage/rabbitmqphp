@@ -164,7 +164,49 @@ function getAppList() {
 	return $response;
 }
 
-function requestProcessor($request) {
+function getMostPopularTags() {
+	// Steam API to get App List
+	$env = parse_ini_file('env.ini');
+	$apiKey = $env["STEAM_WEB_API_KEY"];
+	$apiUrl = "https://api.steampowered.com/IStoreService/GetMostPopularTags/v1/?key=$apiKey";
+
+	$curl = curl_init($apiUrl);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($curl);
+	curl_close($curl);
+
+	return $response;
+}
+
+function getPlayerSummaries($steamid) {
+	// Steam API to get App List
+	$env = parse_ini_file('env.ini');
+	$apiKey = $env["STEAM_WEB_API_KEY"];
+	$apiUrl = "https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=$apiKey&steamids=$steamid";
+
+	$curl = curl_init($apiUrl);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($curl);
+	curl_close($curl);
+
+	return $response;
+}
+
+function getOwnedGames($steamid) {
+	// Steam API to get App List
+	$env = parse_ini_file('env.ini');
+	$apiKey = $env["STEAM_WEB_API_KEY"];
+	$apiUrl = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=$apiKey&steamids=$steamid&include_played_free_games=true";
+
+	$curl = curl_init($apiUrl);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+	$response = curl_exec($curl);
+	curl_close($curl);
+
+	return $response;
+}
+
+function getPlayerSummaries($request) {
 	echo "received request".PHP_EOL;
 	var_dump($request);
 	if(!isset($request['type'])) {
@@ -180,6 +222,13 @@ function requestProcessor($request) {
 		return verifyCookieSession($request['username_cipher_text']);
 	case "GetAppList":
 		return getAppList();
+	case "GetMostPopularTags":
+		return getMostPopularTags();
+	case "GetPlayerSummaries":
+		return getPlayerSummaries($steg
+		amid);
+	case "GetOwnedGames":
+		return getOwnedGames($steamid);
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }

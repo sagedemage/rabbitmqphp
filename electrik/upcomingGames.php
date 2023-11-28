@@ -14,4 +14,4 @@ $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
 echo $response;
-?>
+?
