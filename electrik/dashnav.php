@@ -26,10 +26,7 @@
               </li>
           </ul>
 
-          <form class="d-flex mx-auto"> <!-- Use "mx-auto" to center the search form -->
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+          
 
           <ul class="navbar-nav ms-auto"> <!-- Move the "Account" links to the far right -->
             <li class="nav-item">
