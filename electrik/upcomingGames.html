@@ -1,82 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steam Games</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Steam Games</title>
+		<style>
 
-        #game-container {
-            width: 100%;
-            overflow-x: auto;
-            white-space: nowrap;
-            padding: 20px;
-        }
+		body {
+			font-family: Arial, sans-serif;
+		}
 
-        .game-card {
-            display: inline-block;
-            margin-right: 20px;
-            text-align: center;
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="upcomingGames.js"></script>
-</head>
-<body>
+		#game-container {
+			width: 100%;
+			overflow-x: auto;
+			white-space: nowrap;
+			padding: 20px;
+		}
 
-<h2>Steam Games Table</h2>
-
-<table id="jsonTable" border="1">
-    <thead>
-        <tr>
-            <th>App ID</th>
-            <th>Name</th>
-            <th>Last Modified</th>
-            <th>Price Change Number</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
-<script>
-axios.get('/upcomingGames.php')
-    .then(response => {
-        renderTable(response.data.response.apps);
-    })
-    .catch(error => console.error('Error fetching data:', error));
-
-function renderTable(data) {
-    const tableBody = document.querySelector('#jsonTable tbody');
-
-    tableBody.innerHTML = '';
-
-    data.forEach(item => {
-        const row = document.createElement('tr');
-
-        const appIdCell = document.createElement('td');
-        appIdCell.textContent = item.appid;
-        row.appendChild(appIdCell);
-
-        const nameCell = document.createElement('td');
-        nameCell.textContent = item.name;
-        row.appendChild(nameCell);
-
-        const lastModifiedCell = document.createElement('td');
-        lastModifiedCell.textContent = new Date(item.last_modified * 1000).toLocaleString();
-        row.appendChild(lastModifiedCell);
-
-        const priceChangeNumberCell = document.createElement('td');
-        priceChangeNumberCell.textContent = item.price_change_number;
-        row.appendChild(priceChangeNumberCell);
-
-        tableBody.appendChild(row);
-    });
-}
-</script>
-
-</body>
+		.game-card {
+			display: inline-block;
+			margin-right: 20px;
+			text-align: center;
+		}
+		</style>
+	</head>
+	<body>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script src="upcomingGames.js"></script>
+	</body>
 </html>
