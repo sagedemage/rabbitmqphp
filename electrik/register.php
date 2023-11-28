@@ -61,9 +61,9 @@
 		  </div>
 		  <div class="form-group mb-3">
             <label for="exampleInputPassword1">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password" ame="cfrmpwd" required>
+            <input id="cfrmpwd" type="password" class="form-control" placeholder="Confirm Password" name="cfrmpwd" required>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" name="confirm">Submit</button>
           <a href="./index.php" class="btn btn-secondary">Cancel</a>
         </form>
       </div>
