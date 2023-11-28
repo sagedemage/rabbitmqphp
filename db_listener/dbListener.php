@@ -225,7 +225,7 @@ function requestProcessor($request) {
 	case "GetMostPopularTags":
 		return getMostPopularTags();
 	case "GetPlayerSummaries":
-		$steamid = "76561198093057200"
+		$steamid = "76561198093057200";
 		return getPlayerSummaries($steamid);
 	case "GetOwnedGames":
 		$steamid = "76561198093057200";
