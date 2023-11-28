@@ -65,21 +65,21 @@
 <div class="container mt-5">
     <div class="card-group">
         <div class="card">
-            <img src="images/image1.jpg" class="card-img-top" alt="Card 1" style="width: 18rem;">
+            <img src="images/image1.jpg" class="card-img-top" alt="Card 1" style="height: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Card 1</h5>
                 <p class="card-text">Some text for Card 1.</p>
             </div>
         </div>
         <div class="card">
-            <img src="images/image2.jpg" class="card-img-top" alt="Card 2" style="width: 18rem;">
+            <img src="images/image2.jpg" class="card-img-top" alt="Card 2" style="height: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Card 2</h5>
                 <p class="card-text">Some text for Card 2.</p>
             </div>
         </div>
         <div class="card">
-            <img src="images/image4.jpg" class="card-img-top" alt="Card 3" style="width: 18rem;">
+            <img src="images/image4.jpg" class="card-img-top" alt="Card 3" style="height: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Card 3</h5>
                 <p class="card-text">Some text for Card 3.</p>
