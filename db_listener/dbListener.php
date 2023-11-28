@@ -225,9 +225,10 @@ function getPlayerSummaries($request) {
 	case "GetMostPopularTags":
 		return getMostPopularTags();
 	case "GetPlayerSummaries":
-		return getPlayerSummaries($steg
-		amid);
+		$steamid = "76561198093057200";
+		return getPlayerSummaries($steamid);
 	case "GetOwnedGames":
+		$steamid = "76561198093057200";
 		return getOwnedGames($steamid);
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
