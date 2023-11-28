@@ -33,7 +33,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="images/image7.jpg" class="card-img-top" alt="Card 2">
+               <img src="images/image7.png" class="card-img-top" alt="Card 2">
                <div class="card-body">
                    <h5 class="card-title">Card 2</h5>
                    <p class="card-text">Some text for Card 2.</p>
