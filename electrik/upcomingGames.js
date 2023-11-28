@@ -7,7 +7,7 @@
 	}
 }*/
 
-axios.get('/upcomingGames.php')
+axios.get('http://localhost:3000/steam-api/get-app-list')
 	.then(function (response) {
 		// handle success
 		console.log(response);
