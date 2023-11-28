@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="carousel-item">
-      <img src="images/image2.jpg" class="d-block w-100" alt="Slide 2">
+      <img src="images/image8.png" class="d-block w-100" alt="Slide 2">
       <div class="carousel-caption d-none d-md-block">
         <h5>Second slide label</h5>
         <p>Some representative placeholder content for the second slide.</p>
