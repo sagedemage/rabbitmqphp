@@ -24,7 +24,7 @@
        <!-- Cards from the original code -->
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 1">
+               <img src="images/image5.jpg" class="card-img-top" alt="Card 1">
                <div class="card-body">
                    <h5 class="card-title">Card 1</h5>
                    <p class="card-text">Some text for Card 1.</p>
@@ -33,7 +33,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 2">
+               <img src="images/image7.jpg" class="card-img-top" alt="Card 2">
                <div class="card-body">
                    <h5 class="card-title">Card 2</h5>
                    <p class="card-text">Some text for Card 2.</p>
@@ -42,7 +42,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 3">
+               <img src="images/image9.jpg" class="card-img-top" alt="Card 3">
                <div class="card-body">
                    <h5 class="card-title">Card 3</h5>
                    <p class="card-text">Some text for Card 3.</p>
@@ -51,7 +51,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 4">
+               <img src="images/image10.jpg" class="card-img-top" alt="Card 4">
                <div class="card-body">
                    <h5 class="card-title">Card 4</h5>
                    <p class="card-text">Some text for Card 4.</p>
@@ -60,7 +60,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 5">
+               <img src="images/image11.jpg" class="card-img-top" alt="Card 5">
                <div class="card-body">
                    <h5 class="card-title">Card 5</h5>
                    <p class="card-text">Some text for Card 5.</p>
@@ -69,7 +69,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 6">
+               <img src="images/image12.jpg" class="card-img-top" alt="Card 6">
                <div class="card-body">
                    <h5 class="card-title">Card 6</h5>
                    <p class="card-text">Some text for Card 6.</p>
@@ -80,7 +80,7 @@
        <!-- New cards -->
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 7">
+               <img src="images/image13.jpg" class="card-img-top" alt="Card 7">
                <div class="card-body">
                    <h5 class="card-title">Card 7</h5>
                    <p class="card-text">Some text for Card 7.</p>
@@ -89,7 +89,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 8">
+               <img src="images/image14.jpg" class="card-img-top" alt="Card 8">
                <div class="card-body">
                    <h5 class="card-title">Card 8</h5>
                    <p class="card-text">Some text for Card 8.</p>
@@ -98,7 +98,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 9">
+               <img src="images/image15.jpg" class="card-img-top" alt="Card 9">
                <div class="card-body">
                    <h5 class="card-title">Card 9</h5>
                    <p class="card-text">Some text for Card 9.</p>
@@ -107,7 +107,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 10">
+               <img src="images/image16.jpg" class="card-img-top" alt="Card 10">
                <div class="card-body">
                    <h5 class="card-title">Card 10</h5>
                    <p class="card-text">Some text for Card 10.</p>
@@ -116,7 +116,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 11">
+               <img src="images/image17.jpg" class="card-img-top" alt="Card 11">
                <div class="card-body">
                    <h5 class="card-title">Card 11</h5>
                    <p class="card-text">Some text for Card 11.</p>
@@ -125,7 +125,7 @@
        </div>
        <div class="col">
            <div class="card">
-               <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="Card 12">
+               <img src="images/image18.jpg" class="card-img-top" alt="Card 12">
                <div class="card-body">
                    <h5 class="card-title">Card 12</h5>
                    <p class="card-text">Some text for Card 12.</p>
