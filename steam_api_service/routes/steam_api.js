@@ -20,9 +20,8 @@ router.get('/get-app-list', (req, res) => {
 	let url = "https://api.steampowered.com/IStoreService/GetAppList/v1/?key=" + api_key;
 	request(url, function(err, response, body) {
 		if(!err && response.statusCode < 400) {
-			console.log(body);
-
-  			res.send(body);
+			console.log("Sent GetAppList data!")
+			res.send(body);
 		}
 	});
 })
