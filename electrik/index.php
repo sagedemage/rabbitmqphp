@@ -27,7 +27,7 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="images/image1.jpeg" class="d-block w-100" alt="Slide 1">
+      <img src="images/image6.jpg" class="d-block w-100" alt="Slide 1">
       <div class="carousel-caption d-none d-md-block">
         <h5>First slide label</h5>
         <p>Some representative placeholder content for the first slide.</p>
