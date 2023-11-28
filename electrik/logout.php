@@ -7,7 +7,7 @@
 
 
      //Redirect the user to the homepage after logging out
-     header("Location: login.html");
+     header("Location: login.php");
      exit;
 
 ?>

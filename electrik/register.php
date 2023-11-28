@@ -1,83 +1,56 @@
-<?php
-ini_set('display_errors', 1);
+<!DOCTYPE html>
+<html lang="en">
 
-require_once('../rabbitmq_lib/path.inc');
-require_once('../rabbitmq_lib/get_host_info.inc');
-require_once('../rabbitmq_lib/rabbitMQLib.inc');
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register Account</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"> <!-- Link to your CSS stylesheet for additional styling -->
+</head>
 
-function showError($errorMsg) {
-	echo "<script>alert(\"$errorMsg\");</script>";
-	echo '<script>window.location.href = "./register.html";</script>';
-}
+<body>
 
-/* Client */
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
-	$user = $_POST['id'];
-	$email = $_POST['email'];
-	$pwd = $_POST['pwd'];
-	$cfrmpwd = $_POST['cfrmpwd'];
-	$error = false;
-	$errorMsgs = array();
+  <!-- Include the common header and navbar -->
+  <?php include('navbar.php'); ?>
 
-	// Validation
-	if (isset($user) && isset($pwd) && isset($email)) {
+  <div class="container mt-5 d-flex justify-content-center align-items-center">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-center">Register Account</h2>
 
-		if (empty($user) || !isset($user)) { # MAKE AN ERROR MSG LOG HAVE TEMPLATE
-			$error = true;
-			$errorMsg = "Username is empty.";
-			showError($errorMsg);
-			
-		} else {
-			$user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); # SANITIZE
-		}
-		if (empty($email) || !isset($email)) {
-			$error = true;
-			$errorMsg = "Email is empty.";
-			showError($errorMsg);
+        <form action="/user_register.php" method="post" accept-charset="utf-8">
+          <div class="form-group mb-3">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Enter email" name="email" required>
+		  </div>
+		 <div class="form-group mb-3">
+            <label for="exampleInputEmail1">Username</label>
+            <input type="text" class="form-control" id="id" aria-describedby="id" placeholder="Enter Username" name="id" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password" name="pwd" required>
+		  </div>
+		  <div class="form-group mb-3">
+            <label for="exampleInputPassword1">Confirm Password</label>
+            <input id="cfrmpwd" type="password" class="form-control" placeholder="Confirm Password" name="cfrmpwd" required>
+          </div>
+          <button type="submit" class="btn btn-primary" name="confirm">Submit</button>
+          <a href="./index.php" class="btn btn-secondary">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
 
-		} else {
-			$email = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
-		}
-		if (empty($pwd) || !isset($pwd)) {
-			$error = true;
-			$errorMsg = "Password is empty.";
-			showError($errorMsg);
-		}
-		if (empty($cfrmpwd) || !isset($cfrmpwd)) {
-			$error = true;
-			$errorMsg = "Confirmation Password is empty.";
-			showError($errorMsg);
-		}
-		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-			$error = true;
-			$errorMsg = "Invalid email format.";
-			showError($errorMsg);
-		}
-		if ($pwd != $cfrmpwd) {
-			$error = true;
-			$errorMsg = "Passwords do not match.";
-			showError($errorMsg);
-		}
-	}
-	if (!$error) {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+  <!-- Include the common footer -->
+  <?php include('footer.php'); ?>
+  <div class="footer">
+    &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
+  </div>
 
-		/* Send register request to server */
-		$request = array();
-		$request['type'] = "Register";
-		$request['email'] = $email;
-		$request['username'] = $user;
-		$request['password'] = $pwd;
-		$response = $client->send_request($request);
+  <!-- Bootstrap JS (optional, but required for some features) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 
-		if ($response === "Registration success.") {
-			echo '<script>alert("Registration success.");</script>';
-			echo '<script>window.location.href = "./login.html";</script>';
-		}
-		else {
-			echo "<script>alert(\"$response\");</script>";
-			echo '<script>window.location.href = "./register.html";</script>';
-		}
-	} 
-}
-?>
+</html>
