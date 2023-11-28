@@ -20,33 +20,6 @@
         <h2 class="card-title text-center">Register Account</h2>
 
         <form action="/user_register.php" method="post" accept-charset="utf-8">
-          <div class="mb-3">
-            <label for="id" class="form-label"><b>Username</b></label>
-            <input id="id" type="text" class="form-control" placeholder="Enter Username" name="id" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="email" class="form-label"><b>Email</b></label>
-            <input id="email" type="text" class="form-control" placeholder="Enter Email" name="email" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="pwd" class="form-label"><b>Password</b></label>
-            <input id="pwd" type="password" class="form-control" placeholder="Enter Password" name="pwd" required>
-          </div>
-
-          <div class="mb-3">
-            <label for="cfrmpwd" class="form-label"><b>Confirm Password</b></label>
-            <input id="cfrmpwd" type="password" class="form-control" placeholder="Confirm Password" name="cfrmpwd" required>
-          </div>
-
-          <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary" name="confirm">Submit</button>
-            <a href="./index.php" class="btn btn-secondary">Cancel</a>
-          </div>
-        </form>
-
-        <form action="/user_register.php" method="post" accept-charset="utf-8">
           <div class="form-group mb-3">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control" id="email" aria-describedby="email" placeholder="Enter email" name="email" required>
