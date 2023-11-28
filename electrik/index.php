@@ -27,21 +27,21 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://via.placeholder.com/600x200" class="d-block w-100" alt="Slide 1">
+      <img src="images/image1.jpeg" class="d-block w-100" alt="Slide 1">
       <div class="carousel-caption d-none d-md-block">
         <h5>First slide label</h5>
         <p>Some representative placeholder content for the first slide.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://via.placeholder.com/600x200" class="d-block w-100" alt="Slide 2">
+      <img src="images/image2.jpg" class="d-block w-100" alt="Slide 2">
       <div class="carousel-caption d-none d-md-block">
         <h5>Second slide label</h5>
         <p>Some representative placeholder content for the second slide.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://via.placeholder.com/600x200" class="d-block w-100" alt="Slide 3">
+      <img src="images/image3.jpg" class="d-block w-100" alt="Slide 3">
       <div class="carousel-caption d-none d-md-block">
         <h5>Third slide label</h5>
         <p>Some representative placeholder content for the third slide.</p>
