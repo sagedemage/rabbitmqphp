@@ -18,28 +18,43 @@
         <?php
         if (isset($_POST['jsonData'])) {
             $jsonData = json_decode($_POST['jsonData'], true);
-            $apps = $jsonData['response']['apps'];
 
-            // Output carousel items dynamically based on API data
-            foreach ($apps as $index => $app) {
-                $appId = $app['appid'];
-                $imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
+            // Check if the expected structure is present
+            if (isset($jsonData['response']['apps']) && is_array($jsonData['response']['apps'])) {
+                $apps = $jsonData['response']['apps'];
 
-                // Set active class for the first item
-                $activeClass = ($index === 0) ? 'active' : '';
+                // Output carousel items dynamically based on API data
+                foreach ($apps as $index => $app) {
+                    $appId = $app['appid'];
+                    $imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
 
-                // Output carousel item
-                echo '<div class="carousel-item ' . $activeClass . '">';
-                echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
-                echo '</div>';
+                    // Set active class for the first item
+                    $activeClass = ($index === 0) ? 'active' : '';
+
+                    // Output carousel item
+                    echo '<div class="carousel-item ' . $activeClass . '">';
+                    echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
+                    echo '</div>';
+                }
+                
+                // Print a success message to the console
+                echo '<script>';
+                echo 'console.log("Data received from the server:", ' . json_encode($jsonData) . ');';
+                echo '</script>';
+            } else {
+                // Print an error message to the console
+                echo '<script>';
+                echo 'console.error("Invalid JSON data structure from the server");';
+                echo '</script>';
             }
-
-            // Print a script to the console
+        } else {
+            // Print an error message to the console
             echo '<script>';
-            echo 'console.log("Data received from the server:", ' . json_encode($jsonData) . ');';
+            echo 'console.error("No JSON data received from the server");';
             echo '</script>';
         }
         ?>
+
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
