@@ -87,3 +87,14 @@ For example, to delete all records from the Users table
 delete from Users;
 ```
 
+### Remove an existing table
+```
+drop table table_name;
+```
+
+For example, to remove the Users table
+```
+drop table Users;
+```
+
+
