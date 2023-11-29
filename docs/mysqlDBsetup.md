@@ -44,3 +44,15 @@ create table if not exists Users(id int not null auto_increment, username varcha
 
 select user, host, authentication_string from mysql.user; //NOT NEEDED
 
+3. Create Review table
+```
+create table if not exists Reviews (
+    reviewId int auto_increment primary key,
+    userId int,
+    appId int,
+    gameRating varchar(10),
+    reviewText text,
+    foreign key (userId) references Users(id)
+);
+```
+
