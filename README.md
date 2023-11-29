@@ -8,3 +8,9 @@
 
 ## Setup Web Server
 [Setup Web Server](./docs/setup_web_server.md)
+
+## Steam API
+[Steam API](./docs/steam_api.md)
+
+## Setup HTTPS for the Website
+[Setup HTTPS for the Website](./docs/setup_https_for_website.md)
