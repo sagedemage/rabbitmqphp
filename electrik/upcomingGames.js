@@ -8,14 +8,28 @@
 }*/
 
 axios.get('/upcomingGames.php')
-	.then(function (response) {
-		// handle success
-		console.log(response);
-	})
-	.catch(function (error) {
-		// handle error
-		console.log(error);
-	})
-	.finally(function () {
-		// always executed
-	});
+  .then(function (response) {
+    // Send the data to the server
+    sendDataToServer(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+
+
+function sendDataToServer(data) {
+  // Create a new XMLHttpRequest object
+  var xhr = new XMLHttpRequest();
+  // Specify the type of request (POST) and the URL
+  xhr.open('POST', 'index.php', true);
+  // Set the Content-Type header
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  // Convert the data to a URL-encoded string
+  var encodedData = 'jsonData=' + encodeURIComponent(JSON.stringify(data));
+  // Send the request
+  xhr.send(encodedData);
+}
