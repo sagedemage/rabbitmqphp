@@ -34,10 +34,6 @@
                 echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
                 echo '</div>';
 
-                // Output information to console
-                echo '<script>';
-                echo 'console.log("Current appId:", ' . json_encode($appId) . ');';
-                echo '</script>';
             }
         }
         ?>
