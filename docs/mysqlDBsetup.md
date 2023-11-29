@@ -77,3 +77,13 @@ For example, to get the structure of the Users table
 describe Users;
 ```
 
+### Delete all records from the Table
+```
+delete from table_name;
+```
+
+For example, to delete all records from the Users table
+```
+delete from Users;
+```
+
