@@ -56,3 +56,24 @@ create table if not exists Reviews (
 );
 ```
 
+## MySQL Commands
+### Get Table records
+```
+select * from table_name;
+```
+
+For example, to get User records
+```
+select * from Users
+```
+
+### Get the structure of the Table
+```
+describe table_name
+```
+
+For example, to get the structure of the Users table
+```
+describe Users;
+```
+
