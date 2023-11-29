@@ -10,6 +10,7 @@
 axios.get('/upcomingGames.php')
   .then(function (response) {
     // Send the data to the server
+	console.log(response.data);
     sendDataToServer(response.data);
   })
   .catch(function (error) {
