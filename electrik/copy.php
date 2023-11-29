@@ -16,7 +16,6 @@
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" id="carouselInner">
         <?php
-        // Check if data is received from the client
         if (isset($_POST['jsonData'])) {
             $jsonData = json_decode($_POST['jsonData'], true);
             $apps = $jsonData['response']['apps'];
@@ -34,6 +33,11 @@
                 echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
                 echo '</div>';
             }
+
+            // Print a script to the console
+            echo '<script>';
+            echo 'console.log("Data received from the server:", ' . json_encode($jsonData) . ');';
+            echo '</script>';
         }
         ?>
     </div>
