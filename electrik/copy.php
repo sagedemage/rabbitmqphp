@@ -16,8 +16,12 @@
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" id="carouselInner">
         <?php
-        if (isset($_POST['jsonData'])) {
-            $jsonData = json_decode($_POST['jsonData'], true);
+        // Read JSON data from the request body
+        $json_data = file_get_contents('php://input');
+        
+        if (!empty($json_data)) {
+            // Decode JSON data
+            $jsonData = json_decode($json_data, true);
 
             // Check if the expected structure is present
             if (isset($jsonData['response']['apps']) && is_array($jsonData['response']['apps'])) {
@@ -36,7 +40,7 @@
                     echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
                     echo '</div>';
                 }
-                
+
                 // Print a success message to the console
                 echo '<script>';
                 echo 'console.log("Data received from the server:", ' . json_encode($jsonData) . ');';
@@ -54,7 +58,6 @@
             echo '</script>';
         }
         ?>
-
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
