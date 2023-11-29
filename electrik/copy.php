@@ -14,36 +14,42 @@
 
 <!-- Bootstrap Carousel -->
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner" id="carouselInner">
-    <?php
-    // Check if data is received from the client
-    if (isset($_POST['jsonData'])) {
-        $jsonData = json_decode($_POST['jsonData'], true);
-        $apps = $jsonData['response']['apps'];
+    <div class="carousel-inner" id="carouselInner">
+        <?php
+        // Check if data is received from the client
+        if (isset($_POST['jsonData'])) {
+            $jsonData = json_decode($_POST['jsonData'], true);
+            $apps = $jsonData['response']['apps'];
 
-        // Output carousel items dynamically based on API data
-        foreach ($apps as $index => $app) {
-            $appId = $app['appid'];
-            $imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
-            
-            // Set active class for the first item
-            $activeClass = ($index === 0) ? 'active' : '';
+            // Output carousel items dynamically based on API data
+            foreach ($apps as $index => $app) {
+                $appId = $app['appid'];
+                $imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
 
-            echo '<div class="carousel-item ' . $activeClass . '">';
-            echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
-            echo '</div>';
+                // Set active class for the first item
+                $activeClass = ($index === 0) ? 'active' : '';
+
+                // Output carousel item
+                echo '<div class="carousel-item ' . $activeClass . '">';
+                echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
+                echo '</div>';
+
+                // Output information to console
+                echo '<script>';
+                echo 'console.log("Current appId:", ' . json_encode($appId) . ');';
+                echo '</script>';
+            }
         }
-    }
-    ?>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+        ?>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
 
 <!-- Cards below the carousel -->
@@ -82,7 +88,6 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <!-- Your JavaScript file -->
 <script src="upcomingGames.js"></script>
-
 
 </body>
 </html>
