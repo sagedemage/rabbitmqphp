@@ -27,7 +27,6 @@
             echo '<script>';
             echo 'console.error("JSON decoding error:", ' . json_encode(['error' => json_last_error_msg()]) . ');';
             echo '</script>';
-            echo json_encode(['error' => 'JSON decoding error']);
         } else {
             echo '<script>';
             echo 'console.log("JSON decoding successful:", ' . json_encode(['jsonData' => $jsonData]) . ');';
