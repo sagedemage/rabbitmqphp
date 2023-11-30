@@ -15,6 +15,39 @@
 <!-- Bootstrap Carousel -->
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" id="carouselInner">
+        <?php
+
+        $json_data = file_get_contents('php://input');
+        error_log("Received JSON data: " . print_r($json_data, true)); 
+
+        $jsonData = json_decode($json_data, true);
+        if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
+            error_log("JSON decoding error: " . json_last_error_msg());
+            echo json_encode(['error' => 'JSON decoding error']);
+        } else {
+            error_log("JSON decoding successful");
+
+            if (isset($jsonData['response']['apps']) && is_array($jsonData['response']['apps'])) {
+                $apps = $jsonData['response']['apps'];
+
+                foreach ($apps as $index => $app) {
+                    $appId = $app['appid'];
+                    $imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
+                    $activeClass = ($index === 0) ? 'active' : '';
+                    echo '<div class="carousel-item ' . $activeClass . '">';
+                    echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
+                    echo '</div>';
+                }
+                echo '<script>';
+                echo 'console.log("Data received from the server:", ' . json_encode($jsonData) . ');';
+                echo '</script>';
+            } else {
+                echo '<script>';
+                echo 'console.error("Invalid JSON data structure from the server");';
+                echo '</script>';
+            }
+        }
+        ?>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
