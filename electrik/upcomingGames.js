@@ -46,7 +46,7 @@ function sendDataToServer(data) {
 }
 */
 
-axios.get('copy.php')
+axios.get('upcomingGames.php')
   .then(function (response) {
     console.log("Raw data from server:", response.data);
 
@@ -55,7 +55,7 @@ axios.get('copy.php')
         jsonData: response.data
       };
 
-      axios.post('upcomingGames.php', dataObject)
+      axios.post('copy.php', dataObject)
         .then(function (response) {
           console.log(response.data);
         })
