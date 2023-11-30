@@ -22,7 +22,7 @@
 
         $jsonData = json_decode($json_data, true);
         if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
-            error_log("JSON decoding error: " . json_last_error_msg());
+            echo(json_last_error_msg());
             echo json_encode(['error' => 'JSON decoding error']);
         } else {
             error_log("JSON decoding successful");
