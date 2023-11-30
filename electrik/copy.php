@@ -21,12 +21,12 @@
     <div class="carousel-inner" id="carouselInner">
         <?php
 
-        $json_data = file_get_contents('php://input');
+        $json_data = json_decode(file_get_contents('php://input'), true);
+
         echo '<script>';
         echo 'console.log("Received JSON data:", ' . json_encode(['jsonData' => $json_data]) . ');';
         echo '</script>';
 
-        $jsonData = json_decode($json_data, true);
         if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
             echo '<script>';
             echo 'console.error("JSON decoding error:", ' . json_encode(['error' => json_last_error_msg()]) . ');';

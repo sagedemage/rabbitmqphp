@@ -23,8 +23,8 @@ axios.get('upcomingGames.php')
       axios.post('copy.php', dataObject, {
         headers: {
           'Content-Type': 'application/json',
-        }
-      })
+        },
+      })      
       .then(function (response) {
         console.log("In js before post:", response.data);
       })
