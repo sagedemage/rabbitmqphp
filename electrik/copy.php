@@ -18,14 +18,20 @@
         <?php
 
         $json_data = file_get_contents('php://input');
-        error_log("Received JSON data: " . print_r($json_data, true)); 
+        echo '<script>';
+        echo 'console.log("Received JSON data:", ' . json_encode(['jsonData' => $json_data]) . ');';
+        echo '</script>';
 
         $jsonData = json_decode($json_data, true);
         if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
-            echo(json_last_error_msg());
+            echo '<script>';
+            echo 'console.error("JSON decoding error:", ' . json_encode(['error' => json_last_error_msg()]) . ');';
+            echo '</script>';
             echo json_encode(['error' => 'JSON decoding error']);
         } else {
-            error_log("JSON decoding successful");
+            echo '<script>';
+            echo 'console.log("JSON decoding successful:", ' . json_encode(['jsonData' => $jsonData]) . ');';
+            echo '</script>';
 
             if (isset($jsonData['response']['apps']) && is_array($jsonData['response']['apps'])) {
                 $apps = $jsonData['response']['apps'];
