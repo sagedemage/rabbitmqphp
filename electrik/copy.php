@@ -15,68 +15,6 @@
 <!-- Bootstrap Carousel -->
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" id="carouselInner">
-        <?php
-
-        // Allow from any origin
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Headers: *");
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-        header("Content-Type: application/json"); // Set content type to JSON
-
-        // Add this line at the beginning of the file for debugging
-        error_log("Received request in copy.php");
-
-        // Access-Control headers are received during OPTIONS requests
-        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
-                header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-            }
-
-            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) {
-                header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-            }
-
-            exit(0);
-        }
-
-        // Read JSON data from the request body
-        $json_data = file_get_contents('php://input');
-        error_log("Received JSON data: " . print_r($json_data, true));  // Add this line for debugging
-
-        // Decode JSON data
-        $jsonData = json_decode($json_data, true);
-
-        // Check for JSON decoding errors
-        if ($jsonData === null && json_last_error() !== JSON_ERROR_NONE) {
-            // Handle JSON decoding error
-            error_log("JSON decoding error: " . json_last_error_msg());
-            // Add any necessary error handling or return a response
-            echo json_encode(['error' => 'JSON decoding error']);
-        } else {
-            // Continue processing with the decoded JSON data
-            error_log("JSON decoding successful");
-
-            if (isset($jsonData['response']['apps']) && is_array($jsonData['response']['apps'])) {
-                $apps = $jsonData['response']['apps'];
-
-                foreach ($apps as $index => $app) {
-                    $appId = $app['appid'];
-                    $imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
-                    $activeClass = ($index === 0) ? 'active' : '';
-                    echo '<div class="carousel-item ' . $activeClass . '">';
-                    echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
-                    echo '</div>';
-                }
-                echo '<script>';
-                echo 'console.log("Data received from the server:", ' . json_encode($jsonData) . ');';
-                echo '</script>';
-            } else {
-                echo '<script>';
-                echo 'console.error("Invalid JSON data structure from the server");';
-                echo '</script>';
-            }
-        }
-        ?>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
