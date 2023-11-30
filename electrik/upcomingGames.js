@@ -46,21 +46,33 @@ function sendDataToServer(data) {
 }
 */
 
-axios.get('upcomingGames.php') 
+axios.get('upcomingGames.php')
   .then(function (response) {
-    const apiResponseData = response.data;
-    const dataObject = {
-      jsonData: apiResponseData
-    };
-    axios.post('upcomingGames.php', dataObject)
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(function () {
-      });
+    // Log raw data from the server for debugging
+    console.log("Raw data from server:", response.data);
+
+    try {
+      // Attempt to parse JSON data
+      const jsonData = JSON.parse(response.data);
+
+      const dataObject = {
+        jsonData: jsonData
+      };
+
+      axios.post('upcomingGames.php', dataObject)
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(function () {
+          // Any final cleanup or actions
+        });
+    } catch (e) {
+      // Log error if JSON parsing fails
+      console.error("Error parsing JSON data:", e);
+    }
   })
   .catch(function (error) {
     console.log(error);
