@@ -9,16 +9,14 @@
 
 axios.get('/upcomingGames.php')
   .then(function (response) {
-    // Send the data to the server
-	console.log(response.data);
+    console.log('Request successful. Response:', response);
     sendDataToServer(response.data);
   })
   .catch(function (error) {
-    // handle error
-    console.log(error);
+    console.log('Error in request:', error);
   })
   .finally(function () {
-    // always executed
+    console.log('Request finished.');
   });
 
 
