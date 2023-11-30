@@ -46,7 +46,7 @@ function sendDataToServer(data) {
 }
 */
 
-axios.get('upcomingGames.php')
+axios.get('copy.php')
   .then(function (response) {
     console.log("Raw data from server:", response.data);
 
