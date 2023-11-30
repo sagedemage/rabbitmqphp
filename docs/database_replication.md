@@ -304,6 +304,7 @@ Lastly, set sync_binlog to 1 to avoid synchronous issues (**important**): 
 File: /etc/mysql/mysql.conf.d/mysqld.cnf
 
 ```
+. . .
 sync_binlog = 1
 ```
 
@@ -314,6 +315,7 @@ sudo systemctl restart mysql
 ```
 
 After restarting the `mysql` service, you’re finally ready to start replicating data from your source database.
+
 ## Step 6 — Starting and Testing Replication
 
 At this point, both of your MySQL instances are fully configured to allow replication. To start replicating data from your source, open up the the MySQL shell on your replica server:
