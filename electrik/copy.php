@@ -32,8 +32,8 @@
             echo 'console.log("JSON decoding successful:", ' . json_encode(['jsonData' => $jsonData]) . ');';
             echo '</script>';
 
-            if (isset($jsonData['response']['apps']) && is_array($jsonData['response']['apps'])) {
-                $apps = $jsonData['response']['apps'];
+            if (isset($jsonData['jsonData']) && is_array($jsonData['jsonData'])) {
+                $apps = $jsonData['jsonData'];
 
                 foreach ($apps as $index => $app) {
                     $appId = $app['appid'];
