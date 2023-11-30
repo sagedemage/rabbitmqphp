@@ -5,9 +5,21 @@
 		'Access-Control-Allow-Headers' : 'X-PINGOTHER, Content-Type',
 		'Access-Control-Max-Age': '86400'
 	}
-}*/
+}
+const apiResponseData = {
+  response: {
+    apps: [
+      {
+        appid: 10,
+        name: "Counter-Strike",
+        last_modified: 1666823513,
+        price_change_number: 21319021
+      },
+    ]
+  }
+};
 
-axios.get('/upcomingGames.php')
+axios.get('/upcomingGames.php', { jsonData: yourDataObject })
   .then(function (response) {
     console.log('Request successful. Response:', response);
     sendDataToServer(response.data);
@@ -32,3 +44,24 @@ function sendDataToServer(data) {
   // Send the request
   xhr.send(encodedData);
 }
+*/
+
+axios.get('upcomingGames.php') 
+  .then(function (response) {
+    const apiResponseData = response.data;
+    const dataObject = {
+      jsonData: apiResponseData
+    };
+    axios.post('upcomingGames.php', dataObject)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(function () {
+      });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
