@@ -46,9 +46,10 @@ function sendDataToServer(data) {
 }
 */
 
-axios.get('upcomingGames.php') 
+axios.get('upcomingGames.php')
   .then(function (response) {
     const apiResponseData = response.data;
+    console.log(apiResponseData);
     const dataObject = {
       jsonData: apiResponseData
     };
@@ -65,3 +66,4 @@ axios.get('upcomingGames.php')
   .catch(function (error) {
     console.log(error);
   });
+
