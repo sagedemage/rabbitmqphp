@@ -48,38 +48,28 @@ function sendDataToServer(data) {
 
 axios.get('upcomingGames.php')
   .then(function (response) {
-    // Log raw data from the server for debugging
     console.log("Raw data from server:", response.data);
-    console.log(typeof response.data);
-    // Check if the response data is a string (it should be based on the provided API output)
-    if (typeof response.data === 'string') {
-      try {
-        // Attempt to parse JSON data
-        const jsonData = JSON.parse(response.data);
 
-        const dataObject = {
-          jsonData: jsonData
-        };
+    if (typeof response.data === 'object' && response.data !== null) {
+      const dataObject = {
+        jsonData: response.data
+      };
 
-        axios.post('upcomingGames.php', dataObject)
-          .then(function (response) {
-            console.log(response.data);
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-          .finally(function () {
-            // Any final cleanup or actions
-          });
-      } catch (e) {
-        // Log error if JSON parsing fails
-        console.error("Error parsing JSON data:", e);
-      }
+      axios.post('upcomingGames.php', dataObject)
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(function () {
+        });
     } else {
-      console.error("Invalid response data type. Expected string.");
+      console.error("Invalid response data type. Expected object.");
     }
   })
   .catch(function (error) {
     console.log(error);
   });
+
 
