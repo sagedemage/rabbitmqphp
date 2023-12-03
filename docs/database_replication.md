@@ -93,7 +93,7 @@ sudo mysql -u root
 ```
   
 
-From the prompt, create a new MySQL user. In this case, you will create a user named replica_user. Be sure to change `replica_server_ip` to your replica server’s public IP address and change its `password`:
+From the prompt, create a new MySQL user. In this case, you will create a user named replica_admin. Be sure to change `replica_server_ip` to your replica server’s public IP address and change its `password`:
 
 ```
 CREATE USER 'replica_admin'@'replica_server_ip' IDENTIFIED WITH mysql_native_password BY 'adminPass';
@@ -103,7 +103,7 @@ CREATE USER 'replica_admin'@'replica_server_ip' IDENTIFIED WITH mysql_native_pas
 After creating the new user, grant them the appropriate privileges. At minimum, a MySQL replication user must have the `REPLICATION SLAVE` permissions:
 
 ```
-GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'replica_server_ip';
+GRANT REPLICATION SLAVE ON *.* TO 'replica_admin'@'replica_server_ip';
 ```
   
 
