@@ -221,7 +221,7 @@ sudo mysql ProjectDB < /tmp/ProjectDB.sql
 ```
   
 
-## Step 5 - Configuring the Replica Database
+## Step 5 — Configuring the Replica Database
 
 All that’s left to do is to change the replica’s configuration similar to how you changed the source’s configuration.
 
