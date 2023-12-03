@@ -35,6 +35,9 @@ It should look like this:
     sudo systemctl start ssh
     ```
 
+### Note for IP Address
+Use the Adapter IP address for the source and replica VMs. The Adapter IP address should start with 192.
+
 ## Step 1 — Adjusting Your Source Server’s Firewall
 
 The command allows any connections that originate from the replica server’s IP address:
