@@ -275,7 +275,7 @@ Run the sql query file which configures several MySQL replication settings at th
 source sql_queries/configure_replica.sql
 ```
 
-You might have to stop the replica if the source command does not work
+If the source command does not work, you have to stop the replica:
 ```
 STOP REPLICA IO_THREAD FOR CHANNEL '';
 ```
