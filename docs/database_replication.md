@@ -2,7 +2,7 @@
 
 ## Step 1 — Prerequisite
 
-### Setup the Networking for the Source and Replica VMs
+### 1.1 Setup the Networking for the Source and Replica VMs
 
 1. Go to VM settings 
 2. Go to Network
@@ -14,7 +14,7 @@ It should look like this:
 
 ![vm_network_configuration_for_db_replication](./../images/vm_network_configuration_for_db_replication.PNG)
 
-### Install SSH on Source and Replica VMs
+### 1.2 Install SSH on Source and Replica VMs
 
 1. Install openssh server
 
@@ -47,7 +47,7 @@ sudo ufw allow from replica_server_ip_address to any port 3306
 sudo ufw allow from replica_server_ip_address to any port 22
 ```
 
-### Note for IP Address
+### 2.1 Note for IP Address
 Use the Adapter IP address for the source and replica VMs. The Adapter IP address should start with 192.
 
 ## Step 3 — Configuring the Source Database
@@ -142,7 +142,7 @@ UNLOCK TABLES;
 ```
   
 
-### If Your Source Has Existing Data to Migrate  
+### 5.1 If Your Source Has Existing Data to Migrate  
 
 From the new terminal window or tab, open up another SSH session to the server hosting your source MySQL instance:
 
@@ -302,7 +302,7 @@ SHOW REPLICA STATUS\G;
   
 Your replica is now replicating data from the source. Any changes you make to the source database will be reflected on the replica MySQL instance. You can test this by registering a new user and checking whether it gets replicated successfully.
 
-### Test if Database Replication Works
+### 7.1 Test if Database Replication Works
   
 1. First register a new user on the website.  
   
