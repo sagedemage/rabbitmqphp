@@ -5,3 +5,4 @@ SOURCE_USER='replica_admin',
 SOURCE_PASSWORD='adminPass',
 SOURCE_LOG_FILE='mysql-bin.000001',
 SOURCE_LOG_POS=4;
+START REPLICA;
