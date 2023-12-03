@@ -1,6 +1,6 @@
 # Database Replication Guide
 
-## Prerequisite
+## Step 1 — Prerequisite
 
 ### Setup the Networking for the Source and Replica VMs
 
@@ -36,7 +36,7 @@ It should look like this:
     ```
 
 
-## Step 1 — Adjusting Your Source Server’s Firewall
+## Step 2 — Adjusting Your Source Server’s Firewall
 
 The command allows any connections that originate from the replica server’s IP address:
 
@@ -50,7 +50,7 @@ sudo ufw allow from replica_server_ip_address to any port 22
 ### Note for IP Address
 Use the Adapter IP address for the source and replica VMs. The Adapter IP address should start with 192.
 
-## Step 2 — Configuring the Source Database
+## Step 3 — Configuring the Source Database
 
 Source VM:
 
@@ -86,7 +86,7 @@ Source VM:
 sudo systemctl restart mysql
 ```
 
-## Step 3 — Creating a Replication User
+## Step 4 — Creating a Replication User
 
 Login to mysql as root
 
@@ -117,7 +117,7 @@ Following this, it’s good practice to run the `FLUSH PRIVILEGES` command. This
 FLUSH PRIVILEGES;
 ```
 
-## Step 4 — Retrieving Binary Log Coordinates from the Source
+## Step 5 — Retrieving Binary Log Coordinates from the Source
 
 From the prompt, run the following command which will close all the open tables in every database on your source instance and lock them:
 
@@ -221,7 +221,7 @@ sudo mysql ProjectDB < /tmp/ProjectDB.sql
 ```
   
 
-## Step 5 — Configuring the Replica Database
+## Step 6 — Configuring the Replica Database
 
 All that’s left to do is to change the replica’s configuration similar to how you changed the source’s configuration.
 
@@ -250,7 +250,7 @@ sudo systemctl restart mysql
 
 After restarting the `mysql` service, you’re finally ready to start replicating data from your source database.
 
-## Step 6 — Starting and Testing Replication
+## Step 7 — Starting and Testing Replication
 
 At this point, both of your MySQL instances are fully configured to allow replication. To start replicating data from your source, open up the the MySQL shell on your replica server:
 
