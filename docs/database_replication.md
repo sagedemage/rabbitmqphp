@@ -50,7 +50,7 @@ sudo ufw allow from replica_server_ip_address to any port 22
 
 Source VM:
 
-Copy the source mysqld config to /etc/mysql/mysql.conf.d/mysqld.cnf
+Copy the source mysqld config file, `mysql_configs/source/mysqld.cnf`, to /etc/mysql/mysql.conf.d/mysqld.cnf
 
 ```
 sudo cp mysql_configs/source/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -219,47 +219,17 @@ sudo mysql ProjectDB < /tmp/ProjectDB.sql
 
 ## Step 5 - Configuring the Replica Database
 
-All that’s left to do is to change the replica’s configuration similar to how you changed the source’s. Open up the MySQL configuration file, `mysqld.cnf`, this time on your replica server:
+All that’s left to do is to change the replica’s configuration similar to how you changed the source’s configuration.
+
+Copy the replica mysql config file, `mysql_configs/replica/mysqld.cnf`, to /etc/mysql/mysql.conf.d/mysqld.cnf, this time on your **replica server**:
 
 Replica VM:
 
 ```
-sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo cp mysql_configs/replica/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
-  
 
-As mentioned before, each MySQL instance in a replication setup must have a unique `server-id` value. Find the replica’s `server-id` directive, uncomment it, and change its value to any positive integer different from that of the source:
-
-File: /etc/mysql/mysql.conf.d/mysqld.cnf
-
-```
-server-id               = 2
-```
-  
-
-Following that, update the `log_bin` and `binlog_do_db` values so that they align with the values you set in the source machine’s configuration file:
-
-File: /etc/mysql/mysql.conf.d/mysqld.cnf
-
-```
-. . .
-log_bin                 = /var/log/mysql/mysql-bin.log
-. . .
-binlog_do_db            = ProjectDB
-. . .
-```
-  
-
-Add a `relay-log` directive defining the location of the replica’s relay log file. Include the following line at the end of the configuration file:
-
-File: /etc/mysql/mysql.conf.d/mysqld.cnf
-
-```
-. . .
-relay-log               = /var/log/mysql/mysql-relay-bin.log
-```  
-
-Lastly, set sync_binlog to 1 to avoid synchronous issues (**important**): 
+**Important Note**: Open the mysql config file, `mysqld.cnf`, at /etc/mysql/mysql.conf.d/mysqld.cnf. The config sets sync_binlog to 1 to avoid synchronous issues: 
 
 File: /etc/mysql/mysql.conf.d/mysqld.cnf
 
@@ -268,7 +238,7 @@ File: /etc/mysql/mysql.conf.d/mysqld.cnf
 sync_binlog = 1
 ```
 
-After making these changes, save and close the file. Then restart MySQL on the replica to implement the new configuration:
+After making these changes, restart MySQL on the replica to implement the new configuration:
 
 ```
 sudo systemctl restart mysql
