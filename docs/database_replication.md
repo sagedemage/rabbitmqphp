@@ -275,6 +275,11 @@ Run the sql query file which configures several MySQL replication settings at th
 source sql_queries/configure_replica.sql
 ```
 
+You might have to stop the replica if the source command does not work
+```
+STOP REPLICA IO_THREAD FOR CHANNEL '';
+```
+
 **More Infomration on the SQL query file**
 - After running this command, once you enable replication on this instance it will try to connect to the IP address  using the username and password.
   - `SOURCE_HOST` => IP address
