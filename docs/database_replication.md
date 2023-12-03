@@ -162,6 +162,8 @@ sudo mysqldump -u root ProjectDB > ProjectDB.sql
 
 Return to the terminal that should still have the MySQL shell open. From the MySQL prompt, unlock the databases to make them writable again:
 
+Source VM:
+
 ```
 UNLOCK TABLES;
 ```
