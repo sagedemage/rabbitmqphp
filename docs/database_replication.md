@@ -242,7 +242,7 @@ File: /etc/mysql/mysql.conf.d/mysqld.cnf
 sync_binlog = 1
 ```
 
-After making these changes, restart MySQL on the replica to implement the new configuration:
+Restart MySQL on the replica to implement the new configuration:
 
 ```
 sudo systemctl restart mysql
