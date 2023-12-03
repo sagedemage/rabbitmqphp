@@ -252,16 +252,30 @@ After restarting the `mysql` service, you’re finally ready to start replicatin
 
 ## Step 7 — Starting and Testing Replication
 
-At this point, both of your MySQL instances are fully configured to allow replication. To start replicating data from your source, open up the the MySQL shell on your replica server:
+At this point, both of your MySQL instances are fully configured to allow replication. We get start getting with data replication from the source. 
+
+In the sql_queries/configure_replica.sql file. Replace the source_server_ip to the IP address of the source VM on your **replica server**:
 
 Replica VM:
 
+File: sql_queries/configure_replica.sql
+```
+. . .
+SOURCE_HOST='source_server_ip',
+. . .
+```
+
+Open up the the MySQL shell:
 ```
 sudo mysql -u root
 ```
 
-From the prompt, run the following operation, which configures several MySQL replication settings at the same time. 
+Run the sql query file which configures several MySQL replication settings at the same time and enable database replication:
+```
+source sql_queries/configure_replica.sql
+```
 
+**More Infomration on the SQL query file**
 - After running this command, once you enable replication on this instance it will try to connect to the IP address  using the username and password.
   - `SOURCE_HOST` => IP address
   - `SOURCE_USER` => username
@@ -272,27 +286,8 @@ From the prompt, run the following operation, which configures several MySQL rep
 - Be sure to replace `source_server_ip` with your source server’s IP address. 
 - The `replica_user` and `password` should align with the replication user you created.
 - The `mysql-bin.000001` log file and `4` sets the binary log coordinates.
-- I recommend you type this command out in a text editor before running it on your replica server so that you can more easily replace all the relevant information:
-
-```
-CHANGE REPLICATION SOURCE TO
-SOURCE_HOST='source_server_ip',
-SOURCE_USER='replica_admin',
-SOURCE_PASSWORD='adminPass',
-SOURCE_LOG_FILE='mysql-bin.000001',
-SOURCE_LOG_POS=4;
-```
-  
-
-Following that, activate the replica server:
-
-```
-START REPLICA;
-```
-  
 
 If you did this correctly, the replica VM will begin replicating any changes made to the `ProjectDB` database on the source.
-
 
 You can see details about the replica’s current state by running the following operation. The `\G` modifier in this command rearranges the text to make it more readable:
 
