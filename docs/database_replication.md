@@ -48,17 +48,20 @@ sudo ufw allow from replica_server_ip_address to any port 22
 
 ## Step 2 — Configuring the Source Database
 
-  
+Source VM:
+
+Copy the source mysqld config to /etc/mysql/mysql.conf.d/mysqld.cnf
+
+```
+sudo cp mysql_configs/source/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
+```
 
 Open the MySQL server configuration file on the **source server**.  
-
-Source VM:
 
 ```
 sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
   
-
 Replace `127.0.0.1` with the source server’s IP address:
 
 File: /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -67,49 +70,6 @@ File: /etc/mysql/mysql.conf.d/mysqld.cnf
 . . .
 bind-address            = source_server_ip
 . . .
-```
-  
-  
-
-Uncomment this line. You can choose any number as the value, but the number must be unique and cannot match any other `server-id` in your replication group.
-
-File: /etc/mysql/mysql.conf.d/mysqld.cnf
-
-```
-. . .
-server-id               = 1
-. . .
-```
-  
-
-Your replica server must read the source’s binary log file so it knows when and how to replicate the source’s data, so uncomment this line to enable binary logging on the source.
-
-File: /etc/mysql/mysql.conf.d/mysqld.cnf
-
-```
-. . .
-log_bin                       = /var/log/mysql/mysql-bin.log
-. . .
-```
-  
-
-Lastly, scroll down to the bottom of the file to find the commented-out `binlog_do_db` directive:
-
-File: /etc/mysql/mysql.conf.d/mysqld.cnf
-
-```
-. . .
-# binlog_do_db          = include_database_name
-```
-  
-
-Remove the pound sign to uncomment this line and replace `include_database_name` with the name of the database you want to replicate to `ProjectDB`. This example shows the `binlog_do_db` directive pointing to a database named `ProjectDB`. 
-
-File: /etc/mysql/mysql.conf.d/mysqld.cnf
-  
-```
-. . .
-binlog_do_db          = ProjectDB
 ```
 
 After making these changes, save and close the file.
