@@ -35,8 +35,6 @@ It should look like this:
     sudo systemctl start ssh
     ```
 
-### Note for IP Address
-Use the Adapter IP address for the source and replica VMs. The Adapter IP address should start with 192.
 
 ## Step 1 — Adjusting Your Source Server’s Firewall
 
@@ -48,6 +46,9 @@ Source VM:
 sudo ufw allow from replica_server_ip_address to any port 3306
 sudo ufw allow from replica_server_ip_address to any port 22
 ```
+
+### Note for IP Address
+Use the Adapter IP address for the source and replica VMs. The Adapter IP address should start with 192.
 
 ## Step 2 — Configuring the Source Database
 
