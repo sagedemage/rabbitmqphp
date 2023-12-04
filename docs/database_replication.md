@@ -330,12 +330,12 @@ Your replica is now replicating data from the source. Any changes you make to th
 
 ### Issue 1 — MySQL Relay Log Corrupted Fix
 
-Stops the replication threads:
+Stop the replication threads:
 ```
 stop replica;
 ```
 
-Makes the replica forget its replication position in the source's binary log. 
+Make the replica forget its replication position in the source's binary log. 
 ```
 reset replica;
 ```
@@ -345,7 +345,7 @@ Set master log file and its log position:
 CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=4;
 ```
 
-Starts the replication threads:
+Start the replication threads:
 ```
 start replica;
 ```
