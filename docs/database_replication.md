@@ -326,5 +326,30 @@ Your replica is now replicating data from the source. Any changes you make to th
 
 **Note**: If either of these operations fail to do the database replication, it may be that you have an error somewhere in your replication configuration. In such cases, you could run the `SHOW REPLICA STATUS\G` operation to try finding the cause of the issue. Additionally, you can consult [MySQL’s documentation on troubleshooting](https://dev.mysql.com/doc/mysql-replication-excerpt/8.0/en/replication-problems.html) for suggestions on how to resolve replication problems.
 
+## Troubleshooting DB Replication
+
+### Issue 1 — MySQL Relay Log Corrupted Fix
+
+Stops the replication threads:
+```
+stop replica;
+```
+
+Makes the replica forget its replication position in the source's binary log. 
+```
+reset replica;
+```
+
+Set master log file and its log position:
+```
+CHANGE MASTER TO MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=4;
+```
+
+Starts the replication threads:
+```
+start replica;
+```
+
 ## Resources
 - [https://www.digitalocean.com/community/tutorials/how-to-set-up-replication-in-mysql](https://www.digitalocean.com/community/tutorials/how-to-set-up-replication-in-mysql)
+- [MySQL relay log corrupted, how do I fix it? Tried but failed](https://dba.stackexchange.com/questions/53893/mysql-relay-log-corrupted-how-do-i-fix-it-tried-but-failed)
