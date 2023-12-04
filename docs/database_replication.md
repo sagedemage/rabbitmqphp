@@ -335,7 +335,7 @@ Stop the replication threads:
 stop replica;
 ```
 
-Make the replica forget its replication position in the source's binary log. 
+Make the replica forget its replication position in the source's binary log:
 ```
 reset replica;
 ```
