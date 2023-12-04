@@ -1,10 +1,16 @@
 # rabbitmqphp
 
+## Ubuntu VM Dependencies
+[Ubuntu VM Dependencies](./docs/ubuntu_vm_dependencies.md)
+
 ## MySQL Database Setup
 [MySQL Database Setup](./docs/mysqlDBsetup.md)
 
 ## Setup Web Server
 [Setup Web Server](./docs/setup_web_server.md)
 
-## RabbitMQ Setup
-[Setup RabbitMQ Server](./docs/rabbitmqsetup.md)
+## Steam API
+[Steam API](./docs/steam_api.md)
+
+## Setup HTTPS for the Website
+[Setup HTTPS for the Website](./docs/setup_https_for_website.md)

@@ -1,49 +1,74 @@
 <?php
-$id = $_POST['id'];
-$pwd = $_POST['pwd'];
-$error = false;
+ini_set('display_errors', 1);
 
-if (isset($id) && isset($pwd)) {
-    // Validate username or email (allowing alphanumeric characters, hyphens, and spaces)
-    if (!preg_match("/^[a-zA-Z0-9-' ]*$/", $id)) {
-        $error = true;
-    }
+require_once('../rabbitmq_lib/path.inc');
+require_once('../rabbitmq_lib/get_host_info.inc');
+require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
-    if (!$error) {
-        $db = new mysqli('127.0.0.1', 'testUser', 'test', 'testdb');
+/* Client */
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+	$user = $_POST['id'];
+	$pwd = $_POST['pwd'];
+	$error = false;
+	$errorMsgs = array();
 
-        if ($db->connect_error) {
-            echo "Failed to connect to the database: " . $db->connect_error;
-            exit(0);
-        }
+	// Validation and sanitization code here...
 
-        // Use prepared statement to avoid SQL injection
-        $stmt = $db->prepare("SELECT id, passHash FROM Users WHERE id = ?");
-        $stmt->bind_param("s", $id);
-        $stmt->execute();
+	if (!isset($user) || empty($user)) {
+		$error = true;
+		$errorMsgs[] = "Username is empty.";
+	} 
+	else {
+		$user = htmlspecialchars($user, ENT_QUOTES, 'UTF-8'); 
+	}
 
-        if ($stmt->errno != 0) {
-            echo "Failed to execute query:" . PHP_EOL;
-            echo __FILE__ . ':' . __LINE__ . ": error: " . $stmt->error . PHP_EOL;
-            exit(0);
-        }
+	if (!isset($pwd) || empty($pwd)) {
+		$error = true;
+		$errorMsgs[] = "Password is empty.";
+	}
 
-        // Fetch the result
-        $stmt->bind_result($userId, $passHash);
-        $stmt->fetch();
-        $stmt->close();
+	if (!$error) {
+		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+		/* Send login request to server */
+		$request = array();
+		$request['type'] = "Login";
+		$request['username'] = $user;
+		$request['password'] = $pwd;
 
-        // Verify the password (assuming you have stored passwords securely using password_hash)
-        if (password_verify($pwd, $passHash)) {
-            // Authentication successful
-            echo "Authentication successful for user: " . $userId;
-        } else {
-            // Authentication failed
-            echo "Authentication failed. Invalid username or password.";
-        }
+		$response = $client->send_request($request);
 
-        // Close the database connection
-        $db->close();
-    }
+		// Only encrypt the value of the cookie
+		$data = json_decode($response);
+
+		// Check if the login response is successful, and then set a session cookie
+		if ($data->{"msg"} === "Authentication successful.") {
+			// Cookie attributes
+			$name = "user_id";
+			$value = $data->{"cipher_text"};
+			$expires_or_options = time() + 3600;
+			$path = "/";
+			$domain = "";
+			$secure = false;
+			$http_only = false;
+
+			// Set a session cookie to persist authentication
+			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $http_only);
+
+			// Redirect to the dashboard
+			header("Location: dashboard.php");
+			exit;
+		}
+		else if ($data->{"msg"} === "Authentication failed. Invalid username or password.") {
+			// Display a popup message for invalid username or password
+			echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
+			echo '<script>window.location.href = "./login.php";</script>';
+		}
+	} 
+
+} else if ($error) {
+	foreach ($errorMsgs as $error) {
+		echo $error . '<br>';
+		error_log($error, 3, "error.log");
+	}
 }
 ?>
