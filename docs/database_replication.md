@@ -365,7 +365,7 @@ Start the replication threads:
 start replica;
 ```
 
-### Issue 2 — Slave Failed to Initialize Relay Log Info Structure from the Repository Fix
+### Issue 2 — Replica Failed to Initilize Applier Metadata Structure from the repository Fix
 
 Stop the replication threads:
 ```
