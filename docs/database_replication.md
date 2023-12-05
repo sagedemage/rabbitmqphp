@@ -2,7 +2,7 @@
 
 ## Step 1 — Prerequisite
 
-### 1.1 Setup the Networking for the Source and Replica VMs
+### 1.1 Setup the Networking for the <span style="color:red">Source</span> and <span style="color:green">Replica</span> VMs
 
 1. Go to VM settings 
 2. Go to Network
@@ -14,7 +14,7 @@ It should look like this:
 
 ![vm_network_configuration_for_db_replication](./../images/vm_network_configuration_for_db_replication.PNG)
 
-### 1.2 Install SSH on Source and Replica VMs
+### 1.2 Install SSH on the <span style="color:red">Source</span> and <span style="color:green">Replica</span> VMs
 
 1. Install openssh server
 
@@ -40,7 +40,7 @@ It should look like this:
 
 The command allows any connections that originate from the replica server’s IP address:
 
-Source VM:
+<span style="color:red">Source</span> VM:
 
 ```
 sudo ufw allow from replica_server_ip_address to any port 3306
@@ -52,12 +52,11 @@ Use the Adapter IP address for the source and replica VMs. The Adapter IP addres
 
 ## Step 3 — Configuring the Source Database
 
-
 Make sure to be on the root of the repository
 
 For my case:
 
-Source VM:
+<span style="color:red">Source</span> VM:
 
 ```
 cd ~/git/rabbitmq
@@ -89,8 +88,6 @@ After making these changes, save and close the file.
 
 Then restart the MySQL service by running the following command:
 
-Source VM:
-
 ```
 sudo systemctl restart mysql
 ```
@@ -99,7 +96,7 @@ sudo systemctl restart mysql
 
 Login to mysql as root
 
-Source VM:
+<span style="color:red">Source</span> VM:
 
 ```
 sudo mysql -u root
@@ -130,7 +127,7 @@ FLUSH PRIVILEGES;
 
 From the prompt, run the following command which will close all the open tables in every database on your source instance and lock them:
 
-Source VM:
+<span style="color:red">Source</span> VM:
 
 ```
 FLUSH TABLES WITH READ LOCK;
@@ -143,19 +140,17 @@ Then run the following operation which will return the current status informatio
 SHOW MASTER STATUS;
 ```
   
-
 If your source MySQL instance is a new installation or doesn’t have any existing data you want to migrate to your replicas, you can at this point unlock the tables:
 
 ```
 UNLOCK TABLES;
 ```
   
-
 ### 5.1 If Your Source Has Existing Data to Migrate  
 
 From the new terminal window or tab, open up another SSH session to the server hosting your source MySQL instance:
 
-Replica VM:
+<span style="color:green">Replica</span> VM:
 
 ```
 ssh username@source_server_ip
@@ -171,7 +166,7 @@ sudo mysqldump -u root ProjectDB > ProjectDB.sql
 
 Return to the terminal that should still have the MySQL shell open. From the MySQL prompt, unlock the databases to make them writable again:
 
-Source VM:
+<span style="color:red">Source</span> VM:
 
 ```
 UNLOCK TABLES;
@@ -240,7 +235,7 @@ All that’s left to do is to change the replica’s configuration similar to ho
 
 Copy the replica mysql config file, `mysql_configs/replica/mysqld.cnf`, to /etc/mysql/mysql.conf.d/mysqld.cnf, this time on your **replica server**:
 
-Replica VM:
+<span style="color:green">Replica</span> VM:
 
 ```
 sudo cp mysql_configs/replica/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -269,7 +264,7 @@ At this point, both of your MySQL instances are fully configured to allow replic
 
 In the sql_queries/configure_replica.sql file. Replace the source_server_ip to the IP address of the source VM on your **replica server**:
 
-Replica VM:
+<span style="color:green">Replica</span> VM:
 
 File: sql_queries/configure_replica.sql
 ```
@@ -329,7 +324,7 @@ Your replica is now replicating data from the source. Any changes you make to th
 
 2. Open up the MySQL shell on the source and replica VMs:
 
-    Source and Replica VMs:
+    <span style="color:red">Source</span> and <span style="color:green">Replica</span> VMs:
 
     ```
     sudo mysql -u root -p ProjectDB
