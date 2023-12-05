@@ -174,6 +174,10 @@ Then you can exit the MySQL shell:
 exit
 ```
   
+Make sure to be on the home directory
+```
+cd ~
+```
 
 You can now send your snapshot file to your replica server. You can do this securely with an `scp` command like this:
 
@@ -263,6 +267,13 @@ File: sql_queries/configure_replica.sql
 . . .
 SOURCE_HOST='source_server_ip',
 . . .
+```
+
+Make sure to be on the root of the repository
+
+For my case:
+```
+cd ~/git/rabbitmq
 ```
 
 Open up the the MySQL shell:
