@@ -52,11 +52,13 @@ Use the Adapter IP address for the source and replica VMs. The Adapter IP addres
 
 ## Step 3 — Configuring the Source Database
 
-Source VM:
 
 Make sure to be on the root of the repository
 
 For my case:
+
+Source VM:
+
 ```
 cd ~/git/rabbitmq
 ```
