@@ -54,6 +54,13 @@ Use the Adapter IP address for the source and replica VMs. The Adapter IP addres
 
 Source VM:
 
+Make sure to be on the root of the repository
+
+For my case:
+```
+cd ~/git/rabbitmq
+```
+
 Copy the source mysqld config file, `mysql_configs/source/mysqld.cnf`, to /etc/mysql/mysql.conf.d/mysqld.cnf
 
 ```
