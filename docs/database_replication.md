@@ -343,6 +343,13 @@ Your replica is now replicating data from the source. Any changes you make to th
 
 ## Troubleshooting DB Replication
 
+### Troubleshootting Tips
+
+Check the mysql error log file to figure out what error you are getting
+```
+vim /var/log/mysql/error.log
+```
+
 ### Issue 1 — MySQL Relay Log Corrupted Fix
 
 Stop the replication threads:
