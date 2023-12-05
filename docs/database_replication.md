@@ -365,6 +365,24 @@ Start the replication threads:
 start replica;
 ```
 
+### Issue 2 — Slave Failed to Initialize Relay Log Info Structure from the Repository Fix
+
+Stop the replication threads:
+```
+stop replica;
+```
+
+Make the replica forget its replication position in the source's binary log:
+```
+reset replica;
+```
+
+Start the replication threads:
+```
+start replica;
+```
+
 ## Resources
 - [https://www.digitalocean.com/community/tutorials/how-to-set-up-replication-in-mysql](https://www.digitalocean.com/community/tutorials/how-to-set-up-replication-in-mysql)
 - [MySQL relay log corrupted, how do I fix it? Tried but failed](https://dba.stackexchange.com/questions/53893/mysql-relay-log-corrupted-how-do-i-fix-it-tried-but-failed)
+- [Solution to repairReplication: attempt to fix 'Slave failed to initialize relay log info structure from the repository (errno 1872)' #5067](https://github.com/vitessio/vitess/issues/5067#issuecomment-520168124)
