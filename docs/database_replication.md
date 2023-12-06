@@ -52,8 +52,8 @@ Use the Adapter IP address for the <span style="color:red">Source</span> and <sp
 
 For example, these are my <span style="color:red">Source</span> and replica VM IP addresses:
 
-<span style="color:red">Source</span>VM IP Address: 192.168.56.101
-<span style="color:green">Replica</span>VM IP Address: 192.168.56.105
+<span style="color:red">Source</span> VM IP Address: 192.168.56.101 \
+<span style="color:green">Replica</span> VM IP Address: 192.168.56.105
 
 You can find this information with `ip addr` at `enp0s8` interface.
 
