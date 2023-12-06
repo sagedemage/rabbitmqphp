@@ -183,7 +183,7 @@ Make sure to be on the home directory
 cd ~
 ```
 
-You can now send your snapshot file to your replica server. You can do this securely with an `scp` command like this:
+You can now send your snapshot file to your replica server. You can do this securely with the `scp` command like this:
 
 ```
 scp ProjectDB.sql username@replica_server_ip:/tmp/
