@@ -213,6 +213,13 @@ From the prompt, create the new database that you will be replicating from the s
 ```
 CREATE DATABASE ProjectDB;
 ```
+
+If the ProjectDB database exist, delete this database and create the database:
+
+```
+DROP DATABASE ProjectDB;
+CREATE DATABASE ProjectDB;
+```
   
 
 You don’t need to create any tables or load this database with any sample data. That will all be taken care of when you import the database using the snapshot you just created. Instead, exit the MySQL shell:
