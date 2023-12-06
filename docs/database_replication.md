@@ -50,7 +50,7 @@ sudo ufw allow from replica_server_ip_address to any port 22
 ### 2.1 Note for <span style="color:red">Source</span> and <span style="color:green">Replica</span> VM IP Addresses
 Use the Adapter IP address for the <span style="color:red">Source</span> and <span style="color:green">Replica</span> VMs. The Adapter IP address should start with 192.
 
-For example, these are my <span style="color:red">Source</span> and replica VM IP addresses:
+For example, these are my <span style="color:red">Source</span> and <span style="color:green">Replica</span> VM IP addresses:
 
 <span style="color:red">Source</span> VM IP Address: 192.168.56.101 \
 <span style="color:green">Replica</span> VM IP Address: 192.168.56.105
