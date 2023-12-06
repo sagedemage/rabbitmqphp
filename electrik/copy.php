@@ -37,6 +37,7 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
+var_dump($response);
 $jsonResponse = json_decode($response);
 
 $json_data = json_decode(file_get_contents('php://input'), true);
@@ -49,6 +50,7 @@ echo 'console.log("Received JSON data:", ' . '{'. 'name:' . $jsonResponse->respo
 echo 'console.log("Received JSON data:", ' . '{'. 'price_change_number:' . $jsonResponse->response->apps[0]->price_change_number . '}' . ');';
 echo '</script>';
 
+/*
 echo '<table>';
   echo '<tr>';
     echo '<th>App ID</th>';
@@ -64,7 +66,6 @@ echo '<table>';
   echo '</tr>';
 echo '</table>'; 
 
-/*
 appid: 10
 last_modified: 1666823513
 name: "Counter-Strike"
