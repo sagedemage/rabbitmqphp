@@ -46,6 +46,10 @@ $response = $client->send_request($request);
 echo '<script>';
 echo 'console.log("Type of $response:", ' . json_encode(['type' => gettype($response)]) . ');';
 echo '</script>';
+
+if (is_array($response)) {
+    $response = json_encode($response);
+}
 // Check the type of $response before decoding
 if (is_string($response)) {
     // $response is a string, attempt to decode it as JSON
