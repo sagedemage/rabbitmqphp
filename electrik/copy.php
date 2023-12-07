@@ -37,10 +37,39 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
-$jsonResponse = json_decode($response);
+$jsonResponse = json_decode($response, true); // Decode JSON string into an associative array
 
-$json_data = json_decode(file_get_contents('php://input'), true);
+if ($jsonResponse === null && json_last_error() !== JSON_ERROR_NONE) {
+    // Handle JSON decoding error
+    echo "JSON decoding error: " . json_last_error_msg();
+    exit;
+}
+// Check if the 'apps' array is set in the response
+if (isset($jsonResponse['response']['apps'])) {
+    echo '<table>';
+    echo '<tr>';
+    echo '<th>App ID</th>';
+    echo '<th>Last Modified</th>';
+    echo '<th>Name</th>';
+    echo '<th>Price Change Number</th>';
+    echo '</tr>';
 
+    // Iterate over each app and display its details
+    foreach ($jsonResponse['response']['apps'] as $app) {
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($app['appid']) . '</td>';
+        echo '<td>' . htmlspecialchars($app['last_modified']) . '</td>';
+        echo '<td>' . htmlspecialchars($app['name']) . '</td>';
+        echo '<td>' . htmlspecialchars($app['price_change_number']) . '</td>';
+        echo '</tr>';
+    }
+
+    echo '</table>';
+} else {
+    echo "No apps found in the response.";
+}
+//$json_data = json_decode(file_get_contents('php://input'), true);
+/*
 echo '<script>';
 echo 'console.log("Received JSON data:", ' . json_encode(['apps' => $jsonResponse]) . ');';
 echo 'console.log("Received JSON data:", ' . '{'. 'appid:' . $jsonResponse->response->apps[0]->appid . '}' . ');';
