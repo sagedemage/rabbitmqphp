@@ -215,7 +215,8 @@ function requestProcessor($request) {
 	echo "received request".PHP_EOL;
 	var_dump($request);
 	if(!isset($request['type'])) {
-		return "ERROR: unsupported message type";
+		echo "ERROR: unsupported message type!";
+		return null;
 	}
 	switch($request['type'])
 	{
@@ -236,7 +237,8 @@ function requestProcessor($request) {
 		$steamid = "76561198093057200";
 		return getOwnedGames($steamid);
 	}
-	return array("returnCode" => '0', 'message'=>"server received request and processed");
+	echo "Error: Server was unable to proccess the request!";
+	return null;
 }
 
 $server = new rabbitMQServer("testRabbitMQ.ini", "testServer");
