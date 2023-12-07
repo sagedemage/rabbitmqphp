@@ -37,9 +37,8 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
-$jsonResponse = json_decode($response, true);
+$jsonResponse = json_decode($response);
 
-/*
 $json_data = json_decode(file_get_contents('php://input'), true);
 
 echo '<script>';
@@ -49,23 +48,21 @@ echo 'console.log("Received JSON data:", ' . '{'. 'last_modified:' . $jsonRespon
 echo 'console.log("Received JSON data:", ' . '{'. 'name:' . $jsonResponse->response->apps[0]->name . '}' . ');';
 echo 'console.log("Received JSON data:", ' . '{'. 'price_change_number:' . $jsonResponse->response->apps[0]->price_change_number . '}' . ');';
 echo '</script>';
-*/
 
-if (isset($jsonResponse['response']['apps'])) {
-    echo '<table>';
-    echo '<tr><th>App ID</th><th>Last Modified</th><th>Name</th><th>Price Change Number</th></tr>';
-    foreach ($jsonResponse['response']['apps'] as $app) {
-        echo '<tr>';
-        echo '<td>' . htmlspecialchars($app['appid']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['last_modified']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['name']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['price_change_number']) . '</td>';
-        echo '</tr>';
-    }
-    echo '</table>';
-} else {
-    echo "No apps data found.";
-}
+echo '<table>';
+  echo '<tr>';
+    echo '<th>App ID</th>';
+    echo '<th>Last Modified</th>';
+    echo '<th>Name</th>';
+    echo '<th>Price Change Number</th>';
+  echo '</tr>';
+  echo '<tr>';
+    echo '<td>' . $jsonResponse->response->apps[0]->appid . '</td>';
+    echo '<td>' . $jsonResponse->response->apps[0]->last_modified . '</td>';
+    echo '<td>' . $jsonResponse->response->apps[0]->name . '</td>';
+    echo '<td>' . $jsonResponse->response->apps[0]->price_change_number . '</td>';
+  echo '</tr>';
+echo '</table>'; 
 
 /*
 appid: 10
