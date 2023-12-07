@@ -37,6 +37,8 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
+$json_data = json_decode(file_get_contents('php://input'), true);
+
 // Check the type of $response before decoding
 if (is_string($response)) {
     // $response is a string, attempt to decode it as JSON
