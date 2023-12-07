@@ -44,6 +44,8 @@ echo '<pre>';
 print_r($response);
 echo '</pre>';
 
+$response_json = json_encode($response);
+echo "<script>console.log('Response:', JSON.parse('$response_json'));</script>";
 // Check if the 'apps' array is set in the response
 if (isset($response['response']['apps'])) {
     echo '<table>';
