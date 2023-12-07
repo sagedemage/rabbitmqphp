@@ -30,25 +30,17 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
+
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
+/* Send register request to server */
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
-$jsonResponse = json_decode($response);
+$jsonResponse = json_decode($response, true);
 
-// The following function checks if a string is a valid JSON.
-function is_json($string) {
-    json_decode($string);
-    return (json_last_error() == JSON_ERROR_NONE);
-}
-
-// Using file_get_contents('php://input') to get raw data from the request body
-$json_input = file_get_contents('php://input');
-if (is_string($json_input) && is_json($json_input)) {
-    $json_data = json_decode($json_input, true);
-    // Process the JSON data
-}
+/*
+$json_data = json_decode(file_get_contents('php://input'), true);
 
 echo '<script>';
 echo 'console.log("Received JSON data:", ' . json_encode(['apps' => $jsonResponse]) . ');';
@@ -57,21 +49,23 @@ echo 'console.log("Received JSON data:", ' . '{'. 'last_modified:' . $jsonRespon
 echo 'console.log("Received JSON data:", ' . '{'. 'name:' . $jsonResponse->response->apps[0]->name . '}' . ');';
 echo 'console.log("Received JSON data:", ' . '{'. 'price_change_number:' . $jsonResponse->response->apps[0]->price_change_number . '}' . ');';
 echo '</script>';
+*/
 
-echo '<table>';
-  echo '<tr>';
-    echo '<th>App ID</th>';
-    echo '<th>Last Modified</th>';
-    echo '<th>Name</th>';
-    echo '<th>Price Change Number</th>';
-  echo '</tr>';
-  echo '<tr>';
-    echo '<td>' . $jsonResponse->response->apps[0]->appid . '</td>';
-    echo '<td>' . $jsonResponse->response->apps[0]->last_modified . '</td>';
-    echo '<td>' . $jsonResponse->response->apps[0]->name . '</td>';
-    echo '<td>' . $jsonResponse->response->apps[0]->price_change_number . '</td>';
-  echo '</tr>';
-echo '</table>'; 
+if (isset($jsonResponse['response']['apps'])) {
+    echo '<table>';
+    echo '<tr><th>App ID</th><th>Last Modified</th><th>Name</th><th>Price Change Number</th></tr>';
+    foreach ($jsonResponse['response']['apps'] as $app) {
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($app['appid']) . '</td>';
+        echo '<td>' . htmlspecialchars($app['last_modified']) . '</td>';
+        echo '<td>' . htmlspecialchars($app['name']) . '</td>';
+        echo '<td>' . htmlspecialchars($app['price_change_number']) . '</td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+} else {
+    echo "No apps data found.";
+}
 
 /*
 appid: 10
