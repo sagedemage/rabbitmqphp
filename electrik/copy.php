@@ -37,34 +37,32 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
+$jsonResponse = json_decode($response);
 
-// Convert the response to a string and then decode it
-$string_response = (string) $response;
-$jsonResponse = json_decode($string_response);
+$json_data = json_decode(file_get_contents('php://input'), true);
 
-// Check if JSON decoding is successful
-if (json_last_error() === JSON_ERROR_NONE) {
-    // Processing jsonResponse
-    echo '<table>';
-      echo '<tr>';
-        echo '<th>App ID</th>';
-        echo '<th>Last Modified</th>';
-        echo '<th>Name</th>';
-        echo '<th>Price Change Number</th>';
-      echo '</tr>';
-      echo '<tr>';
-        echo '<td>' . $jsonResponse->response->apps[0]->appid . '</td>';
-        echo '<td>' . $jsonResponse->response->apps[0]->last_modified . '</td>';
-        echo '<td>' . $jsonResponse->response->apps[0]->name . '</td>';
-        echo '<td>' . $jsonResponse->response->apps[0]->price_change_number . '</td>';
-      echo '</tr>';
-    echo '</table>';
-} else {
-    // Handle JSON parsing error
-    echo '<script>';
-    echo 'console.error("JSON decoding error:", ' . json_encode(['error' => json_last_error_msg()]) . ');';
-    echo '</script>';
-}
+echo '<script>';
+echo 'console.log("Received JSON data:", ' . json_encode(['apps' => $jsonResponse]) . ');';
+echo 'console.log("Received JSON data:", ' . '{'. 'appid:' . $jsonResponse->response->apps[0]->appid . '}' . ');';
+echo 'console.log("Received JSON data:", ' . '{'. 'last_modified:' . $jsonResponse->response->apps[0]->last_modified . '}' . ');';
+echo 'console.log("Received JSON data:", ' . '{'. 'name:' . $jsonResponse->response->apps[0]->name . '}' . ');';
+echo 'console.log("Received JSON data:", ' . '{'. 'price_change_number:' . $jsonResponse->response->apps[0]->price_change_number . '}' . ');';
+echo '</script>';
+
+echo '<table>';
+  echo '<tr>';
+    echo '<th>App ID</th>';
+    echo '<th>Last Modified</th>';
+    echo '<th>Name</th>';
+    echo '<th>Price Change Number</th>';
+  echo '</tr>';
+  echo '<tr>';
+    echo '<td>' . $jsonResponse->response->apps[0]->appid . '</td>';
+    echo '<td>' . $jsonResponse->response->apps[0]->last_modified . '</td>';
+    echo '<td>' . $jsonResponse->response->apps[0]->name . '</td>';
+    echo '<td>' . $jsonResponse->response->apps[0]->price_change_number . '</td>';
+  echo '</tr>';
+echo '</table>'; 
 
 /*
 appid: 10
