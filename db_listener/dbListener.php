@@ -237,7 +237,7 @@ function requestProcessor($request) {
 		$steamid = "76561198093057200";
 		return getOwnedGames($steamid);
 	}
-	echo "Error: Server was unable to proccess the request!";
+	echo "ERROR: Server was unable to proccess the request!";
 	return null;
 }
 
