@@ -34,19 +34,7 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 
-echo '<script>';
-echo 'console.log("Type of $request:", ' . json_encode(['type' => gettype($request)]) . ');';
-echo '</script>';
-
 $response = $client->send_request($request);
-
-// Convert the string response to an object
-$jsonResponse = json_decode($response);
-
-echo '<script>';
-echo 'console.log("Type of $response:", ' . json_encode(['type' => gettype($jsonResponse)]) . ');';
-echo 'console.log("Type of $response:", ' . json_encode(['response' => $jsonResponse]) . ');';
-echo '</script>';
 
 if (is_array($response)) {
     $response = json_encode($response);
