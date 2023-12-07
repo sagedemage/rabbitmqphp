@@ -30,16 +30,25 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
-
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
-/* Send register request to server */
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
 $jsonResponse = json_decode($response);
 
-$json_data = json_decode(file_get_contents('php://input'), true);
+// The following function checks if a string is a valid JSON.
+function is_json($string) {
+    json_decode($string);
+    return (json_last_error() == JSON_ERROR_NONE);
+}
+
+// Using file_get_contents('php://input') to get raw data from the request body
+$json_input = file_get_contents('php://input');
+if (is_string($json_input) && is_json($json_input)) {
+    $json_data = json_decode($json_input, true);
+    // Process the JSON data
+}
 
 echo '<script>';
 echo 'console.log("Received JSON data:", ' . json_encode(['apps' => $jsonResponse]) . ');';
