@@ -37,32 +37,37 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
-$jsonResponse = json_decode($response);
+// Check the type of $response before decoding
+if (is_string($response)) {
+    // $response is a string, attempt to decode it as JSON
+    $jsonResponse = json_decode($response);
 
-$json_data = json_decode(file_get_contents('php://input'), true);
-
-echo '<script>';
-echo 'console.log("Received JSON data:", ' . json_encode(['apps' => $jsonResponse]) . ');';
-echo 'console.log("Received JSON data:", ' . '{'. 'appid:' . $jsonResponse->response->apps[0]->appid . '}' . ');';
-echo 'console.log("Received JSON data:", ' . '{'. 'last_modified:' . $jsonResponse->response->apps[0]->last_modified . '}' . ');';
-echo 'console.log("Received JSON data:", ' . '{'. 'name:' . $jsonResponse->response->apps[0]->name . '}' . ');';
-echo 'console.log("Received JSON data:", ' . '{'. 'price_change_number:' . $jsonResponse->response->apps[0]->price_change_number . '}' . ');';
-echo '</script>';
-
-echo '<table>';
-  echo '<tr>';
-    echo '<th>App ID</th>';
-    echo '<th>Last Modified</th>';
-    echo '<th>Name</th>';
-    echo '<th>Price Change Number</th>';
-  echo '</tr>';
-  echo '<tr>';
-    echo '<td>' . $jsonResponse->response->apps[0]->appid . '</td>';
-    echo '<td>' . $jsonResponse->response->apps[0]->last_modified . '</td>';
-    echo '<td>' . $jsonResponse->response->apps[0]->name . '</td>';
-    echo '<td>' . $jsonResponse->response->apps[0]->price_change_number . '</td>';
-  echo '</tr>';
-echo '</table>'; 
+    if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse->response->apps)) {
+        // Processing jsonResponse
+        echo '<table>';
+        echo '<tr>';
+        echo '<th>App ID</th>';
+        echo '<th>Last Modified</th>';
+        echo '<th>Name</th>';
+        echo '<th>Price Change Number</th>';
+        echo '</tr>';
+        echo '<tr>';
+        echo '<td>' . $jsonResponse->response->apps[0]->appid . '</td>';
+        echo '<td>' . $jsonResponse->response->apps[0]->last_modified . '</td>';
+        echo '<td>' . $jsonResponse->response->apps[0]->name . '</td>';
+        echo '<td>' . $jsonResponse->response->apps[0]->price_change_number . '</td>';
+        echo '</tr>';
+        echo '</table>';
+    } else {
+        // Handle JSON parsing error or invalid structure
+        echo '<script>';
+        echo 'console.error("JSON decoding error or invalid structure:", ' . json_encode(['error' => json_last_error_msg()]) . ');';
+        echo '</script>';
+    }
+} else {
+    // $response is not a string, handle it accordingly (e.g., display a message)
+    echo 'Response is not a valid JSON string.';
+}
 
 /*
 appid: 10
