@@ -38,15 +38,10 @@ $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
 echo gettype($response); // This will show the type of the variabl
-$jsonResponse = json_decode($response, true); // Decode JSON string into an associative array
+//$jsonResponse = json_decode($response, true); // Decode JSON string into an associative array
 
-if ($jsonResponse === null && json_last_error() !== JSON_ERROR_NONE) {
-    // Handle JSON decoding error
-    echo "JSON decoding error: " . json_last_error_msg();
-    exit;
-}
 // Check if the 'apps' array is set in the response
-if (isset($jsonResponse['response']['apps'])) {
+if (isset($response['response']['apps'])) {
     echo '<table>';
     echo '<tr>';
     echo '<th>App ID</th>';
@@ -56,7 +51,7 @@ if (isset($jsonResponse['response']['apps'])) {
     echo '</tr>';
 
     // Iterate over each app and display its details
-    foreach ($jsonResponse['response']['apps'] as $app) {
+    foreach ($response['response']['apps'] as $app) {
         echo '<tr>';
         echo '<td>' . htmlspecialchars($app['appid']) . '</td>';
         echo '<td>' . htmlspecialchars($app['last_modified']) . '</td>';
