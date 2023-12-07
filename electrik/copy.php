@@ -30,36 +30,78 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
+
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+
+/* Send register request to server */
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
 
-echo '<pre>';
-var_dump($response);
-echo '</pre>';
+// Convert the response to a string and then decode it
+$string_response = (string) $response;
+$jsonResponse = json_decode($string_response);
 
-$response_json = json_encode($response);
-$jsonResponse = json_decode($response_json, true);
-
-echo '<pre>';
-var_dump($jsonResponse);
-echo '</pre>';
-
-if (isset($jsonResponse['response']['apps']) && is_array($jsonResponse['response']['apps'])) {
+// Check if JSON decoding is successful
+if (json_last_error() === JSON_ERROR_NONE) {
+    // Processing jsonResponse
     echo '<table>';
-    foreach ($jsonResponse['response']['apps'] as $app) {
-        echo '<tr>';
-        echo '<td>' . htmlspecialchars($app['appid']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['last_modified']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['name']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['price_change_number']) . '</td>';
-        echo '</tr>';
-    }
+      echo '<tr>';
+        echo '<th>App ID</th>';
+        echo '<th>Last Modified</th>';
+        echo '<th>Name</th>';
+        echo '<th>Price Change Number</th>';
+      echo '</tr>';
+      echo '<tr>';
+        echo '<td>' . $jsonResponse->response->apps[0]->appid . '</td>';
+        echo '<td>' . $jsonResponse->response->apps[0]->last_modified . '</td>';
+        echo '<td>' . $jsonResponse->response->apps[0]->name . '</td>';
+        echo '<td>' . $jsonResponse->response->apps[0]->price_change_number . '</td>';
+      echo '</tr>';
     echo '</table>';
 } else {
-    echo "No apps found in the response.";
-}}
+    // Handle JSON parsing error
+    echo '<script>';
+    echo 'console.error("JSON decoding error:", ' . json_encode(['error' => json_last_error_msg()]) . ');';
+    echo '</script>';
+}
+
+/*
+appid: 10
+last_modified: 1666823513
+name: "Counter-Strike"
+price_change_number: 21319021
+ */
+
+//echo $jsonResponse->response->apps[0];
+
+//echo $response;
+
+if ($json_data === null && json_last_error() !== JSON_ERROR_NONE) {
+	echo '<script>';
+	echo 'console.error("JSON decoding error:", ' . json_encode(['error' => json_last_error_msg()]) . ');';
+	echo '</script>';
+} else {
+	echo '<script>';
+	echo 'console.log("JSON decoding successful:", ' . json_encode(['jsonData' => $jsonData]) . ');';
+	echo '</script>';
+
+	if (isset($jsonData['jsonData']) && is_array($jsonData['jsonData'])) {
+		$apps = $jsonData['jsonData'];
+
+		foreach ($apps as $index => $app) {
+			$appId = $app['appid'];
+			$imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
+			$activeClass = ($index === 0) ? 'active' : '';
+			echo '<div class="carousel-item ' . $activeClass . '">';
+			echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="Card ' . $appId . '" style="height: 25rem;">';
+			echo '</div>';
+		}
+		echo '<script>' . 'console.log("Data received from the server:", ' . json_encode($jsonData) . ');' . '</script>';
+	} else {
+		echo '<script>' . 'console.error("Invalid JSON data structure from the server");' . '</script>';
+	}
+}
 ?>
 	</div>
 	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
