@@ -30,65 +30,16 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
-$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-$request = array();
-$request['type'] = "GetAppList";
-$response = $client->send_request($request);
-if (isset($response['response']['apps']) && is_array($response['response']['apps'])) {
-    $apps = $response['response']['apps'];
-
-    // Start of the table
-    echo '<table>';
-    echo '<tr>';
-    echo '<th>App ID</th>';
-    echo '<th>Last Modified</th>';
-    echo '<th>Name</th>';
-    echo '<th>Price Change Number</th>';
-    echo '</tr>';
-
-    // Iterate over each app and create table rows
-    foreach ($apps as $app) {
-        echo '<tr>';
-        echo '<td>' . htmlspecialchars($app['appid']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['last_modified']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['name']) . '</td>';
-        echo '<td>' . htmlspecialchars($app['price_change_number']) . '</td>';
-        echo '</tr>';
-    }
-
-    // End of the table
-    echo '</table>';
-} else {
-    // Display an error message if apps data is not found
-    echo '<p>Error: Apps data not found in the response.</p>';
-}
-
-/*
-// Since $response is already an array, no need to decode it
-// Directly access the elements of the array
-$returnCode = $response['returnCode'];
-$message = $response['message'];
-
-// Define $json_data at the beginning
-$json_data = json_decode(file_get_contents('php://input'), true);
-
-// Display or use $returnCode and $message as needed
-echo '<script>';
-echo 'console.log("Return Code:", ' . json_encode($returnCode) . ');';
-echo 'console.log("Message:", ' . json_encode($message) . ');';
-echo '</script>';
 
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
- Send register request to server
+/* Send register request to server */
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
-var_dump($response);
 $jsonResponse = json_decode($response);
 
 $json_data = json_decode(file_get_contents('php://input'), true);
-
 
 echo '<script>';
 echo 'console.log("Received JSON data:", ' . json_encode(['apps' => $jsonResponse]) . ');';
@@ -97,7 +48,6 @@ echo 'console.log("Received JSON data:", ' . '{'. 'last_modified:' . $jsonRespon
 echo 'console.log("Received JSON data:", ' . '{'. 'name:' . $jsonResponse->response->apps[0]->name . '}' . ');';
 echo 'console.log("Received JSON data:", ' . '{'. 'price_change_number:' . $jsonResponse->response->apps[0]->price_change_number . '}' . ');';
 echo '</script>';
-
 
 echo '<table>';
   echo '<tr>';
@@ -114,6 +64,7 @@ echo '<table>';
   echo '</tr>';
 echo '</table>'; 
 
+/*
 appid: 10
 last_modified: 1666823513
 name: "Counter-Strike"
