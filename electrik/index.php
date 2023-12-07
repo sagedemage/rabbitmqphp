@@ -10,77 +10,176 @@
 </head>
 <body>
 
-
-
 <?php include('navbar.php'); ?>
 
+<!-- Form to Submit or Clear SteamID -->
+<form action="index.php" method="post" class="mt-3 mb-3">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter SteamID" name="steamID">
+        <button class="btn btn-outline-secondary" type="submit" name="submitSteamID">Submit</button>
+        <button class="btn btn-outline-danger" type="submit" name="clearSteamID">Clear</button>
+    </div>
+</form>
 
-
+<!-- Form to Search Game -->
+<form action="index.php" method="get" class="mt-3 mb-3">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter Game Name" name="gameSearch">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+</form>
 
 
 <!-- Bootstrap Carousel -->
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="images/image6.jpg" class="d-block w-100" alt="Slide 1" style="height: 25rem;">
+    <div class="carousel-inner" id="carouselInner">
+        <?php
+        ini_set('display_errors', 1);
+
+        require_once('../rabbitmq_lib/path.inc');
+        require_once('../rabbitmq_lib/get_host_info.inc');
+        require_once('../rabbitmq_lib/rabbitMQLib.inc');
+
+        $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+        $request = array();
+        $request['type'] = "GetAppList";
+        $response = $client->send_request($request);
+
+        if (is_string($response)) {
+            $jsonResponse = json_decode($response);
+            if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse->response->apps)) {
+                foreach ($jsonResponse->response->apps as $index => $app) {
+                    $appId = $app->appid;
+                    $gameName = $app->name;
+                    $imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
+                    $activeClass = ($index === 0) ? 'active' : '';
+                    echo '<div class="carousel-item ' . $activeClass . '">';
+                    echo '<a href="review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '">';
+                    echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="' . $gameName . '" style="height: 25rem;">';
+                    echo '</a>';
+                    echo '</div>';
+                }
+            } else {
+                echo 'Response is not a valid JSON string.';
+            }
+        } else {
+            echo '<script>';
+            echo 'console.error("Response is not a string: ", ' . json_encode($response) . ');';
+            echo '</script>';
+        }
+
+        // Handling for SteamID submission or clearing
+        $ownedGames = [];
+        $randomGames = [];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['submitSteamID']) && !empty($_POST['steamID'])) {
+                $steamID = $_POST['steamID'];
+
+                // Fetch user's most-played games using the submitted SteamID
+                $request = array();
+                $request['type'] = "GetOwnedGames";
+                $request['steamID'] = $steamID;
+                $response = $client->send_request($request);
+
+                if (is_string($response)) {
+                    $jsonResponse = json_decode($response, true);
+                    if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse['response']['games'])) {
+                        // Sort games by playtime and get top 5
+                        usort($jsonResponse['response']['games'], function($a, $b) {
+                            return $b['playtime_forever'] - $a['playtime_forever'];
+                        });
+                        $ownedGames = array_slice($jsonResponse['response']['games'], 0, 5);
+                    }
+                }
+            } else if (isset($_POST['clearSteamID'])) {
+                // Reset and show random games
+                shuffle($jsonResponse->response->apps);
+                $randomGames = array_slice($jsonResponse->response->apps, 0, 5);
+            }
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['gameSearch'])) {
+            $gameSearch = strtolower($_GET['gameSearch']);
+            $foundGame = false;
+        
+            foreach ($jsonResponse->response->apps as $app) {
+                if (strtolower($app->name) == $gameSearch) {
+                    header("Location: review.php?appid={$app->appid}&name=" . urlencode($app->name));
+                    $foundGame = true;
+                    break;
+                }
+            }
+        
+            if (!$foundGame) {
+                echo '<p>Game not found. Please try another search.</p>';
+            }
+        }
+
+        ?>
     </div>
-    <div class="carousel-item">
-      <img src="images/image8.png" class="d-block w-100" alt="Slide 2" style="height: 25rem;">
-    </div>
-    <div class="carousel-item">
-      <img src="images/image3.jpg" class="d-block w-100" alt="Slide 3" style="height: 25rem;">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
-
-
-
 
 <!-- Cards below the carousel -->
 <div class="container mt-5">
     <div class="card-group">
-        <div class="card">
-            <img src="images/image1.jpg" class="card-img-top" alt="Card 1" style="height: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Card 1</h5>
-                <p class="card-text">Some text for Card 1.</p>
+        <?php 
+        $gamesToShow = !empty($ownedGames) ? $ownedGames : $randomGames;
+        foreach ($gamesToShow as $game): ?>
+            <div class="card">
+                <a href="review.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>">
+                    <img src="https://steamcdn-a.akamaihd.net/steam/apps/<?php echo $game['appid']; ?>/header.jpg" class="card-img-top" alt="<?php echo $game['name']; ?>" style="height: 18rem;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $game['name']; ?></h5>
+                    <?php if (!empty($ownedGames)): ?>
+                        <p class="card-text">Time Played: <?php echo round($game['playtime_forever'] / 60, 1); ?> hours</p>
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <img src="images/image2.jpg" class="card-img-top" alt="Card 2" style="height: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Card 2</h5>
-                <p class="card-text">Some text for Card 2.</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="images/image4.jpg" class="card-img-top" alt="Card 3" style="height: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Card 3</h5>
-                <p class="card-text">Some text for Card 3.</p>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 </div>
 
-
-
-
-
-
+<!-- Table of Owned Games -->
+<div class="container mt-5">
+    <h3>Your Owned Games</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name of Game</th>
+                <th>Hours Played</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($ownedGames)): ?>
+                <?php foreach ($ownedGames as $game): ?>
+                    <tr>
+                        <td>
+                            <a href="review.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>">
+                                <img src="https://steamcdn-a.akamaihd.net/steam/apps/<?php echo $game['appid']; ?>/header.jpg" alt="Game Image" style="height: 50px;">
+                            </a>
+                        </td>
+                        <td><?php echo $game['name']; ?></td>
+                        <td><?php echo round($game['playtime_forever'] / 60, 1); ?> hours</td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="3">No games to display. Please submit your SteamID.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
 
 <div class="footer">
    &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
@@ -90,11 +189,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-

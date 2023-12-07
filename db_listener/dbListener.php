@@ -126,6 +126,67 @@ function doRegister($email, $username, $password) {
 	}
 }
 
+function getReviews($appId) {
+    // Connect to Database
+    // [Use your existing database connection logic]
+	/* Connect to Database */
+	$env = parse_ini_file('env.ini');
+	$host = $env["HOST"];
+	$db_user = $env["MYSQL_USERNAME"];
+	$db_pass = $env["MYSQL_PASSWORD"];
+	$db_name = $env["DATABASE_NAME"];
+	$db = new mysqli($host, $db_user, $db_pass, $db_name);
+
+	if ($db->connect_error) {
+		echo "Failed to connect to the database: " . $db->connect_error;
+		$db->close();
+		exit(0);
+	}
+
+    $request = "SELECT userId, gameRating, reviewText FROM Reviews WHERE appId = ?";
+    $stmt = $db->prepare($request);
+    $stmt->bind_param("i", $appId);
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $reviews = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        $db->close();
+        return json_encode($reviews);
+    } else {
+        $db->close();
+        return json_encode([]);
+    }
+}
+
+function submitReview($userId, $appId, $gameRating, $reviewText) {
+    // Connect to Database
+    // [Use your existing database connection logic]
+	$env = parse_ini_file('env.ini');
+	$host = $env["HOST"];
+	$db_user = $env["MYSQL_USERNAME"];
+	$db_pass = $env["MYSQL_PASSWORD"];
+	$db_name = $env["DATABASE_NAME"];
+	$db = new mysqli($host, $db_user, $db_pass, $db_name);
+
+	if ($db->connect_error) {
+		echo "Failed to connect to the database: " . $db->connect_error;
+		$db->close();
+		exit(0);
+	}
+
+    $request = "INSERT INTO Reviews (userId, appId, gameRating, reviewText) VALUES (?, ?, ?, ?)";
+    $stmt = $db->prepare($request);
+    $stmt->bind_param("iiss", $userId, $appId, $gameRating, $reviewText);
+    if ($stmt->execute()) {
+        $stmt->close();
+        $db->close();
+        return "Review submission success.";
+    } else {
+        $db->close();
+        return "Review submission failed.";
+    }
+}
+
 function verifyCookieSession($username_cipher_text) {
 	// Cookie attributes
 	$cipher = "AES-128-CBC";
@@ -162,11 +223,6 @@ function getAppList() {
 	curl_close($curl);
 
 	return $response;
-}
-
-function is_json($string) {
-    json_decode($string);
-    return (json_last_error() == JSON_ERROR_NONE);
 }
 
 function getMostPopularTags() {
@@ -230,11 +286,14 @@ function requestProcessor($request) {
 	case "GetMostPopularTags":
 		return getMostPopularTags();
 	case "GetPlayerSummaries":
-		$steamid = "76561198093057200";
-		return getPlayerSummaries($steamid);
+		return getPlayerSummaries($request['steamID']);
 	case "GetOwnedGames":
-		$steamid = "76561198093057200";
-		return getOwnedGames($steamid);
+		return getOwnedGames($request['steamID']);
+	case "GetReviews":
+        return getReviews($request['appId']);
+    case "SubmitReview":
+        return submitReview($request['userId'], $request['appId'], $request['gameRating'], $request['reviewText']);
+
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }
