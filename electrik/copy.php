@@ -30,10 +30,26 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
+$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+$request = array();
+$request['type'] = "GetAppList";
+$response = $client->send_request($request);
 
+// Since $response is already an array, no need to decode it
+// Directly access the elements of the array
+$returnCode = $response['returnCode'];
+$message = $response['message'];
+
+// Display or use $returnCode and $message as needed
+echo '<script>';
+echo 'console.log("Return Code:", ' . json_encode($returnCode) . ');';
+echo 'console.log("Message:", ' . json_encode($message) . ');';
+echo '</script>';
+
+/*
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
-/* Send register request to server */
+ Send register request to server
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
@@ -41,6 +57,7 @@ var_dump($response);
 $jsonResponse = json_decode($response);
 
 $json_data = json_decode(file_get_contents('php://input'), true);
+*/
 
 echo '<script>';
 echo 'console.log("Received JSON data:", ' . json_encode(['apps' => $jsonResponse]) . ');';
