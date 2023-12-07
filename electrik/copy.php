@@ -40,6 +40,10 @@ $response = $client->send_request($request);
 echo gettype($response); // This will show the type of the variabl
 //$jsonResponse = json_decode($response, true); // Decode JSON string into an associative array
 
+echo '<pre>';
+print_r($response);
+echo '</pre>';
+
 // Check if the 'apps' array is set in the response
 if (isset($response['response']['apps'])) {
     echo '<table>';
