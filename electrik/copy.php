@@ -37,6 +37,7 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
+echo gettype($response); // This will show the type of the variabl
 $jsonResponse = json_decode($response, true); // Decode JSON string into an associative array
 
 if ($jsonResponse === null && json_last_error() !== JSON_ERROR_NONE) {
