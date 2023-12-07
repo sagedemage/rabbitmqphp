@@ -43,10 +43,12 @@ if (is_array($response)) {
 if (is_string($response)) {
     // $response is a string, attempt to decode it as JSON
     $jsonResponse = json_decode($response);
+	
 	echo '<script>';
 	echo 'console.log("Decoded JSON response:", ' . json_encode(['jsonResponse' => $jsonResponse]) . ');';
 	echo '</script>';
-	$json_data = json_decode(file_get_contents('php://input'), true);
+
+	
     if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse->response->apps)) {
         // Processing jsonResponse
         echo '<table>';
@@ -84,6 +86,8 @@ price_change_number: 21319021
 //echo $jsonResponse->response->apps[0];
 
 //echo $response;
+
+$json_data = json_decode(file_get_contents('php://input'), true);
 
 if ($json_data === null && json_last_error() !== JSON_ERROR_NONE) {
 	echo '<script>';
