@@ -161,7 +161,15 @@ function getAppList() {
 	$response = curl_exec($curl);
 	curl_close($curl);
 
+	if (!is_json($response)) {
+        $response = json_encode(array('data' => $response));
+    }
 	return $response;
+}
+
+function is_json($string) {
+    json_decode($string);
+    return (json_last_error() == JSON_ERROR_NONE);
 }
 
 function getMostPopularTags() {
