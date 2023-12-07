@@ -14,9 +14,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<!--
-<script src="upcomingGames.js"></script>
--->
 <?php include('navbar.php'); ?>
 
 <!-- Bootstrap Carousel -->
@@ -43,8 +40,12 @@ echo '</script>';
 
 $response = $client->send_request($request);
 
+// Convert the string response to an object
+$jsonResponse = json_decode($response);
+
 echo '<script>';
-echo 'console.log("Type of $response:", ' . json_encode(['type' => gettype($response)]) . ');';
+echo 'console.log("Type of $response:", ' . json_encode(['type' => gettype($jsonResponse)]) . ');';
+echo 'console.log("Type of $response:", ' . json_encode(['response' => $jsonResponse]) . ');';
 echo '</script>';
 
 if (is_array($response)) {
