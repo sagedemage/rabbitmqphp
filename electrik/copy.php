@@ -37,13 +37,13 @@ $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
-$json_data = json_decode(file_get_contents('php://input'), true);
+$response = json_encode(curl_exec($curl));
 
 // Check the type of $response before decoding
 if (is_string($response)) {
     // $response is a string, attempt to decode it as JSON
     $jsonResponse = json_decode($response);
-
+	$json_data = json_decode(file_get_contents('php://input'), true);
     if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse->response->apps)) {
         // Processing jsonResponse
         echo '<table>';
