@@ -40,12 +40,14 @@ $response = $client->send_request($request);
 $returnCode = $response['returnCode'];
 $message = $response['message'];
 
+// Define $json_data at the beginning
+$json_data = json_decode(file_get_contents('php://input'), true);
+
 // Display or use $returnCode and $message as needed
 echo '<script>';
 echo 'console.log("Return Code:", ' . json_encode($returnCode) . ');';
 echo 'console.log("Message:", ' . json_encode($message) . ');';
 echo '</script>';
-
 /*
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
