@@ -17,3 +17,6 @@
 
 ## Database Replication Guide
 [Database Replication Guide](./docs/database_replication.md)
+
+## Cluster Setup Guide
+[Cluster Setup Guide](./docs/cluster_setup.md)
