@@ -6,5 +6,5 @@
   ```VBoxManage natnetwork add --netname natnet1 --network "192.168.10.0/24" --enable```
 3. Enable DHCP: <br>
   ```VBoxManage natnetwork modify --netname natnet1 --dhcp on```
-4. Deploy script using Deployment server VM:
+4. Deploy script using Deployment server VM: <br>
   ```.\deploy_cluster.sh```
