@@ -1,4 +1,4 @@
-#Set up Cluster Guide
+# Set up Cluster Guide
 
 ## Step 1: Create Natnetwork for VirtualBox
 1. Run command to add natnetwork: <br>
