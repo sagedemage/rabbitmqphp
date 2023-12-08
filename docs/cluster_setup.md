@@ -7,4 +7,4 @@
 3. Enable DHCP: <br>
   ```VBoxManage natnetwork modify --netname natnet1 --dhcp on```
 4. Deploy script using Deployment server VM: <br>
-  ```.\deploy_cluster.sh```
+  ```./deploy_cluster.sh```
