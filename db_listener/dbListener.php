@@ -215,7 +215,7 @@ function getAppList() {
 	// Steam API to get App List
 	$env = parse_ini_file('env.ini');
 	$apiKey = $env["STEAM_WEB_API_KEY"];
-	$apiUrl = "https://api.steampowered.com/IStoreService/GetAppList/v1/?key=$apiKey";
+	$apiUrl = "https://api.steampowered.com/IStoreService/GetAppList/v1/?key=$apiKey&max_results=100";
 
 	$curl = curl_init($apiUrl);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

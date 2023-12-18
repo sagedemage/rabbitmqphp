@@ -41,7 +41,7 @@
     $offset = ($page - 1) * $limit;
 
     // Total items (assuming you know it's 10,000)
-    $totalItems = 10000; 
+    $totalItems = 100; 
     $totalPages = ceil($totalItems / $limit);
 
     // Generate the API request with pagination
