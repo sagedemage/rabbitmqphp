@@ -61,6 +61,14 @@ create table if not exists Reviews (
 ```
 alter table Users add column two_factor_code VARCHAR(6), add column code_expiry DATETIME;
 ```
+5. Update steamID
+```
+alter table Users add column steamID bigint(17) unsigned;
+```
+6. Update Reviews
+```
+alter table Reviews add column steamID bigint(17) unsigned, add column hoursPlayed int;
+```
 
 ## MySQL Commands
 ### Get Table records
