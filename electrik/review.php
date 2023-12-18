@@ -141,8 +141,9 @@
         $reviews = json_decode($reviews, true);
         if (is_array($reviews)) {
             foreach ($reviews as $review) {
+                $userName = isset($review['userName']) ? htmlspecialchars($review['userName']) : 'Unknown User';
                 echo '<div class="review">';
-                echo '<strong>' . htmlspecialchars($review['userName']) . '</strong> - Rating: ' . htmlspecialchars($review['gameRating']) . '<br>';
+                echo '<strong>' . $userName . '</strong> - Rating: ' . htmlspecialchars($review['gameRating']) . '<br>';
                 echo htmlspecialchars($review['reviewText']);
                 echo '</div>';
             }

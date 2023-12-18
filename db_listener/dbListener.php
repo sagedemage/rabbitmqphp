@@ -128,18 +128,18 @@ function doRegister($email, $username, $password) {
 
 function getReviews($appId) {
     // Connect to Database
-	$env = parse_ini_file('env.ini');
-	$host = $env["HOST"];
-	$db_user = $env["MYSQL_USERNAME"];
-	$db_pass = $env["MYSQL_PASSWORD"];
-	$db_name = $env["DATABASE_NAME"];
-	$db = new mysqli($host, $db_user, $db_pass, $db_name);
+    $env = parse_ini_file('env.ini');
+    $host = $env["HOST"];
+    $db_user = $env["MYSQL_USERNAME"];
+    $db_pass = $env["MYSQL_PASSWORD"];
+    $db_name = $env["DATABASE_NAME"];
+    $db = new mysqli($host, $db_user, $db_pass, $db_name);
 
-	if ($db->connect_error) {
-		echo "Failed to connect to the database: " . $db->connect_error;
-		$db->close();
-		exit(0);
-	}
+    if ($db->connect_error) {
+        echo "Failed to connect to the database: " . $db->connect_error;
+        $db->close();
+        exit(0);
+    }
 
     $request = "SELECT userId, gameRating, reviewText FROM Reviews WHERE appId = ?";
     $stmt = $db->prepare($request);
@@ -147,10 +147,27 @@ function getReviews($appId) {
     if ($stmt->execute()) {
         $result = $stmt->get_result();
         $reviews = $result->fetch_all(MYSQLI_ASSOC);
+
+        // Fetch userName for each review
+        foreach ($reviews as $key => $review) {
+            $userId = $review['userId'];
+            $userRequest = "SELECT username FROM Users WHERE id = ?";
+            $userStmt = $db->prepare($userRequest);
+            $userStmt->bind_param("i", $userId);
+            if ($userStmt->execute()) {
+                $userResult = $userStmt->get_result();
+                if ($userRow = $userResult->fetch_assoc()) {
+                    $reviews[$key]['userName'] = $userRow['username'];
+                }
+                $userStmt->close();
+            }
+        }
+
         $stmt->close();
         $db->close();
         return json_encode($reviews);
     } else {
+        $stmt->close();
         $db->close();
         return json_encode([]);
     }
