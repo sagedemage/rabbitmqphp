@@ -85,21 +85,23 @@ if(isset($_POST['updateSteamID'])) {
 } 
 ?>
 
+<!-- Update SteamID Form -->
 <form action="index.php" method="post" class="mt-3 mb-3">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Enter SteamID" name="steamID" >
+        <input type="hidden" name="formType" value="updateSteamID">
+        <input type="text" class="form-control" placeholder="Enter SteamID" name="steamID">
         <button class="btn btn-outline-secondary" type="submit" name="updateSteamID">Update SteamID</button>
     </div>
 </form>
 
-<!-- Form to Search Game -->
+<!-- Search Game Form -->
 <form action="index.php" method="get" class="mt-3 mb-3">
+    <input type="hidden" name="formType" value="searchGame">
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Enter Game Name" name="gameSearch">
         <button class="btn btn-outline-secondary" type="submit">Search</button>
     </div>
 </form>
-
 
 <!-- Bootstrap Carousel -->
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
