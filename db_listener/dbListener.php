@@ -149,19 +149,33 @@ function getReviews($appId) {
         $reviews = $result->fetch_all(MYSQLI_ASSOC);
 
         // Fetch userName for each review
-        foreach ($reviews as $key => $review) {
-            $userId = $review['userId'];
-            $userRequest = "SELECT username FROM Users WHERE id = ?";
-            $userStmt = $db->prepare($userRequest);
-            $userStmt->bind_param("i", $userId);
-            if ($userStmt->execute()) {
-                $userResult = $userStmt->get_result();
-                if ($userRow = $userResult->fetch_assoc()) {
-                    $reviews[$key]['userName'] = $userRow['username'];
-                }
-                $userStmt->close();
-            }
-        }
+		foreach ($reviews as $key => $review) {
+			$userId = $review['userId'];
+			$userRequest = "SELECT username FROM Users WHERE id = ?";
+			$userStmt = $db->prepare($userRequest);
+		
+			if (!$userStmt) {
+				echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+				continue;
+			}
+		
+			$userStmt->bind_param("i", $userId);
+			if ($userStmt->execute()) {
+				$userResult = $userStmt->get_result();
+				if ($userRow = $userResult->fetch_assoc()) {
+					$reviews[$key]['userName'] = $userRow['username'];
+				} else {
+					$reviews[$key]['userName'] = 'Unknown User';
+					// For debugging: Uncomment the next line to see if the user ID is being fetched correctly
+					// echo "No user found for userID: " . $userId;
+				}
+				$userStmt->close();
+			} else {
+				// For debugging: Uncomment the next line to see any errors in execution
+				// echo "Execute failed: (" . $userStmt->errno . ") " . $userStmt->error;
+				$reviews[$key]['userName'] = 'Unknown User';
+			}
+		}
 
         $stmt->close();
         $db->close();

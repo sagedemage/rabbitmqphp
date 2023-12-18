@@ -137,7 +137,7 @@
     <div id="reviews">
         <h2>Reviews for <span id="currentGame"><?php echo $gameName; ?></span>:</h2>
         <?php
-        echo "Current appId: " . $_GET['appid'];
+        //echo "Current appId: " . $_GET['appid'];
         $reviews = json_decode($reviews, true);
         if (is_array($reviews)) {
             foreach ($reviews as $review) {
