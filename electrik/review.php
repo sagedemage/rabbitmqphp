@@ -137,7 +137,9 @@
     <div id="reviews">
         <h2>Reviews for <span id="currentGame"><?php echo $gameName; ?></span>:</h2>
         <?php
-        if (!empty($reviews) && is_array($reviews)) {
+        echo "Current appId: " . $_GET['appid'];
+
+        if ($reviews) {
             foreach ($reviews as $review) {
                 echo '<div class="review">';
                 echo '<strong>' . htmlspecialchars($review['userName']) . '</strong> - Rating: ' . htmlspecialchars($review['gameRating']) . '<br>';

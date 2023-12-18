@@ -128,8 +128,6 @@ function doRegister($email, $username, $password) {
 
 function getReviews($appId) {
     // Connect to Database
-    // [Use your existing database connection logic]
-	/* Connect to Database */
 	$env = parse_ini_file('env.ini');
 	$host = $env["HOST"];
 	$db_user = $env["MYSQL_USERNAME"];
