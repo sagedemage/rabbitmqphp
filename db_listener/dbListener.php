@@ -216,6 +216,39 @@ function updateSteamID($userId, $steamID) {
     }
 }
 
+function getUserSteamID($userId) {
+    $env = parse_ini_file('env.ini');
+    $host = $env["HOST"];
+    $db_user = $env["MYSQL_USERNAME"];
+    $db_pass = $env["MYSQL_PASSWORD"];
+    $db_name = $env["DATABASE_NAME"];
+    $db = new mysqli($host, $db_user, $db_pass, $db_name);
+
+    if ($db->connect_error) {
+        echo "Failed to connect to the database: " . $db->connect_error;
+        $db->close();
+        return "Database connection failed.";
+    }
+
+    $request = "SELECT steamID FROM Users WHERE id = ?";
+    $stmt = $db->prepare($request);
+    $stmt->bind_param("i", $userId);
+    
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            $steamID = $row['steamID'];
+            $stmt->close();
+            $db->close();
+            return $steamID;
+        }
+    } else {
+        $stmt->close();
+        $db->close();
+        return "Failed to retrieve SteamID.";
+    }
+}
+
 
 function verifyCookieSession($username_cipher_text) {
 	// Cookie attributes
@@ -325,6 +358,8 @@ function requestProcessor($request) {
         return submitReview($request['userId'], $request['appId'], $request['gameRating'], $request['reviewText']);
 	case "UpdateSteamID":
 		return updateSteamID($request['userId'], $request['steamID']);
+	case "GetUserSteamID":
+		return getUserSteamID($request['userId']);
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }
