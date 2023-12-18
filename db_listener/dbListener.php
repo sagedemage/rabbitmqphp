@@ -151,31 +151,35 @@ function getReviews($appId) {
         // Fetch userName for each review
 		foreach ($reviews as $key => $review) {
 			$userId = $review['userId'];
+		
+			// Debugging
+			echo "Processing userID: $userId<br>";
+		
 			$userRequest = "SELECT username FROM Users WHERE id = ?";
 			$userStmt = $db->prepare($userRequest);
-
+		
 			if (!$userStmt) {
-				echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+				echo "Prepare failed: (" . $db->errno . ") " . $db->error . "<br>";
 				continue;
 			}
-
+		
 			$userStmt->bind_param("i", $userId);
 			if ($userStmt->execute()) {
 				$userResult = $userStmt->get_result();
 				if ($userRow = $userResult->fetch_assoc()) {
 					$reviews[$key]['userName'] = $userRow['username'];
+					echo "Found user: " . $userRow['username'] . "<br>";
 				} else {
 					$reviews[$key]['userName'] = 'Unknown User';
-					// For debugging: Uncomment the next line to see if the user ID is being fetched correctly
-					// echo "No user found for userID: " . $userId;
+					echo "No user found for userID: " . $userId . "<br>";
 				}
 				$userStmt->close();
 			} else {
-				// For debugging: Uncomment the next line to see any errors in execution
-				// echo "Execute failed: (" . $userStmt->errno . ") " . $userStmt->error;
+				echo "Execute failed: (" . $userStmt->errno . ") " . $userStmt->error . "<br>";
 				$reviews[$key]['userName'] = 'Unknown User';
 			}
 		}
+		
 
 
         $stmt->close();
