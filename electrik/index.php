@@ -16,6 +16,15 @@
 
 <?php include('navbar.php'); ?>
 
+<!-- Form to Submit or Clear SteamID -->
+<form action="index.php" method="post" class="mt-3 mb-3">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Enter SteamID" name="steamID">
+        <button class="btn btn-outline-secondary" type="submit" name="submitSteamID">Submit</button>
+        <button class="btn btn-outline-danger" type="submit" name="clearSteamID">Clear</button>
+    </div>
+</form>
+
 <!-- Form to Search Game -->
 <form action="index.php" method="get" class="mt-3 mb-3">
     <div class="input-group mb-3">
@@ -75,24 +84,6 @@
             echo 'console.error("Response is not a string: ", ' . json_encode($response) . ');';
             echo '</script>';
         }
-
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['gameSearch'])) {
-            $gameSearch = strtolower($_GET['gameSearch']);
-            $foundGame = false;
-        
-            foreach ($jsonResponse->response->apps as $app) {
-                if (strtolower($app->name) === $gameSearch) {
-                    header("Location: review.php?appid={$app->appid}&name=" . urlencode($app->name));
-                    $foundGame = true;
-                    break; // Exit the loop once a match is found
-                }
-            }
-        
-            if (!$foundGame) {
-                echo '<p class="text-center mt-3">Game not found. Please try another search.</p>';
-            }
-        }
         ?>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -103,6 +94,27 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+</div>
+
+<!-- Cards below the carousel -->
+<div class="container mt-5">
+    <div class="card-group">
+        <?php 
+        $gamesToShow = !empty($ownedGames) ? $ownedGames : $randomGames;
+        foreach ($gamesToShow as $game): ?>
+            <div class="card">
+                <a href="review.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>">
+                    <img src="https://steamcdn-a.akamaihd.net/steam/apps/<?php echo $game['appid']; ?>/header.jpg" class="card-img-top lazy" alt="<?php echo $game['name']; ?>" style="height: 18rem;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $game['name']; ?></h5>
+                    <?php if (!empty($ownedGames)): ?>
+                        <p class="card-text">Time Played: <?php echo round($game['playtime_forever'] / 60, 1); ?> hours</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 </div>
 
 <!-- Pagination Controls -->
@@ -117,6 +129,39 @@
         </li>
     </ul>
 </nav>
+
+<!-- Table of Owned Games -->
+<div class="container mt-5">
+    <h3>Your Owned Games</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name of Game</th>
+                <th>Hours Played</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($ownedGames)): ?>
+                <?php foreach ($ownedGames as $game): ?>
+                    <tr>
+                        <td>
+                            <a href="review.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>">
+                                <img src="https://steamcdn-a.akamaihd.net/steam/apps/<?php echo $game['appid']; ?>/header.jpg" alt="Game Image" style="height: 50px;">
+                            </a>
+                        </td>
+                        <td><?php echo $game['name']; ?></td>
+                        <td><?php echo round($game['playtime_forever'] / 60, 1); ?> hours</td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="3">No games to display. Please submit your SteamID.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
 
 <div class="footer">
    &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
