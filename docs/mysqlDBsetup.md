@@ -42,6 +42,7 @@ OR
 create table if not exists Users(id int not null auto_increment, username varchar(30) not null, email varchar(255) not null, passHash varchar(255) not null, primary key(id), unique (email), unique (username));
 ```
 
+
 select user, host, authentication_string from mysql.user; //NOT NEEDED
 
 3. Create Review table
@@ -54,6 +55,11 @@ create table if not exists Reviews (
     reviewText text,
     foreign key (userId) references Users(id)
 );
+```
+
+4. Update Users (2FA)
+```
+alter table Users add column two_factor_code VARCHAR(6), add column code_expiry DATETIME;
 ```
 
 ## MySQL Commands
