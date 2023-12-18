@@ -149,16 +149,19 @@ function getReviews($appId) {
         $reviews = $result->fetch_all(MYSQLI_ASSOC);
 
         // Fetch userName for each review
+		$debugLog = fopen("getReviewsDebug.log", "a");
+
+		// Fetch userName for each review
 		foreach ($reviews as $key => $review) {
 			$userId = $review['userId'];
 			$userRequest = "SELECT username FROM Users WHERE id = ?";
 			$userStmt = $db->prepare($userRequest);
-		
+	
 			if (!$userStmt) {
-				echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+				fwrite($debugLog, "Prepare failed: (" . $db->errno . ") " . $db->error . PHP_EOL);
 				continue;
 			}
-		
+	
 			$userStmt->bind_param("i", $userId);
 			if ($userStmt->execute()) {
 				$userResult = $userStmt->get_result();
@@ -166,16 +169,17 @@ function getReviews($appId) {
 					$reviews[$key]['userName'] = $userRow['username'];
 				} else {
 					$reviews[$key]['userName'] = 'Unknown User';
-					// For debugging: Uncomment the next line to see if the user ID is being fetched correctly
-					// echo "No user found for userID: " . $userId;
+					fwrite($debugLog, "No user found for userID: " . $userId . PHP_EOL);
 				}
 				$userStmt->close();
 			} else {
-				// For debugging: Uncomment the next line to see any errors in execution
-				// echo "Execute failed: (" . $userStmt->errno . ") " . $userStmt->error;
+				fwrite($debugLog, "Execute failed: (" . $userStmt->errno . ") " . $userStmt->error . PHP_EOL);
 				$reviews[$key]['userName'] = 'Unknown User';
 			}
 		}
+	
+		// Close the debug log file
+		fclose($debugLog);
 
         $stmt->close();
         $db->close();
