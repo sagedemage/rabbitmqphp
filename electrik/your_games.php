@@ -12,7 +12,7 @@
 
 <?php include('navbar.php'); ?>
 
-<!-- Form to Submit or Clear SteamID -->
+<!-- Form to Submit or Clear SteamID is here-->
 <form action="your_games.php" method="post" class="mt-3 mb-3">
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Enter SteamID" name="steamID">
