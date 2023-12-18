@@ -210,6 +210,54 @@ function verifyCookieSession($username_cipher_text) {
 	return false;
 }
 
+function fetchUserEmail($username) {
+	$env = parse_ini_file('env.ini');
+	$host = $env["HOST"];
+	$db_user = $env["MYSQL_USERNAME"];
+	$db_pass = $env["MYSQL_PASSWORD"];
+	$db_name = $env["DATABASE_NAME"];
+	$db = new mysqli($host, $db_user, $db_pass, $db_name);
+
+	if ($db->connect_error) {
+		echo "Failed to connect to the database: " . $db->connect_error;
+		$db->close();
+		exit(0);
+	}
+    $query = "SELECT email FROM Users WHERE username = ?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        return json_encode(array('email' => $row['email']));
+    } else {
+        return json_encode(array('error' => 'Email not found.'));
+    }
+}
+
+function update2FACode($username, $code, $expiry) {
+	$env = parse_ini_file('env.ini');
+	$host = $env["HOST"];
+	$db_user = $env["MYSQL_USERNAME"];
+	$db_pass = $env["MYSQL_PASSWORD"];
+	$db_name = $env["DATABASE_NAME"];
+	$db = new mysqli($host, $db_user, $db_pass, $db_name);
+
+	if ($db->connect_error) {
+		echo "Failed to connect to the database: " . $db->connect_error;
+		$db->close();
+		exit(0);
+	}
+    $query = "UPDATE Users SET two_factor_code = ?, code_expiry = ? WHERE username = ?";
+    $stmt = $db->prepare($query);
+    $stmt->bind_param("sss", $code, $expiry, $username);
+    $stmt->execute();
+    if ($stmt->affected_rows > 0) {
+        return json_encode(array('success' => '2FA code updated.'));
+    } else {
+        return json_encode(array('error' => 'Failed to update 2FA code.'));
+    }
+}
 
 function getAppList() {
 	// Steam API to get App List
@@ -293,7 +341,10 @@ function requestProcessor($request) {
         return getReviews($request['appId']);
     case "SubmitReview":
         return submitReview($request['userId'], $request['appId'], $request['gameRating'], $request['reviewText']);
-
+	case "FetchEmail":
+        return fetchUserEmail($request['username']);
+    case "Update2FACode":
+        return update2FACode($request['username'], $request['two_factor_code'], $request['code_expiry']);
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }

@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
 	<!-- Include the common header and navbar -->
 	<?php include('navbar.php'); ?>
 

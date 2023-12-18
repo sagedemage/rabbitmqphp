@@ -5,6 +5,16 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
+function generateRandomCode($length = 6) {
+    $characters = '0123456789';
+    $charactersLength = strlen($characters);
+    $randomCode = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomCode .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomCode;
+}
+
 /* Client */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 	$user = $_POST['id'];
@@ -42,20 +52,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
 		// Check if the login response is successful, and then set a session cookie
 		if ($data->{"msg"} === "Authentication successful.") {
-			// Cookie attributes
-			$name = "user_id";
-			$value = $data->{"cipher_text"};
-			$expires_or_options = time() + 3600;
-			$path = "/";
-			$domain = "";
-			$secure = false;
-			$http_only = false;
+			// Generate 2FA code
+			$twoFactorCode = generateRandomCode();
+			$expiryTime = new DateTime();
+			$expiryTime->add(new DateInterval('PT10M')); // Code valid for 10 minutes
 
-			// Set a session cookie to persist authentication
-			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $http_only);
+			// Fetch user's email via RabbitMQ
+			$emailRequest = array(
+				'type' => 'FetchEmail',
+				'username' => $user
+			);
+			$emailResponse = $client->send_request($emailRequest);
+			$userEmail = json_decode($emailResponse, true)['email'];
 
-			// Redirect to the dashboard
-			header("Location: dashboard.php");
+			// Update 2FA code in database via RabbitMQ
+			$update2FARequest = array(
+				'type' => 'Update2FACode',
+				'username' => $user,
+				'two_factor_code' => $twoFactorCode,
+				'code_expiry' => $expiryTime->format('Y-m-d H:i:s')
+			);
+			$client->send_request($update2FARequest);
+
+			// Send 2FA code via email using PHPMailer
+			$mail = new PHPMailer\PHPMailer\PHPMailer();
+
+			$mail->IsSMTP();
+			$mail->SMTPAuth = true;
+			$mail->SMTPSecure = 'ssl';
+			$mail->Host = "smtp.gmail.com";
+			$mail->Port = 465;
+			$mail->Username = "electrik135@gmail.com"; // Your Gmail address
+			$mail->Password = "xudm dhdd nvjx wacl"; // Your Gmail app password
+
+			$mail->SetFrom("electrik135@gmail.com"); // Email shown in "From" field.
+			$mail->AddAddress($userEmail); // User's email address
+
+			$mail->Subject = "Your 2FA Code";
+			$mail->Body = "Your 2FA code is: $twoFactorCode";
+
+			if(!$mail->Send()) {
+				echo "Mailer Error: " . $mail->ErrorInfo;
+			} else {
+				echo "2FA code sent to your email.";
+			}
+
+			// Redirect to the 2FA verification page
+			header("Location: twoFactorVerify.php?user_id=" . urlencode($user));
 			exit;
 		}
 		else if ($data->{"msg"} === "Authentication failed. Invalid username or password.") {
