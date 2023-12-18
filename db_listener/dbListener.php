@@ -187,6 +187,36 @@ function submitReview($userId, $appId, $gameRating, $reviewText) {
     }
 }
 
+function updateSteamID($userId, $steamID) {
+    // Connect to Database
+    $env = parse_ini_file('env.ini');
+    $host = $env["HOST"];
+    $db_user = $env["MYSQL_USERNAME"];
+    $db_pass = $env["MYSQL_PASSWORD"];
+    $db_name = $env["DATABASE_NAME"];
+    $db = new mysqli($host, $db_user, $db_pass, $db_name);
+
+    if ($db->connect_error) {
+        echo "Failed to connect to the database: " . $db->connect_error;
+        $db->close();
+        return "Failed to connect to the database.";
+    }
+
+    $request = "UPDATE Users SET steamID = ? WHERE id = ?";
+    $stmt = $db->prepare($request);
+    $stmt->bind_param("ii", $steamID, $userId);
+    
+    if ($stmt->execute()) {
+        $stmt->close();
+        $db->close();
+        return "SteamID updated successfully.";
+    } else {
+        $db->close();
+        return "Failed to update SteamID.";
+    }
+}
+
+
 function verifyCookieSession($username_cipher_text) {
 	// Cookie attributes
 	$cipher = "AES-128-CBC";
@@ -293,7 +323,8 @@ function requestProcessor($request) {
         return getReviews($request['appId']);
     case "SubmitReview":
         return submitReview($request['userId'], $request['appId'], $request['gameRating'], $request['reviewText']);
-
+	case "UpdateSteamID":
+		return updateSteamID($request['userId'], $request['steamID']);
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }

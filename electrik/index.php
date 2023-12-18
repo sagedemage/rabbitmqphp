@@ -12,12 +12,83 @@
 
 <?php include('navbar.php'); ?>
 
-<!-- Form to Submit or Clear SteamID -->
+<?php
+ini_set('display_errors', 1);
+
+require_once('../rabbitmq_lib/path.inc');
+require_once('../rabbitmq_lib/get_host_info.inc');
+require_once('../rabbitmq_lib/rabbitMQLib.inc');
+
+$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+
+function decodeCookie($cookieValue) {
+    if (empty($cookieValue)) {
+        return false;
+    }
+
+    $env = parse_ini_file('env.ini');
+    $key = $env["OPENSSL_KEY"];
+    $cipher = "AES-128-CBC";  // Assuming you use the same cipher as in your login script
+
+    $c = base64_decode($cookieValue);
+    $ivlen = openssl_cipher_iv_length($cipher);
+    $iv = substr($c, 0, $ivlen);
+    $hmac = substr($c, $ivlen, $sha2len=32);
+    $ciphertext_raw = substr($c, $ivlen + $sha2len);
+    $original_plaintext = openssl_decrypt($ciphertext_raw, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+    $calcmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary=true);
+
+    if (hash_equals($hmac, $calcmac)) {
+        // Assuming the plaintext is the userId
+        return $original_plaintext;
+    }
+
+    return false;
+}
+
+$cookieValue = $_COOKIE['user_id'] ?? '';
+$userId = decodeCookie($cookieValue);
+$userSteamID = null;
+$ownedGames = [];
+
+if ($userId) {
+    $request = array('type' => "GetUserSteamID", 'userId' => $userId);
+    $userSteamID = $client->send_request($request);
+    if ($userSteamID) {
+        // Fetch user's most-played games using the associated SteamID
+        $request = array();
+        $request['type'] = "GetOwnedGames";
+        $request['steamID'] = $userSteamID;
+        $response = $client->send_request($request);
+    
+        if (is_string($response)) {
+            $jsonResponse = json_decode($response, true);
+            if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse['response']['games'])) {
+                usort($jsonResponse['response']['games'], function($a, $b) {
+                    return $b['playtime_forever'] - $a['playtime_forever'];
+                });
+                $ownedGames = array_slice($jsonResponse['response']['games'], 0, 5);
+            }
+        }
+    }
+}
+
+if(isset($_POST['updateSteamID'])) {
+    $steamID = $_POST['steamID'];
+    $request = array();
+    $request['type'] = "UpdateSteamID";
+    $request['userId'] = $userId;
+    $request['steamID'] = $steamID;
+    $response = $client->send_request($request);
+
+    // Handle the response (e.g., display a message to the user)
+} 
+?>
+
 <form action="index.php" method="post" class="mt-3 mb-3">
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Enter SteamID" name="steamID">
-        <button class="btn btn-outline-secondary" type="submit" name="submitSteamID">Submit</button>
-        <button class="btn btn-outline-danger" type="submit" name="clearSteamID">Clear</button>
+        <input type="text" class="form-control" placeholder="Enter SteamID" name="steamID" >
+        <button class="btn btn-outline-secondary" type="submit" name="updateSteamID">Update SteamID</button>
     </div>
 </form>
 
@@ -34,13 +105,6 @@
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner" id="carouselInner">
         <?php
-        ini_set('display_errors', 1);
-
-        require_once('../rabbitmq_lib/path.inc');
-        require_once('../rabbitmq_lib/get_host_info.inc');
-        require_once('../rabbitmq_lib/rabbitMQLib.inc');
-
-        $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
         $request = array();
         $request['type'] = "GetAppList";
         $response = $client->send_request($request);
@@ -68,36 +132,6 @@
             echo '</script>';
         }
 
-        // Handling for SteamID submission or clearing
-        $ownedGames = [];
-        $randomGames = [];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (isset($_POST['submitSteamID']) && !empty($_POST['steamID'])) {
-                $steamID = $_POST['steamID'];
-
-                // Fetch user's most-played games using the submitted SteamID
-                $request = array();
-                $request['type'] = "GetOwnedGames";
-                $request['steamID'] = $steamID;
-                $response = $client->send_request($request);
-
-                if (is_string($response)) {
-                    $jsonResponse = json_decode($response, true);
-                    if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse['response']['games'])) {
-                        // Sort games by playtime and get top 5
-                        usort($jsonResponse['response']['games'], function($a, $b) {
-                            return $b['playtime_forever'] - $a['playtime_forever'];
-                        });
-                        $ownedGames = array_slice($jsonResponse['response']['games'], 0, 5);
-                    }
-                }
-            } else if (isset($_POST['clearSteamID'])) {
-                // Reset and show random games
-                shuffle($jsonResponse->response->apps);
-                $randomGames = array_slice($jsonResponse->response->apps, 0, 5);
-            }
-        }
-
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['gameSearch'])) {
             $gameSearch = strtolower($_GET['gameSearch']);
             $foundGame = false;
@@ -114,7 +148,7 @@
                 echo '<p>Game not found. Please try another search.</p>';
             }
         }
-
+       
         ?>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -127,34 +161,12 @@
     </button>
 </div>
 
-<!-- Cards below the carousel -->
-<div class="container mt-5">
-    <div class="card-group">
-        <?php 
-        $gamesToShow = !empty($ownedGames) ? $ownedGames : $randomGames;
-        foreach ($gamesToShow as $game): ?>
-            <div class="card">
-                <a href="review.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>">
-                    <img src="https://steamcdn-a.akamaihd.net/steam/apps/<?php echo $game['appid']; ?>/header.jpg" class="card-img-top" alt="<?php echo $game['name']; ?>" style="height: 18rem;">
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $game['name']; ?></h5>
-                    <?php if (!empty($ownedGames)): ?>
-                        <p class="card-text">Time Played: <?php echo round($game['playtime_forever'] / 60, 1); ?> hours</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-</div>
-
 <!-- Table of Owned Games -->
 <div class="container mt-5">
     <h3>Your Owned Games</h3>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Image</th>
                 <th>Name of Game</th>
                 <th>Hours Played</th>
             </tr>
@@ -164,22 +176,23 @@
                 <?php foreach ($ownedGames as $game): ?>
                     <tr>
                         <td>
-                            <a href="review.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>">
-                                <img src="https://steamcdn-a.akamaihd.net/steam/apps/<?php echo $game['appid']; ?>/header.jpg" alt="Game Image" style="height: 50px;">
+                            <a href="reviews.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>&hoursPlayed=<?php echo round($game['playtime_forever'] / 60, 1); ?>&steamID=<?php echo $userSteamID; ?>">
+                                <?php echo $game['name']; ?>
                             </a>
                         </td>
-                        <td><?php echo $game['name']; ?></td>
                         <td><?php echo round($game['playtime_forever'] / 60, 1); ?> hours</td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="3">No games to display. Please submit your SteamID.</td>
+                    <td colspan="2">No games to display. Please submit your SteamID.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
     </table>
 </div>
+
+
 
 <div class="footer">
    &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
