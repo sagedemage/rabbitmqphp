@@ -138,8 +138,8 @@
         <h2>Reviews for <span id="currentGame"><?php echo $gameName; ?></span>:</h2>
         <?php
         echo "Current appId: " . $_GET['appid'];
-
-        if ($reviews) {
+        $reviews = json_decode($reviews, true);
+        if (is_array($reviews)) {
             foreach ($reviews as $review) {
                 echo '<div class="review">';
                 echo '<strong>' . htmlspecialchars($review['userName']) . '</strong> - Rating: ' . htmlspecialchars($review['gameRating']) . '<br>';
