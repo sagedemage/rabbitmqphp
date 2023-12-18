@@ -4,9 +4,13 @@
     <title>Page Title</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS from CDN for faster loading -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Inline critical CSS */
+        /* Add essential styles here */
+    </style>
+    <link rel="stylesheet" href="style.css"> <!-- Non-critical CSS -->
 </head>
 <body>
 
@@ -45,12 +49,10 @@
     $request['type'] = "GetAppList";
     $request['offset'] = $offset; // Add offset to the request
     $request['limit'] = $limit;   // Add limit to the request
-    // ... rest of your API call logic
 
     // Sending the API request and handling the response
     $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
     $response = $client->send_request($request);
-    // Handle the API response here...
 ?>
 
 <!-- Bootstrap Carousel -->
@@ -66,11 +68,11 @@
                     $gameName = $app->name;
                     $imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
                     $activeClass = $firstItem ? 'active' : '';
-                    $firstItem = false; // Ensure only the first item is marked active
-                    
+                    $firstItem = false;
+
                     echo '<div class="carousel-item ' . $activeClass . '">';
                     echo '<a href="review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '">';
-                    echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="' . $gameName . '" style="height: 25rem;">';
+                    echo '<img src="' . $imageUrl . '" class="d-block w-100 lazy" alt="' . $gameName . '" style="height: 25rem;">';
                     echo '</a>';
                     echo '</div>';
                 }
@@ -102,7 +104,7 @@
         foreach ($gamesToShow as $game): ?>
             <div class="card">
                 <a href="review.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>">
-                    <img src="https://steamcdn-a.akamaihd.net/steam/apps/<?php echo $game['appid']; ?>/header.jpg" class="card-img-top" alt="<?php echo $game['name']; ?>" style="height: 18rem;">
+                    <img src="https://steamcdn-a.akamaihd.net/steam/apps/<?php echo $game['appid']; ?>/header.jpg" class="card-img-top lazy" alt="<?php echo $game['name']; ?>" style="height: 18rem;">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $game['name']; ?></h5>
@@ -166,6 +168,35 @@
 </div>
 
 <!-- Bootstrap JS (optional, but required for some features) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Load JS asynchronously for performance -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" async></script>
+<script>
+    // Lazy loading for images
+    document.addEventListener("DOMContentLoaded", function() {
+        var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+        if ("IntersectionObserver" in window) {
+            let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        let lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove("lazy");
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            });
+
+            lazyImages.forEach(function(lazyImage) {
+                lazyImageObserver.observe(lazyImage);
+            });
+        } else {
+            // Fallback for browsers without IntersectionObserver support
+            lazyImages.forEach(function(lazyImage) {
+                lazyImage.src = lazyImage.dataset.src;
+            });
+        }
+    });
+</script>
 </body>
 </html>
