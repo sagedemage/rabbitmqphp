@@ -47,7 +47,7 @@ function doLogin($username, $password) {
 
 			$iv = openssl_random_pseudo_bytes($ivlen);
 
-			$cipher_text_raw = openssl_encrypt($username, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+			$cipher_text_raw = openssl_encrypt($userId, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
 
 			$hmac = hash_hmac('sha256', $cipher_text_raw, $key, $as_binary=true);
 
