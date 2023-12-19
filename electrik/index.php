@@ -21,11 +21,13 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
+/*
 function decodeCookie($cookieValue) {
     if (empty($cookieValue)) {
         return false;
     }
 
+	// this does not work
     $env = parse_ini_file('env.ini');
     $key = $env["OPENSSL_KEY"];
     $cipher = "AES-128-CBC";  // Assuming you use the same cipher as in your login script
@@ -45,13 +47,28 @@ function decodeCookie($cookieValue) {
 
     return false;
 }
+ */
 
-$cookieValue = $_COOKIE['user_id'] ?? '';
-$userId = decodeCookie($cookieValue);
+// undefined
+
+if (isset($_COOKIE['user_id'])) {
+	$cookieValue = $_COOKIE['user_id'];
+	$request = array();
+ 
+	$request['type'] = "Session";
+	$request['username_cipher_text'] = strval($cookieValue);
+	$response = $client->send_request($request);
+
+	echo $response;
+}
+
+$userId = null;
 $userSteamID = null;
 $ownedGames = [];
 
-if ($userId) {
+// undefined key user id
+
+if (isset($userId)) {
     $request = array('type' => "GetUserSteamID", 'userId' => $userId);
     $userSteamID = $client->send_request($request);
     if ($userSteamID) {
