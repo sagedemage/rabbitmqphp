@@ -16,45 +16,13 @@
     <?php
     ini_set('display_errors', 1);
 
-    // Include RabbitMQ client and other required files
-    require_once('../rabbitmq_lib/path.inc');
-    require_once('../rabbitmq_lib/get_host_info.inc');
-    require_once('../rabbitmq_lib/rabbitMQLib.inc');
+	require __DIR__ . '/get_user_id.php';
 
     $appId = isset($_GET['appid']) ? $_GET['appid'] : null;
     $gameName = isset($_GET['name']) ? urldecode($_GET['name']) : "Unknown Game";
-    $imageUrl = isset($appId) ? "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg" : "path/to/default/image.jpg";
+	$imageUrl = isset($appId) ? "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg" : "path/to/default/image.jpg";
 
-	
-	/* Game Review Post Request */
-
-    // Form submission handling
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $userId = 1; // Replace with actual user ID from your session or user management system
-        $gameRating = $_POST['rating'];
-        $reviewText = $_POST['review'];
-
-        // Prepare RabbitMQ client
-        $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-
-        // Construct request
-        $request = array();
-        $request['type'] = "SubmitReview";
-        $request['userId'] = $userId;
-        $request['appId'] = $appId;
-        $request['gameRating'] = $gameRating;
-        $request['reviewText'] = $reviewText;
-
-        // Send request to server
-		$response = $client->send_request($request);
-
-        if ($response === "Review submission success.") {
-            //echo '<script>alert("Review submitted successfully!");</script>';
-			echo '<script>window.location.href = "./review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '";</script>';
-        } else {
-            echo "<script>alert(\"$response\");</script>";
-        }
-    }
+	$userId = get_user_id();
 	
     ?>
 
@@ -67,8 +35,9 @@
 
     <h1>Game Review Form</h1>
 
-    <form action="#" method="post" id="reviewForm">
-        <input type="hidden" id="gameId" name="gameId" value="<?php echo $appId; ?>">
+    <form action="submit_review.php" method="post" id="reviewForm">
+        <input type="hidden" id="appId" name="appId" value="<?php echo $appId; ?>">
+        <input type="hidden" id="userId" name="userId" value="<?php echo $userId; ?>">
 
         <label for="rating">Rating:</label>
         <select id="rating" name="rating" required>

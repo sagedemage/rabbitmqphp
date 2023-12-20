@@ -25,12 +25,12 @@ function doLogin($username, $password) {
 
 	/* Login the user */
 	// Use prepared statement to avoid SQL injection
-	$request = "SELECT username, passHash FROM Users WHERE username=? OR email=?";
+	$request = "SELECT id, username, passHash FROM Users WHERE username=? OR email=?";
 	$stmt = $db->prepare($request);
 	$stmt->bind_param("ss", $username, $username);
 	if ($stmt->execute()) {
 		// Fetch the result
-		$stmt->bind_result($userId, $passHash);
+		$stmt->bind_result($id, $userId, $passHash);
 		$stmt->fetch();
 		$stmt->close();
 
@@ -47,7 +47,7 @@ function doLogin($username, $password) {
 
 			$iv = openssl_random_pseudo_bytes($ivlen);
 
-			$cipher_text_raw = openssl_encrypt($userId, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+			$cipher_text_raw = openssl_encrypt($id, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
 
 			$hmac = hash_hmac('sha256', $cipher_text_raw, $key, $as_binary=true);
 
@@ -282,7 +282,6 @@ function getUserSteamID($userId) {
         return "Failed to retrieve SteamID.";
     }
 }
-
 
 function verifyCookieSession($username_cipher_text) {
 	// Cookie attributes
