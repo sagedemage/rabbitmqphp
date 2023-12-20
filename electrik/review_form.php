@@ -28,8 +28,7 @@
 	
 	/* Game Review Post Request */
 
-	// Form submission handling
-	/*
+    // Form submission handling
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userId = 1; // Replace with actual user ID from your session or user management system
         $gameRating = $_POST['rating'];
@@ -47,22 +46,26 @@
         $request['reviewText'] = $reviewText;
 
         // Send request to server
-        $response = $client->send_request($request);
+		$response = $client->send_request($request);
+
+		// "review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '"
 
         if ($response === "Review submission success.") {
-            echo '<script>alert("Review submitted successfully!");</script>';
+            //echo '<script>alert("Review submitted successfully!");</script>';
+			echo '<script>window.location.href = "./review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '";</script>';
         } else {
             echo "<script>alert(\"$response\");</script>";
         }
-	}
-	 */
-
+    }
+	
+	/*
     // Request reviews for the current game
     $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
     $request = array();
     $request['type'] = "GetReviews";
     $request['appId'] = $appId;
-    $reviews = $client->send_request($request);
+	$reviews = $client->send_request($request);
+	 */
     ?>
 
     <div>
@@ -72,7 +75,6 @@
 
 	<!-- Game Review Form -->
 
-	<!--
     <h1>Game Review Form</h1>
 
     <form action="#" method="post" id="reviewForm">
@@ -91,19 +93,17 @@
         <textarea id="review" name="review" rows="4" required></textarea>
 
         <button type="submit">Submit Review</button>
-	</form>
-
--->
+    </form>
 
     <h1>Game Reviews</h1>
     <div id="reviews">
 		<h2>Reviews for <span id="currentGame"><?php echo $gameName; ?></span>:</h2>
 
 	<?php
-	echo '<a href="review_form.php?appid=' . $appId . '&name=' . urlencode($gameName) . '">';
-	echo 'Submit Review';
-	echo '</a>';
+		echo '<a href="submit_review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '">';
         //echo "Current appId: " . $_GET['appid'];
+
+		/*
         $reviews = json_decode($reviews, true);
         if (is_array($reviews)) {
             foreach ($reviews as $review) {
@@ -115,7 +115,8 @@
             }
         } else {
             echo '<p>No reviews available for this game.</p>';
-        }
+		}
+		 */
         ?>
     </div>
 
