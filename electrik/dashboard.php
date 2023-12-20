@@ -145,7 +145,7 @@
 
 <!-- Your existing script for user session verification -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="dashboard.js"></script>
+<script src="verify_user_session.js"></script>
 
 </body>
 </html>
