@@ -89,9 +89,9 @@ if(isset($_POST['updateSteamID'])) {
 				<?php foreach ($ownedGames as $game): ?>
 					<tr>
 						<td>
-							<p href="reviews.php?appid=<?php echo $game['appid']; ?>&name=<?php echo $game['name']; ?>&hoursPlayed=<?php echo round($game['playtime_forever'] / 60, 1); ?>&steamID=<?php echo $steam_id; ?>">
+							<a href="review.php?appid=<?php echo $game['appid']; ?>&name=<?php echo $game['name']; ?>&hoursPlayed=<?php echo round($game['playtime_forever'] / 60, 1); ?>&steamID=<?php echo $steam_id; ?>">
 								<?php echo $game['name']; ?>
-							<pp>
+							</a>
 						</td>
 						<td><?php echo round($game['playtime_forever'] / 60, 1); ?> hours</td>
 					</tr>
