@@ -149,9 +149,7 @@ if ($json_data === null && json_last_error() !== JSON_ERROR_NONE) {
 	</div>
 </div>
 
-<div class="footer">
-   &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
-</div>
+<?php include('footer.php'); ?>
 
 </body>
 </html>
