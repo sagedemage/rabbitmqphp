@@ -48,8 +48,6 @@
         // Send request to server
 		$response = $client->send_request($request);
 
-		// "review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '"
-
         if ($response === "Review submission success.") {
             //echo '<script>alert("Review submitted successfully!");</script>';
 			echo '<script>window.location.href = "./review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '";</script>';
@@ -58,14 +56,6 @@
         }
     }
 	
-	/*
-    // Request reviews for the current game
-    $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-    $request = array();
-    $request['type'] = "GetReviews";
-    $request['appId'] = $appId;
-	$reviews = $client->send_request($request);
-	 */
     ?>
 
     <div>
@@ -94,31 +84,5 @@
 
         <button type="submit">Submit Review</button>
     </form>
-
-    <h1>Game Reviews</h1>
-    <div id="reviews">
-		<h2>Reviews for <span id="currentGame"><?php echo $gameName; ?></span>:</h2>
-
-	<?php
-		echo '<a href="submit_review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '">';
-        //echo "Current appId: " . $_GET['appid'];
-
-		/*
-        $reviews = json_decode($reviews, true);
-        if (is_array($reviews)) {
-            foreach ($reviews as $review) {
-                $userName = isset($review['userName']) ? htmlspecialchars($review['userName']) : 'Unknown User';
-                echo '<div class="review">';
-                echo '<strong>' . $userName . '</strong> - Rating: ' . htmlspecialchars($review['gameRating']) . '<br>';
-                echo htmlspecialchars($review['reviewText']);
-                echo '</div>';
-            }
-        } else {
-            echo '<p>No reviews available for this game.</p>';
-		}
-		 */
-        ?>
-    </div>
-
 </body>
 </html>
