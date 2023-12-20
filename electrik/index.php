@@ -70,14 +70,18 @@ $ownedGames = [];
 
 // undefined key user id
 
-if (isset($userId)) {
-    $request = array('type' => "GetUserSteamID", 'userId' => $userId);
-    $userSteamID = $client->send_request($request);
-    if ($userSteamID) {
+//if (isset($userId)) {
+	//$request = array('type' => "GetUserSteamID", 'userId' => $userId);
+	
+
+    //$userSteamID = $client->send_request($request);
+	if (isset($_COOKIE['steam_id'])) {
+		$steam_id = $_COOKIE['steam_id'];
+
         // Fetch user's most-played games using the associated SteamID
         $request = array();
         $request['type'] = "GetOwnedGames";
-        $request['steamID'] = $userSteamID;
+        $request['steamID'] = $steam_id;
         $response = $client->send_request($request);
     
         if (is_string($response)) {
@@ -90,15 +94,13 @@ if (isset($userId)) {
             }
         }
     }
-}
+//}
 
 if(isset($_POST['updateSteamID'])) {
 	$steamID = $_POST['steamID'];
-	$_SESSION['steam_id'] = $steamID;
 
-	echo "<script>";
-	echo "localStorage.setItem('steam_id', '$steamID');";  
-	echo "</script>";
+	$cookie_name = "steam_id";
+	setcookie($cookie_name, $steamID, time() + (10 * 365 * 24 * 60 * 60), "/");
 
 	/*
     $request = array();
