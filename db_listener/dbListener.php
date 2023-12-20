@@ -354,7 +354,7 @@ function getOwnedGames($steamid) {
 	// Steam API to get App List
 	$env = parse_ini_file('env.ini');
 	$apiKey = $env["STEAM_WEB_API_KEY"];
-	$apiUrl = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=$apiKey&steamid=$steamid&include_played_free_games=true";
+	$apiUrl = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=$apiKey&steamid=$steamid&include_played_free_games=true&include_appinfo=true";
 
 	$curl = curl_init($apiUrl);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
