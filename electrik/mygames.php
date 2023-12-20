@@ -77,8 +77,8 @@ if(isset($_POST['updateSteamID'])) {
 <!-- Table of Owned Games -->
 <div class="container mt-5">
 	<h3>Your Owned Games</h3>
-	<table class="table table-bordered">
-		<thead>
+	<table class="table table-bordered table-light">
+		<thead class="table-dark">
 			<tr>
 				<th>Name of Game</th>
 				<th>Hours Played</th>
