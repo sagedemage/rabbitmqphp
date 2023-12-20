@@ -51,6 +51,7 @@ function decodeCookie($cookieValue) {
 
 // undefined
 
+/*
 if (isset($_COOKIE['user_id'])) {
 	$cookieValue = $_COOKIE['user_id'];
 	$request = array();
@@ -61,6 +62,7 @@ if (isset($_COOKIE['user_id'])) {
 
 	echo $response;
 }
+ */
 
 $userId = null;
 $userSteamID = null;
@@ -91,12 +93,20 @@ if (isset($userId)) {
 }
 
 if(isset($_POST['updateSteamID'])) {
-    $steamID = $_POST['steamID'];
+	$steamID = $_POST['steamID'];
+	$_SESSION['steam_id'] = $steamID;
+
+	echo "<script>";
+	echo "localStorage.setItem('steam_id', '$steamID');";  
+	echo "</script>";
+
+	/*
     $request = array();
     $request['type'] = "UpdateSteamID";
     $request['userId'] = $userId;
     $request['steamID'] = $steamID;
-    $response = $client->send_request($request);
+	$response = $client->send_request($request);
+	 */
 
     // Handle the response (e.g., display a message to the user)
 } 
