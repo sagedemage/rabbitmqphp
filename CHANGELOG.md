@@ -41,7 +41,7 @@
 - Added a new CSS file `style1.css`.
 - Added a logout link to the `contact.html` page.
 
-............................................
+
 
 ## [Version 0.0.2] - 09-25-2023
 
@@ -58,8 +58,7 @@
 
 ### Created
 - Created the database listener server program in `sample_env.ini`.
-...........................................................
-  
+
 
 ## [Version 0.0.3] - 10-10-2023
 
@@ -93,8 +92,8 @@
 
 ### Redesigned
 - register.php: Redesigned register.php
-- 
-.................................................................
+  
+
 
 ## [Version 0.0.4] - 11-08-2023 
 
@@ -127,7 +126,7 @@
 
 
 
-.....................................................................
+
 ## [Version 0.0.5] - 11-12-2023 
 
 ### Added
@@ -141,8 +140,6 @@
 - Implemented the Distributed Logging System feature.
 
 
-
-....................................................................
 ## [Version 0.0.6] - 11-14-2023
 
 ### Added
@@ -169,7 +166,7 @@
 
 
 
-...................................................................
+
 ## [Version 0.1.0]
 ### Closed Issues
 - Redirect to `index.php` enhancement
