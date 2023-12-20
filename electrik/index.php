@@ -19,20 +19,21 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
-$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-
-$userId = null;
-$userSteamID = null;
 $ownedGames = [];
 
 if (isset($_COOKIE['steam_id'])) {
 	$steam_id = $_COOKIE['steam_id'];
 
 	// Fetch user's most-played games using the associated SteamID
+	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 	$request = array();
 	$request['type'] = "GetOwnedGames";
 	$request['steamID'] = $steam_id;
 	$response = $client->send_request($request);
+
+	echo "<script>";
+	echo "console.log($response)";
+	echo "</script>";
 
 	if (is_string($response)) {
 		$jsonResponse = json_decode($response, true);
@@ -77,6 +78,8 @@ if(isset($_POST['updateSteamID'])) {
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner" id="carouselInner">
 <?php
+
+$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);
