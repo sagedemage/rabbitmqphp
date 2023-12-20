@@ -12,50 +12,6 @@
 
 <?php include('navbar.php'); ?>
 
-<?php
-ini_set('display_errors', 1);
-
-require_once('../rabbitmq_lib/path.inc');
-require_once('../rabbitmq_lib/get_host_info.inc');
-require_once('../rabbitmq_lib/rabbitMQLib.inc');
-
-$ownedGames = [];
-
-if (isset($_COOKIE['steam_id'])) {
-	$steam_id = $_COOKIE['steam_id'];
-
-	// Fetch user's most-played games using the associated SteamID
-	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-	$request = array();
-	$request['type'] = "GetOwnedGames";
-	$request['steamID'] = $steam_id;
-	$response = $client->send_request($request);
-
-	echo "<script>";
-	echo "console.log($response)";
-	echo "</script>";
-
-	if (is_string($response)) {
-		$jsonResponse = json_decode($response, true);
-		if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse['response']['games'])) {
-			usort($jsonResponse['response']['games'], function($a, $b) {
-				return $b['playtime_forever'] - $a['playtime_forever'];
-			});
-			$ownedGames = array_slice($jsonResponse['response']['games'], 0, 5);
-		}
-	}
-}
-
-if(isset($_POST['updateSteamID'])) {
-	$steamID = $_POST['steamID'];
-
-	$cookie_name = "steam_id";
-	setcookie($cookie_name, $steamID, time() + (10 * 365 * 24 * 60 * 60), "/");
-
-	// Handle the response (e.g., display a message to the user)
-} 
-?>
-
 <!-- Update SteamID Form -->
 <form action="index.php" method="post" class="mt-3 mb-3">
 	<div class="input-group mb-3">
@@ -78,6 +34,11 @@ if(isset($_POST['updateSteamID'])) {
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 	<div class="carousel-inner" id="carouselInner">
 <?php
+ini_set('display_errors', 1);
+
+require_once('../rabbitmq_lib/path.inc');
+require_once('../rabbitmq_lib/get_host_info.inc');
+require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 $request = array();
@@ -134,37 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['gameSearch'])) {
 		<span class="carousel-control-next-icon" aria-hidden="true"></span>
 		<span class="visually-hidden">Next</span>
 	</button>
-</div>
-
-<!-- Table of Owned Games -->
-<div class="container mt-5">
-	<h3>Your Owned Games</h3>
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Name of Game</th>
-				<th>Hours Played</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php if (!empty($ownedGames)): ?>
-				<?php foreach ($ownedGames as $game): ?>
-					<tr>
-						<td>
-							<a href="reviews.php?appid=<?php echo $game['appid']; ?>&name=<?php echo urlencode($game['name']); ?>&hoursPlayed=<?php echo round($game['playtime_forever'] / 60, 1); ?>&steamID=<?php echo $userSteamID; ?>">
-								<?php echo $game['name']; ?>
-							</a>
-						</td>
-						<td><?php echo round($game['playtime_forever'] / 60, 1); ?> hours</td>
-					</tr>
-				<?php endforeach; ?>
-			<?php else: ?>
-				<tr>
-					<td colspan="2">No games to display. Please submit your SteamID.</td>
-				</tr>
-			<?php endif; ?>
-		</tbody>
-	</table>
 </div>
 
 <?php include('footer.php'); ?>
