@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 require_once('rabbitmq_lib/path.inc');
 require_once('rabbitmq_lib/get_host_info.inc');
 require_once('rabbitmq_lib/rabbitMQLib.inc');
-
+require 'PHPMailer/'
 /* Server */
 function doLogin($username, $password) {
     // Connect to Database
@@ -86,7 +86,7 @@ function doLogin($username, $password) {
 	$mail->Host = "smtp.gmail.com";
 	$mail->Port = 465;
 	$mail->Username = "electrik135@gmail.com"; // Your Gmail address
-	$mail->Password = "xudmdhddnvjxwacl"; // Your Gmail app password
+	$mail->Password = "oxwlopjxckcdbrqq"; // Your Gmail app password
 
 	$mail->SetFrom("electrik135@gmail.com"); // Email shown in "From" field.
 	$mail->AddAddress($userEmail); // User's email address
