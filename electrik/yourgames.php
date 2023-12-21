@@ -31,10 +31,6 @@ if (isset($_COOKIE['steam_id'])) {
 	$request['steamID'] = $steam_id;
 	$response = $client->send_request($request);
 
-	echo "<script>";
-	echo "console.log($response)";
-	echo "</script>";
-
 	if (is_string($response)) {
 		$jsonResponse = json_decode($response, true);
 		if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse['response']['games'])) {
@@ -58,7 +54,7 @@ if(isset($_POST['updateSteamID'])) {
 ?>
 
 <!-- Update SteamID Form -->
-<form action="index.php" method="post" class="mt-3 mb-3">
+<form action="yourgames.php" method="post" class="mt-3 mb-3">
 	<div class="input-group mb-3">
 		<input type="hidden" name="formType" value="updateSteamID">
 		<input type="text" class="form-control" placeholder="Enter SteamID" name="steamID">
