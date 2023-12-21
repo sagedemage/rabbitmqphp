@@ -40,7 +40,7 @@
         if ($data->{"msg"} === "2FA verification successful") {
             // Set cookie and redirect to dashboard
 			$name = "user_id";
-			$value = $userId;
+			$value = $data->{"cipher_text"};
 			$expires_or_options = time() + 3600;
 			$path = "/";
 			$domain = "";
