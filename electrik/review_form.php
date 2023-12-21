@@ -59,6 +59,8 @@
         <textarea id="review" name="review" rows="4" required></textarea>
 
         <button type="submit">Submit Review</button>
-    </form>
+	</form>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="verify_user_session.js"></script>
 </body>
 </html>
