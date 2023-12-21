@@ -41,7 +41,8 @@ if (isset($_COOKIE['steam_id'])) {
 			usort($jsonResponse['response']['games'], function($a, $b) {
 				return $b['playtime_forever'] - $a['playtime_forever'];
 			});
-			$ownedGames = array_slice($jsonResponse['response']['games'], 0, 5);
+			//$ownedGames = array_slice($jsonResponse['response']['games'], 0, 10);
+			$ownedGames = $jsonResponse['response']['games'];
 		}
 	}
 }
