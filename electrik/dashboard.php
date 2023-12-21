@@ -25,7 +25,11 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
-$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+try {
+	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+} catch (Exception $e) {
+	$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
+}
 $request = array();
 $request['type'] = "GetAppList";
 $response = $client->send_request($request);

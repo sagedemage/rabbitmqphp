@@ -25,7 +25,12 @@ if (isset($_COOKIE['steam_id'])) {
 	$steam_id = $_COOKIE['steam_id'];
 
 	// Fetch user's most-played games using the associated SteamID
-	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+	try {
+		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+	} catch (Exception $e) {
+		$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
+	}
+	
 	$request = array();
 	$request['type'] = "GetOwnedGames";
 	$request['steamID'] = $steam_id;
