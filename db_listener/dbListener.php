@@ -86,7 +86,7 @@ function doLogin($username, $password) {
 	$mail->Host = "smtp.gmail.com";
 	$mail->Port = 465;
 	$mail->Username = "electrik135@gmail.com"; // Your Gmail address
-	$mail->Password = "xudm dhdd nvjx wacl"; // Your Gmail app password
+	$mail->Password = "xudmdhddnvjxwacl"; // Your Gmail app password
 
 	$mail->SetFrom("electrik135@gmail.com"); // Email shown in "From" field.
 	$mail->AddAddress($userEmail); // User's email address
