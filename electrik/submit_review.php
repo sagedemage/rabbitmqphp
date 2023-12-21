@@ -6,6 +6,8 @@ require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
+$gameName = isset($_GET['name']) ? urldecode($_GET['name']) : "Unknown Game";
+
 /* Get User ID */
 // Prepare RabbitMQ client
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
