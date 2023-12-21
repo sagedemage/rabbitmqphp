@@ -377,6 +377,15 @@ function verify2FACode($username, $code) {
     if ($row = $result->fetch_assoc()) {
         $currentDateTime = new DateTime();
 
+		// Inside the verification section
+		$currentDateTime = new DateTime();
+		$expiryDateTime = new DateTime($row['code_expiry']);
+
+		// Debugging: Remove these lines after debugging
+		echo 'Current Time: ' . $currentDateTime->format('Y-m-d H:i:s') . '<br>';
+		echo 'Expiry Time: ' . $expiryDateTime->format('Y-m-d H:i:s') . '<br>';
+		echo 'Database Code: ' . $row['two_factor_code'] . '<br>';
+		echo 'User Code: ' . $userCode . '<br>';
         if ($code === $row['two_factor_code'] && $currentDateTime < new DateTime($row['code_expiry'])) {
             // Code is correct and not expired
             return json_encode(["success" => true]);
