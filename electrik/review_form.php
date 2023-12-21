@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <?php include('navbar.php'); ?>
+    <?php include('dashnav.php'); ?>
 
     <?php
     ini_set('display_errors', 1);
