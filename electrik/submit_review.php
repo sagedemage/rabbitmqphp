@@ -22,10 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$userId = $_POST['userId'];
 	$appId = $_POST['appId'];
 
-
-	// Prepare RabbitMQ client
-	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-
 	// Construct request
 	$request = array();
 	$request['type'] = "SubmitReview";

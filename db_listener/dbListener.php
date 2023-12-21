@@ -319,9 +319,9 @@ function fetchUserEmail($username) {
     $stmt->execute();
     $result = $stmt->get_result();
     if ($row = $result->fetch_assoc()) {
-        return json_encode(array('email' => $row['email']));
+        return $row['email'];
     } else {
-        return json_encode(array('error' => 'Email not found.'));
+        return null;
     }
 }
 
