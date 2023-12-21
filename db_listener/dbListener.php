@@ -368,6 +368,7 @@ function verify2FACode($username, $code) {
     $db_name = $env["DATABASE_NAME"];
     $db = new mysqli($host, $db_user, $db_pass, $db_name);
 
+	
     // Fetch the stored 2FA code and expiry from the database
     $stmt = $db->prepare("SELECT two_factor_code, code_expiry FROM Users WHERE username = ?");
     $stmt->bind_param("s", $username);
@@ -375,9 +376,7 @@ function verify2FACode($username, $code) {
     $result = $stmt->get_result();
 
     if ($row = $result->fetch_assoc()) {
-        $currentDateTime = new DateTime();
-
-		// Inside the verification section
+        // Inside the verification section
 		$currentDateTime = new DateTime();
 		$expiryDateTime = new DateTime($row['code_expiry']);
 
@@ -386,6 +385,8 @@ function verify2FACode($username, $code) {
 		echo 'Expiry Time: ' . $expiryDateTime->format('Y-m-d H:i:s') . '<br>';
 		echo 'Database Code: ' . $row['two_factor_code'] . '<br>';
 		echo 'User Code: ' . $userCode . '<br>';
+
+		
         if ($code === $row['two_factor_code'] && $currentDateTime < new DateTime($row['code_expiry'])) {
             // Code is correct and not expired
             return json_encode(["success" => true]);
@@ -395,6 +396,7 @@ function verify2FACode($username, $code) {
     } else {
         return json_encode(["success" => false, "msg" => "User not found."]);
     }
+}
 
 function fetchUserEmail($username) {
 	$env = parse_ini_file('env.ini');
