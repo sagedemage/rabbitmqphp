@@ -20,4 +20,3 @@ axios.post('/verify_user_session.php', {
 	.catch(function(error) {
 		console.log(error);
 	});
-

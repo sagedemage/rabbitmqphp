@@ -1,9 +1,12 @@
 <?php
 ini_set('display_errors', 1);
 
+require_once('logger.php');
 require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
+
+$logMessages = "";
 
 /* Client */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
@@ -60,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 		}
 		else if ($data->{"msg"} === "Authentication failed. Invalid username or password.") {
 			// Display a popup message for invalid username or password
+			$logMessages .= "Invalid Username or Password. Please Try Again.\n";
 			echo '<script>alert("Invalid Username or Password. Please Try Again.");</script>';
 			echo '<script>window.location.href = "./login.php";</script>';
 		}
@@ -67,8 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
 } else if ($error) {
 	foreach ($errorMsgs as $error) {
+		$logMessages .= $errorMsg . '<br>';
 		echo $error . '<br>';
-		error_log($error, 3, "error.log");
 	}
 }
+sendLogMessage($logMessages);
 ?>
