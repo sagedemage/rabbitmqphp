@@ -17,6 +17,7 @@ function generateRandomCode($length = 6) {
 
 /* Client */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+	echo '<script>console.log("Processing POST request for login");</script>';
 	$user = $_POST['id'];
 	$pwd = $_POST['pwd'];
 	$error = false;
@@ -38,20 +39,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 	}
 
 	if (!$error) {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+		echo '<script>console.log("No errors found in user input, proceeding with RabbitMQ client setup");</script>';
+        $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+        echo '<script>console.log("RabbitMQ client initialized");</script>';
+
 		/* Send login request to server */
 		$request = array();
 		$request['type'] = "Login";
 		$request['username'] = $user;
 		$request['password'] = $pwd;
 
-		$response = $client->send_request($request);
+		echo '<script>console.log("Sending login request to server via RabbitMQ");</script>';
+        $response = $client->send_request($request);
+        echo '<script>console.log("Received response from server: ' . htmlspecialchars(json_encode($response)) . '");</script>';
 
 		// Only encrypt the value of the cookie
 		$data = json_decode($response);
 
 		// Check if the login response is successful, and then set a session cookie
 		if ($data->{"msg"} === "Authentication successful.") {
+			echo '<script>console.log("Authentication successful, generating 2FA code");</script>';
 			// Generate 2FA code
 			$twoFactorCode = generateRandomCode();
 			$expiryTime = new DateTime();
@@ -62,8 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 				'type' => 'FetchEmail',
 				'username' => $user
 			);
+			echo '<script>console.log("Fetching email");</script>';
 			$userEmail = $client->send_request($emailRequest);
-
+			echo '<script>console.log("Fetched now updating 2FA");</script>';
 			// Update 2FA code in database via RabbitMQ
 			$update2FARequest = array(
 				'type' => 'Update2FACode',
@@ -71,8 +79,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 				'two_factor_code' => $twoFactorCode,
 				'code_expiry' => $expiryTime->format('Y-m-d H:i:s')
 			);
-			$client->send_request($update2FARequest);
 
+			echo '<script>console.log("Updated 2FA");</script>';
+			$client->send_request($update2FARequest);
+			echo '<script>console.log("Done, now preparing email");</script>';
 			// Send 2FA code via email using PHPMailer
 			$mail = new PHPMailer\PHPMailer\PHPMailer();
 
@@ -90,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 			$mail->Subject = "Your 2FA Code";
 			$mail->Body = "Your 2FA code is: $twoFactorCode";
 
+			echo '<script>console.log("Sending");</script>';
 			if(!$mail->Send()) {
 				echo "Mailer Error: " . $mail->ErrorInfo;
 			} else {
@@ -97,7 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 			}
 
 			// Redirect to the 2FA verification page
-			header("Location: twoFactorVerify.php?user_id=" . urlencode($user));
 			exit;
 		}
 		else if ($data->{"msg"} === "Authentication failed. Invalid username or password.") {
