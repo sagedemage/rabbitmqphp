@@ -39,16 +39,14 @@
         // Check the response message for success
         if ($data->{"msg"} === "2FA verification successful") {
             // Set cookie and redirect to dashboard
-			$name = "user_id";
-			$value = $data->{"cipher_text"};
-			$expires_or_options = time() + 3600;
-			$path = "/";
-			$domain = "";
-			$secure = false;
-			$http_only = false;
+            $name = "user_id";
+            $value = $userId; // Consider encrypting this value
+            $expires_or_options = time() + 3600; // 1 hour
+            $path = "/";
+            $secure = false; // Set to true if using HTTPS
+            $http_only = true; // Set to true to make cookie accessible only through the HTTP protocol
 
-			// Set a session cookie to persist authentication
-			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $http_only);
+            setcookie($name, $value, $expires_or_options, $path, "", $secure, $http_only);
 
             header("Location: dashboard.php");
             exit;
