@@ -66,15 +66,6 @@ if(isset($_POST['updateSteamID'])) {
 	</div>
 </form>
 
-<!-- Search Game Form -->
-<form action="index.php" method="get" class="mt-3 mb-3">
-	<input type="hidden" name="formType" value="searchGame">
-	<div class="input-group mb-3">
-		<input type="text" class="form-control" placeholder="Enter Game Name" name="gameSearch">
-		<button class="btn btn-outline-secondary" type="submit">Search</button>
-	</div>
-</form>
-
 <!-- Table of Owned Games -->
 <div class="container mt-5">
 	<h3>Your Owned Games</h3>
