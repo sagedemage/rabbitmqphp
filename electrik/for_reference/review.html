@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form, #reviews {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .review {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Game Reviews</h1>
+
+    <form action="#" method="post" id="reviewForm" style="display:none;">
+        <label for="gameTitle">Game Title:</label>
+        <input type="text" id="gameTitle" name="gameTitle" required disabled>
+
+        <label for="rating">Rating:</label>
+        <select id="rating" name="rating" required>
+            <option value="1">1 - Awful</option>
+            <option value="2">2 - Poor</option>
+            <option value="3">3 - Average</option>
+            <option value="4">4 - Good</option>
+            <option value="5">5 - Excellent</option>
+        </select>
+
+        <label for="timePlayed">Time Played (hours):</label>
+        <input type="number" id="timePlayed" name="timePlayed" min="0" step="0.5">
+
+        <label for="review">Review:</label>
+        <textarea id="review" name="review" rows="4" required></textarea>
+
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <div id="reviews">
+        <h2>Reviews for <span id="currentGame"></span>:</h2>
+        <div class="review">
+            <strong>Game Placeholder</strong> - Rating: 4, Time Played: 10 hours<br>
+            Placeholder review text. This is a sample review for demonstration purposes.
+        </div>
+        <div class="review">
+            <strong>Game Placeholder</strong> - Rating: 5, Time Played: 20 hours<br>
+            Another placeholder review text. This is a sample review for demonstration purposes.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Extract the game parameter from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameName = urlParams.get('game');
+
+            if (gameName) {
+                // Show the review form
+                document.getElementById('reviewForm').style.display = 'block';
+
+                // Update the current game title
+                document.getElementById('gameTitle').value = gameName;
+                document.getElementById('currentGame').textContent = gameName;
+
+                // Clear previous reviews
+                document.getElementById('reviews').innerHTML = '';
+
+                // You can fetch reviews for the selected game from a server here
+                // For demonstration purposes, let's simulate some reviews
+                displayReview(gameName, 4, 10, 'Great game! Enjoyed every moment.');
+                displayReview(gameName, 5, 20, 'The best game I have ever played!');
+            } else {
+                // Handle the case where no game parameter is provided
+                console.error('No game parameter provided in the URL.');
+            }
+        });
+
+        document.getElementById('reviewForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Simulating review submission
+            const gameTitle = document.getElementById('gameTitle').value;
+            const rating = document.getElementById('rating').value;
+            const timePlayed = document.getElementById('timePlayed').value || 0;
+            const reviewText = document.getElementById('review').value;
+
+            // Display the review
+            displayReview(gameTitle, rating, timePlayed, reviewText);
+
+            // Clear the form fields
+            document.getElementById('rating').value = '1';
+            document.getElementById('timePlayed').value = '';
+            document.getElementById('review').value = '';
+        });
+
+        function displayReview(gameTitle, rating, timePlayed, reviewText) {
+            const reviewsContainer = document.getElementById('reviews');
+
+            // Create a new review element
+            const reviewElement = document.createElement('div');
+            reviewElement.classList.add('review');
+
+            // Populate the review element
+            reviewElement.innerHTML = `
+                <strong>${gameTitle}</strong> - Rating: ${rating}, Time Played: ${timePlayed} hours<br>
+                ${reviewText}
+            `;
+
+            // Append the review to the reviews container
+            reviewsContainer.appendChild(reviewElement);
+        }
+    </script>
+
+</body>
+</html>

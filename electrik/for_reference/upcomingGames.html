@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Games</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #game-container {
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 20px;
+        }
+
+        .game-card {
+            display: inline-block;
+            margin-right: 20px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="upcomingGames.js"></script>
+</head>
+<body>
+
+<?php include('copy.php'); ?>
+
+</body>
+</html>
