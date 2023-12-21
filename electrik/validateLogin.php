@@ -62,8 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 				'type' => 'FetchEmail',
 				'username' => $user
 			);
-			$emailResponse = $client->send_request($emailRequest);
-			$userEmail = json_decode($emailResponse, true)['email'];
+			$userEmail = $client->send_request($emailRequest);
 
 			// Update 2FA code in database via RabbitMQ
 			$update2FARequest = array(
