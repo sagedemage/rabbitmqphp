@@ -176,6 +176,7 @@
 - DB replication (Video Proof) - [Checked]
 - systemd (Screenshot Proof)
 - Firewalls [Production] (Screenshot Proof)
+- 2FA
 
 #### Personal Deliverables
 - Ability to recommend games to people (Video Proof)
@@ -186,7 +187,6 @@
 
 ### Deliverables In Progress
 - 3 clusters (Dev, QA, and Prod)
-- 2FA
 - NAGIOS
 
 ### Deliverables To Do
