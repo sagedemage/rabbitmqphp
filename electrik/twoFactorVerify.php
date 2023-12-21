@@ -15,7 +15,9 @@
 
     <?php
     session_start();
-    require_once('path/to/db_connection_file.php'); // Update with the correct path
+    require_once('../rabbitmq_lib/path.inc');
+    require_once('../rabbitmq_lib/get_host_info.inc');
+    require_once('../rabbitmq_lib/rabbitMQLib.inc');// include RabbitMQ required files
 
     $errorMsg = '';
 
@@ -30,36 +32,32 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['twoFactorCode'])) {
         $userCode = $_POST['twoFactorCode'];
 
-        // Fetch the stored code and expiry from the database
-        $query = "SELECT two_factor_code, code_expiry FROM Users WHERE username = ?";
-        $stmt = $db->prepare($query);
-        $stmt->bind_param("s", $userId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($row = $result->fetch_assoc()) {
-            $currentDateTime = new DateTime();
-            $expiryDateTime = new DateTime($row['code_expiry']);
+        // Create a client instance and send request to RabbitMQ server
+        $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
-            if ($userCode === $row['two_factor_code'] && $currentDateTime < $expiryDateTime) {
-                // Code is correct and not expired, set cookie and redirect to dashboard
-                $name = "user_id";
-                $value = $userId; // Consider encrypting this value
-                $expires_or_options = time() + 3600; // 1 hour
-                $path = "/";
-                $secure = false; // Set to true if using HTTPS
-                $http_only = true; // Set to true to make cookie accessible only through the HTTP protocol
+        $request = array();
+        $request['type'] = "Verify2FACode";
+        $request['username'] = $userId;
+        $request['twoFactorCode'] = $userCode;
 
-                setcookie($name, $value, $expires_or_options, $path, "", $secure, $http_only);
+        $response = $client->send_request($request);
+        
+        if ($response["success"]) {
+            // Set cookie and redirect to dashboard
+            $name = "user_id";
+            $value = $userId; // Consider encrypting this value
+            $expires_or_options = time() + 3600; // 1 hour
+            $path = "/";
+            $secure = false; // Set to true if using HTTPS
+            $http_only = true; // Set to true to make cookie accessible only through the HTTP protocol
 
-                header("Location: dashboard.php");
-                exit;
-            } else {
-                $errorMsg = 'Invalid or expired code. Please try again.';
-            }
+            setcookie($name, $value, $expires_or_options, $path, "", $secure, $http_only);
+
+            header("Location: dashboard.php");
+            exit;
         } else {
-            $errorMsg = 'Error fetching user data. Please try again.';
+            $errorMsg = $response["msg"] ?? 'Invalid or expired code. Please try again.';
         }
-        $stmt->close();
     }
     ?>
 

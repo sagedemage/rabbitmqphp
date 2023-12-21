@@ -360,6 +360,33 @@ function verifyCookieSession($username_cipher_text) {
 	return false;
 }
 
+function verify2FACode($username, $code) {
+    $env = parse_ini_file('env.ini');
+    $host = $env["HOST"];
+    $db_user = $env["MYSQL_USERNAME"];
+    $db_pass = $env["MYSQL_PASSWORD"];
+    $db_name = $env["DATABASE_NAME"];
+    $db = new mysqli($host, $db_user, $db_pass, $db_name);
+
+    // Fetch the stored 2FA code and expiry from the database
+    $stmt = $db->prepare("SELECT two_factor_code, code_expiry FROM Users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        $currentDateTime = new DateTime();
+
+        if ($code === $row['two_factor_code'] && $currentDateTime < new DateTime($row['code_expiry'])) {
+            // Code is correct and not expired
+            return json_encode(["success" => true]);
+        } else {
+            return json_encode(["success" => false, "msg" => "Invalid or expired code."]);
+        }
+    } else {
+        return json_encode(["success" => false, "msg" => "User not found."]);
+    }
+
 function fetchUserEmail($username) {
 	$env = parse_ini_file('env.ini');
 	$host = $env["HOST"];
@@ -499,6 +526,8 @@ function requestProcessor($request) {
 		return updateSteamID($request['userId'], $request['steamID']);
 	case "GetUserSteamID":
 		return getUserSteamID($request['userId']);
+	case "Verify2FACode":
+        return verify2FACode($request['username'], $request['twoFactorCode']);
 	}
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }
