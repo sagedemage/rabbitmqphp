@@ -14,6 +14,9 @@
     <?php include('navbar.php'); ?>
 
     <?php
+    ini_set('display_errors', 1);
+    ob_start(); // Start output buffering
+    error_reporting(E_ALL); // Enable error reporting for debugging
     session_start();
     require_once('../rabbitmq_lib/path.inc');
     require_once('../rabbitmq_lib/get_host_info.inc');
@@ -50,9 +53,9 @@
             $path = "/";
             $secure = false; // Set to true if using HTTPS
             $http_only = true; // Set to true to make cookie accessible only through the HTTP protocol
-
+            echo 'Set cookie';
             setcookie($name, $value, $expires_or_options, $path, "", $secure, $http_only);
-
+            echo 'Redirect';
             header("Location: dashboard.php");
             exit;
         } else {
