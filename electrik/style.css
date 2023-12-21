@@ -36,7 +36,6 @@ ul {
 /* Additional styles for the navbar */
 .navbar,
 .dashboard-navbar {
-  overflow: hidden;
   background-color: #3498db; /* Change the background color for the navbar */
 }
 
