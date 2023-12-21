@@ -14,3 +14,12 @@
 
 ## Setup HTTPS for the Website
 [Setup HTTPS for the Website](./docs/setup_https_for_website.md)
+
+## Database Replication Guide
+[Database Replication Guide](./docs/database_replication.md)
+
+## Setup Firewall
+[Firewall Guide](./docs/setup_firewall.md)
+
+## Setup SystemD
+[SystemD Guide](./docs/systemd_guide.md)

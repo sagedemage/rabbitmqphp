@@ -35,3 +35,11 @@ The command to run to install the **development dependencies**.
 ```
 sudo apt install vim git ssh
 ```
+
+## 2FA Dependencies
+1. PHP Mailer
+
+The command to run to install the **2FA Dependencies**
+```
+sudo apt install libphp-phpmailer
+```
