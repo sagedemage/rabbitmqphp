@@ -17,3 +17,6 @@
 
 ## Database Replication Guide
 [Database Replication Guide](./docs/database_replication.md)
+
+## Setup Firewall
+[Firewall Guide](./docs/setup_firewall.md)
