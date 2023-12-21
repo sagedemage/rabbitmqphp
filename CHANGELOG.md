@@ -165,29 +165,71 @@
 
 
 
+## [Version 0.0.7] - 12-20-2023
+
+
+### Completed Deliverables
+#### Common Deliverables
+- HTTPS (Video Proof) - [Checked]
+- Hash Passwords (Video Proof) - [Checked]
+- Responsive Design (Video Proof) - [Checked]
+- DB replication (Video Proof) - [Checked]
+- systemd (Screenshot Proof)
+- Firewalls [Production] (Screenshot Proof)
+
+#### Personal Deliverables
+- Ability to recommend games to people (Video Proof)
+- Ability for people to rate games in their library (Video Proof)
+- Ability to search through and view games and their library (Video Proof)
+- Review on games (Video Proof)
+- Ability to see other players' reviews (Video Proof)
+
+### Deliverables In Progress
+- 3 clusters (Dev, QA, and Prod)
+- 2FA
+- NAGIOS
+
+### Deliverables To Do
+#### Common Deliverables
+- Deployment
+- Hot standby
+
+#### Personal Deliverables
+- Watchlist for upcoming games (Calendar, or Push Notifications)
+
+
+
+
 
 
 ## [Version 0.1.0]
 ### Closed Issues
 - Redirect to `index.php` enhancement
+- Firewalls
 - DB replication documentation feature
+  - 2 tasks
+- Systemd - Startup Services feature
 - Setup HTTPS for the website enhancement
   - 2 tasks done
+- Personal Deliverables feature
+  - 5 of 6 tasks
 - Steam API Documentation documentation
 - Redesign Website enhancement feature
   - 4 tasks done
+- Local Access to MySQL from RabbitMQ enhancement
 - Password tweaks
 - RabbitMQ Queuing System feature
 - Authentication Forget Password feature
 - Cookie Session feature
-  - 2 tasks done
+  - 2 tasks
 - Ubuntu VM Dependencies documentation
 - Character Length for passHash is too small bug enhancement
   - 3 tasks done
 - RabbitMQ Documentation documentation
 - Setup Authentication Pages
   - 2 tasks done
-- Fix to mysqlsetup documentation
+- Build the webpage
+- Fix to MySQL setup documentation
 - Setup Website feature
 
 
