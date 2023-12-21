@@ -26,4 +26,5 @@ sudo ufw reload
 sudo ufw logging on
 
 #Display firewall config (verbose)
+echo
 sudo ufw status verbose
