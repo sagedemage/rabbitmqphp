@@ -10,15 +10,6 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 // Prepare RabbitMQ client
 $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
 
-$cookie_value = $_COOKIE['user_id'];
-
-// Construct request
-$request = array();
-$request['type'] = "Session";
-$request['username_cipher_text'] = $cookie_value;
-
-$userId = $client->send_request($request);
-
 /* Game Review Post Request */
 
 // Form submission handling
