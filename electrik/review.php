@@ -17,6 +17,7 @@
     ini_set('display_errors', 1);
 
     // Include RabbitMQ client and other required files
+    require_once('tryConnectRabbitMQ.php');
     require_once('../rabbitmq_lib/path.inc');
     require_once('../rabbitmq_lib/get_host_info.inc');
     require_once('../rabbitmq_lib/rabbitMQLib.inc');
@@ -26,15 +27,13 @@
     $imageUrl = isset($appId) ? "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg" : "path/to/default/image.jpg";
 
     // Request reviews for the current game
-    try {
-        $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-    } catch (Exception $e) {
-        $client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
-    }
+    $client = tryConnectRabbitMQ("testServer", "secondaryServer", 5);
+
     $request = array();
     $request['type'] = "GetReviews";
     $request['appId'] = $appId;
     $reviews = $client->send_request($request);
+
     ?>
 
     <div>

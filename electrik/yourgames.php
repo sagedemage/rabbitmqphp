@@ -15,6 +15,7 @@
 <?php
 ini_set('display_errors', 1);
 
+require_once('tryConnectRabbitMQ.php');
 require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
@@ -25,11 +26,7 @@ if (isset($_COOKIE['steam_id'])) {
 	$steam_id = $_COOKIE['steam_id'];
 
 	// Fetch user's most-played games using the associated SteamID
-	try {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-	} catch (Exception $e) {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
-	}
+	$client = tryConnectRabbitMQ("testServer", "secondaryServer", 5);
 	
 	$request = array();
 	$request['type'] = "GetOwnedGames";

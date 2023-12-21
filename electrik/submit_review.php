@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 
 // Include RabbitMQ client and other required files
+require('tryConnectRabbitMQ.php');
 require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
@@ -10,11 +11,7 @@ $gameName = isset($_GET['name']) ? urldecode($_GET['name']) : "Unknown Game";
 
 /* Get User ID */
 // Prepare RabbitMQ client
-try {
-	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-} catch (Exception $e) {
-	$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
-}
+$client = tryConnectRabbitMQ("testServer", "secondaryServer", 5);
 
 /* Game Review Post Request */
 
@@ -28,11 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 	// Prepare RabbitMQ client
-	try {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-	} catch (Exception $e) {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
-	}
+	$client = tryConnectRabbitMQ("testServer", "secondaryServer", 5);
 
 	// Construct request
 	$request = array();

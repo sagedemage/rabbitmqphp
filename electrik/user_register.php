@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', 1);
-
+require_once('tryConnectRabbitMQ.php');
 require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
@@ -60,11 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 		}
 	}
 	if (!$error) {
-		try {
-			$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-		} catch (Exception $e) {
-			$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
-		}
+		$client = tryConnectRabbitMQ("testServer", "secondaryServer", 5);
 
 		/* Send register request to server */
 		$request = array();

@@ -2,6 +2,7 @@
 ini_set('display_errors', 1);
 
 // Include RabbitMQ client and other required files
+require_once('tryConnectRabbitMQ.php');
 require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
@@ -9,11 +10,7 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 function get_user_id() {
 	/* Get User ID */
 	// Prepare RabbitMQ client
-	try {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
-	} catch (Exception $e) {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
-	}
+	$client = tryConnectRabbitMQ("testServer", "secondaryServer", 5);
 
 	$cookie_value = $_COOKIE['user_id'];
 
