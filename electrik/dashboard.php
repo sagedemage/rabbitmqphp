@@ -4,9 +4,6 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Dashboard</title>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS stylesheet for additional styling -->
 </head>
 <body>
@@ -18,134 +15,79 @@
    <h1 class="text-center display-4 fw-bold text-primary">Game Recommendation Portal</h1>
 </div>
 
-<!-- Cards below the carousel -->
-<div class="container mt-5">
-   <div class="row row-cols-1 row-cols-md-4 g-4">
-       <!-- Cards from the original code -->
-       <div class="col">
-           <div class="card">
-               <img src="images/image5.jpg" class="card-img-top" alt="Card 1" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 1</h5>
-                   <p class="card-text">Some text for Card 1.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image7.png" class="card-img-top" alt="Card 2" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 2</h5>
-                   <p class="card-text">Some text for Card 2.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image9.jpg" class="card-img-top" alt="Card 3" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 3</h5>
-                   <p class="card-text">Some text for Card 3.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image10.jpg" class="card-img-top" alt="Card 4" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 4</h5>
-                   <p class="card-text">Some text for Card 4.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image11.jpg" class="card-img-top" alt="Card 5" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 5</h5>
-                   <p class="card-text">Some text for Card 5.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image12.jpg" class="card-img-top" alt="Card 6" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 6</h5>
-                   <p class="card-text">Some text for Card 6.</p>
-               </div>
-           </div>
-       </div>
+<!-- Bootstrap Carousel -->
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+	<div class="carousel-inner" id="carouselInner">
+<?php
+ini_set('display_errors', 1);
 
-       <!-- New cards -->
-       <div class="col">
-           <div class="card">
-               <img src="images/image13.jpg" class="card-img-top" alt="Card 7" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 7</h5>
-                   <p class="card-text">Some text for Card 7.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image14.jpg" class="card-img-top" alt="Card 8" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 8</h5>
-                   <p class="card-text">Some text for Card 8.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image15.jpg" class="card-img-top" alt="Card 9" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 9</h5>
-                   <p class="card-text">Some text for Card 9.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image16.jpg" class="card-img-top" alt="Card 10" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 10</h5>
-                   <p class="card-text">Some text for Card 10.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image17.jpg" class="card-img-top" alt="Card 11" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 11</h5>
-                   <p class="card-text">Some text for Card 11.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col">
-           <div class="card">
-               <img src="images/image18.jpg" class="card-img-top" alt="Card 12" style="height: 18rem;">
-               <div class="card-body">
-                   <h5 class="card-title">Card 12</h5>
-                   <p class="card-text">Some text for Card 12.</p>
-               </div>
-           </div>
-       </div>
-   </div>
+require_once('../rabbitmq_lib/path.inc');
+require_once('../rabbitmq_lib/get_host_info.inc');
+require_once('../rabbitmq_lib/rabbitMQLib.inc');
+
+$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+$request = array();
+$request['type'] = "GetAppList";
+$response = $client->send_request($request);
+
+if (is_string($response)) {
+	$jsonResponse = json_decode($response);
+	if (json_last_error() === JSON_ERROR_NONE && isset($jsonResponse->response->apps)) {
+		foreach ($jsonResponse->response->apps as $index => $app) {
+			$appId = $app->appid;
+			$gameName = $app->name;
+			$imageUrl = "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg";
+			$activeClass = ($index === 0) ? 'active' : '';
+			echo '<div class="carousel-item ' . $activeClass . '">';
+			echo '<a href="review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '">';
+			echo '<img src="' . $imageUrl . '" class="d-block w-100" alt="' . $gameName . '" style="height: 25rem;">';
+			echo '</a>';
+			echo '</div>';
+		}
+	} else {
+		echo 'Response is not a valid JSON string.';
+	}
+} else {
+	echo '<script>';
+	echo 'console.error("Response is not a string: ", ' . json_encode($response) . ');';
+	echo '</script>';
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['gameSearch'])) {
+	$gameSearch = strtolower($_GET['gameSearch']);
+	$foundGame = false;
+
+	foreach ($jsonResponse->response->apps as $app) {
+		if (strtolower($app->name) == $gameSearch) {
+			header("Location: review.php?appid={$app->appid}&name=" . urlencode($app->name));
+			$foundGame = true;
+			break;
+		}
+	}
+
+	if (!$foundGame) {
+		echo '<p>Game not found. Please try another search.</p>';
+	}
+}
+
+?>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
 </div>
 
 <!-- Include the common footer -->
-<div class="footer">
-   &copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
-</div>
-
-<!-- Bootstrap JS (optional, but required for some features) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<?php include('footer.php'); ?>
 
 <!-- Your existing script for user session verification -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="dashboard.js"></script>
+<script src="verify_user_session.js"></script>
 
 </body>
 </html>

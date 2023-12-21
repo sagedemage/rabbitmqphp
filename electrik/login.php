@@ -37,14 +37,7 @@
 		</div>
 	</div>
 
-	<!-- Include the common footer -->
 	<?php include('footer.php'); ?>
-	<div class="footer">
-		&copy; 2023 Electrik.com. All rights reserved. <a class="terms-link" href="terms.php">Terms of Service</a>
-	</div>
-
-	<!-- Bootstrap JS (optional, but required for some features) -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
