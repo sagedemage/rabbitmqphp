@@ -19,11 +19,22 @@
 	require __DIR__ . '/get_user_id.php';
 
     $appId = isset($_GET['appid']) ? $_GET['appid'] : null;
+    $userId = isset($_GET['userid']) ? $_GET['userid'] : null;
     $gameName = isset($_GET['name']) ? urldecode($_GET['name']) : "Unknown Game";
 	$imageUrl = isset($appId) ? "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg" : "path/to/default/image.jpg";
 
-	$userId = get_user_id();
-	
+	if (!isset($_GET['userid'])) {
+		$userId = get_user_id();
+
+		//$host  = $_SERVER['HTTP_HOST'];
+		//$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+		$extra = '/review_form.php?appid=' . $appId . '&name=' . urlencode($gameName) . '&userid=' . $userId . '';
+		header("Location: $extra");
+
+		//echo "<script>";
+		//echo "window.location.href = \"/review_form.php?appid=" . $appId . "&name=" . urlencode($gameName) . "&userid=" . $userId . "\"";
+		//echo "</script>";
+	}
     ?>
 
     <div>
