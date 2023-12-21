@@ -174,16 +174,16 @@
 - Hash Passwords (Video Proof) - [Checked]
 - Responsive Design (Video Proof) - [Checked]
 - DB replication (Video Proof) - [Checked]
-- systemd (Screenshot Proof)
-- Firewalls [Production] (Screenshot Proof)
-- 2FA
+- systemd (Screenshot Proof) [Checked]
+- Firewalls [Production] (Screenshot Proof) [Checked]
+- 2FA (Video Proof) [Checked]
 
 #### Personal Deliverables
-- Ability to recommend games to people (Video Proof)
-- Ability for people to rate games in their library (Video Proof)
-- Ability to search through and view games and their library (Video Proof)
-- Review on games (Video Proof)
-- Ability to see other players' reviews (Video Proof)
+- Ability to recommend games to people (Video Proof) [Checked]
+- Ability for people to rate games in their library (Video Proof) [Checked]
+- Ability to search through and view games and their library (Video Proof) [Checked]
+- Review on games (Video Proof) [Checked]
+- Ability to see other players' reviews (Video Proof) [Checked]
 
 ### Deliverables In Progress
 - 3 clusters (Dev, QA, and Prod)
