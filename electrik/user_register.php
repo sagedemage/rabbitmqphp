@@ -1,13 +1,19 @@
 <?php
 ini_set('display_errors', 1);
 
+require_once('path/to/logger.php'); 
 require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
+$logMessages = "";
+
+
 function showError($errorMsg) {
-	echo "<script>alert(\"$errorMsg\");</script>";
-	echo '<script>window.location.href = "./register.php";</script>';
+	global $logMessages;
+    $logMessages .= $errorMsg . "\n";
+    echo "<script>alert(\"$errorMsg\");</script>";
+    echo '<script>window.location.href = "./register.php";</script>';
 }
 
 /* Client */
@@ -71,13 +77,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm'])) {
 		$response = $client->send_request($request);
 
 		if ($response === "Registration success.") {
+			$logMessages .= "Registration success.\n";
 			echo '<script>alert("Registration success.");</script>';
 			echo '<script>window.location.href = "./login.php";</script>';
 		}
 		else {
+			$logMessages .= "Registration failed: $response\n";
 			echo "<script>alert(\"$response\");</script>";
-			echo '<script>window.location.href = "./register.php";</script>';
+            echo '<script>window.location.href = "./register.php";</script>';
 		}
 	} 
 }
+sendLogMessage($logMessages);
 ?>

@@ -2,10 +2,12 @@
 ini_set('display_errors', 1);
 
 // Include RabbitMQ client and other required files
+require_once('path/to/logger.php');
 require_once('../rabbitmq_lib/path.inc');
 require_once('../rabbitmq_lib/get_host_info.inc');
 require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
+$logMessages = "";
 $gameName = isset($_GET['name']) ? urldecode($_GET['name']) : "Unknown Game";
 
 /* Get User ID */
@@ -37,11 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// Send request to server
 	$response = $client->send_request($request);
 
-	if ($response === "Review submission success.") {
-		echo '<script>window.location.href = "./review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '";</script>';
-	} else {
-		echo "<script>alert(\"$response\");</script>";
-	}
+    if ($response === "Review submission success.") {
+        $logMessages .= "Review submission success. Redirecting to review.php\n";
+        echo '<script>window.location.href = "./review.php?appid=' . $appId . '&name=' . urlencode($gameName) . '";</script>';
+    } else {
+        $logMessages .= "Review submission failed: " . $response . "\n";
+        echo "<script>alert(\"$response\");</script>";
+    }
 }
-
+sendLogMessage($logMessages);
 ?>

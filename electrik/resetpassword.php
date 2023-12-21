@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 0); // Turn off error reporting in production
+require_once('path/to/logger.php');
 
 if (isset($_GET['email'], $_GET['token'])) {
     $email = htmlspecialchars($_GET['email'], ENT_QUOTES, 'UTF-8');

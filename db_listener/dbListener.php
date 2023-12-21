@@ -1,7 +1,6 @@
 #!/usr/bin/php
 <?php
 ini_set('display_errors', 1);
-
 require_once('rabbitmq_lib/path.inc');
 require_once('rabbitmq_lib/get_host_info.inc');
 require_once('rabbitmq_lib/rabbitMQLib.inc');
@@ -18,7 +17,7 @@ function doLogin($username, $password) {
 
 	if ($db->connect_error) {
 		echo "Failed to connect to the database: " . $db->connect_error;
-
+		writeToLog("Failed to connect to the database: " . $db->connect_error);
 		$db->close();
 		exit(0);
 	}
@@ -87,6 +86,7 @@ function doRegister($email, $username, $password) {
 
 	if ($db->connect_errno != 0) {
 		echo "Failed to connect to the database: " . $db->connect_error;
+		writeToLog("Failed to connect to the database: " . $db->connect_error);
 		$db->close();
 		exit(0);
 	}
@@ -137,6 +137,7 @@ function getReviews($appId) {
 
     if ($db->connect_error) {
         echo "Failed to connect to the database: " . $db->connect_error;
+		writeToLog("Failed to connect to the database: " . $db->connect_error);
         $db->close();
         exit(0);
     }
@@ -157,6 +158,7 @@ function getReviews($appId) {
 
 			if (!$userStmt) {
 				echo "Prepare failed: (" . $db->errno . ") " . $db->error . "<br>";
+				writeToLog("Prepare failed: (" . $db->errno . ") " . $db->error . "<br>");
 				continue;
 			}
 
@@ -168,10 +170,12 @@ function getReviews($appId) {
 				} else {
 					$reviews[$key]['userName'] = 'Unknown User';
 					echo "No user found for userID: " . $userId . "<br>";
+					writeToLog("No user found for userID: " . $userId . "<br>");
 				}
 				$userStmt->close();
 			} else {
 				echo "Execute failed: (" . $userStmt->errno . ") " . $userStmt->error . "<br>";
+				writeToLog("Execute failed: (" . $userStmt->errno . ") " . $userStmt->error . "<br>");
 				$reviews[$key]['userName'] = 'Unknown User';
 			}
 		}
@@ -198,6 +202,7 @@ function submitReview($userId, $appId, $gameRating, $reviewText) {
 
 	if ($db->connect_error) {
 		echo "Failed to connect to the database: " . $db->connect_error;
+		writeToLog("Failed to connect to the database: " . $db->connect_error);
 		$db->close();
 		exit(0);
 	}
@@ -226,6 +231,7 @@ function updateSteamID($userId, $steamID) {
 
     if ($db->connect_error) {
         echo "Failed to connect to the database: " . $db->connect_error;
+		writeToLog("Failed to connect to the database: " . $db->connect_error);
         $db->close();
         return "Failed to connect to the database.";
     }
@@ -254,6 +260,7 @@ function getUserSteamID($userId) {
 
     if ($db->connect_error) {
         echo "Failed to connect to the database: " . $db->connect_error;
+		writeToLog("Failed to connect to the database: " . $db->connect_error);
         $db->close();
         return "Database connection failed.";
     }
@@ -357,10 +364,22 @@ function getOwnedGames($steamid) {
 	return $response;
 }
 
+
+function writeToLog($message) {
+    $logFile = __DIR__ . '/Logging.log'; // Adjust path as needed
+    $currentDateTime = new DateTime();
+    $formattedDateTime = $currentDateTime->format('Y-m-d H:i:s');
+    $logMessage = $formattedDateTime . " - " . $message . PHP_EOL;
+    file_put_contents($logFile, $logMessage, FILE_APPEND);
+}
+
+
 function requestProcessor($request) {
 	echo "received request".PHP_EOL;
+	writeToLog("Received request: " . json_encode($request));
 	var_dump($request);
 	if(!isset($request['type'])) {
+		writeToLog("ERROR: unsupported message type");
 		return "ERROR: unsupported message type";
 	}
 	switch($request['type'])
@@ -387,12 +406,17 @@ function requestProcessor($request) {
 		return updateSteamID($request['userId'], $request['steamID']);
 	case "GetUserSteamID":
 		return getUserSteamID($request['userId']);
+	case "SendLog":
+		return writeToLog($request['message']);
 	}
+	writeToLog("Processed request: " . json_encode($request));
 	return array("returnCode" => '0', 'message'=>"server received request and processed");
 }
 
 $server = new rabbitMQServer("testRabbitMQ.ini", "testServer");
 echo "DB Listener BEGIN".PHP_EOL;
+writeToLog("DB Listener BEGIN");
 $server->process_requests('requestProcessor');
 echo "DB Listener END".PHP_EOL;
+writeToLog("DB Listener END");
 ?>

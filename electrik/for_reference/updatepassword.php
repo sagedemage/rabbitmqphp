@@ -1,5 +1,8 @@
 <?php
 ini_set('display_errors', 1); 
+require_once('path/to/logger.php');
+
+$logMessages = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
@@ -8,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if the email is valid (you should add your email validation code here)
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = true;
+        $logMessages .= "Invalid email address.\n";
         echo "Invalid email address.";
     }
 
