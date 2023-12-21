@@ -370,9 +370,10 @@ function verify2FACode($username, $code) {
 
 	
     // Fetch the stored 2FA code and expiry from the database
-    $stmt = $db->prepare("SELECT two_factor_code, code_expiry FROM Users WHERE username = ?");
-    $stmt->bind_param("s", $username);
+    $stmt = $db->prepare("SELECT id, two_factor_code, code_expiry FROM Users WHERE username = ?");
+	$stmt->bind_param("s", $username);
     $stmt->execute();
+	$stmt->bind_result($id, $two_factor_code, $code_expiry);
     $result = $stmt->get_result();
 
     if ($row = $result->fetch_assoc()) {
@@ -387,9 +388,22 @@ function verify2FACode($username, $code) {
 		echo 'User Code: ' . $code . '<br>';
 		
         if ($code === trim($row['two_factor_code']) && $currentDateTime < new DateTime($row['code_expiry'])) {
-            // Code is correct and not expired
+			// Code is correct and not expired
+			// Encrypt data for secure transmission
+    		$cipher = "AES-128-CBC";
+    		$key = $env["OPENSSL_KEY"];
+    		$ivlen = openssl_cipher_iv_length($cipher);
+    		$iv = openssl_random_pseudo_bytes($ivlen);
+    		$cipher_text_raw = openssl_encrypt($id, $cipher, $key, $options=OPENSSL_RAW_DATA, $iv);
+    		$hmac = hash_hmac('sha256', $cipher_text_raw, $key, $as_binary=true);
+			$cipher_text = base64_encode($iv.$hmac.$cipher_text_raw);
+
 			echo 'Success!';
-            return json_encode(["msg" => "2FA verification successful"]);
+			$data = ["msg" => "2FA verification successful", "cipher_text" => $cipher_text];
+			header('Content-type: application/json');
+			$db->close();
+			return json_encode($data);
+
         } else {
 			echo 'Error!';
             return json_encode(["success" => false, "msg" => "Invalid or expired code."]);
