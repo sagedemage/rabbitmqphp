@@ -5,6 +5,14 @@ ini_set('display_errors', 1);
 require_once('rabbitmq_lib/path.inc');
 require_once('rabbitmq_lib/get_host_info.inc');
 require_once('rabbitmq_lib/rabbitMQLib.inc');
+
+require_once "PHPMailer/src/PHPMailer.php";
+require_once "PHPMailer/src/SMTP.php";
+require_once "PHPMailer/src/Exception.php";
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 /* Server */
 
 function generateRandomCode($length = 6) {
@@ -89,7 +97,7 @@ function doLogin($username, $password) {
     $updateStmt->close();
 
 	// Send 2FA code via email
-	$mail = new PHPMailer\PHPMailer\PHPMailer();
+	$mail = new PHPMailer(true);
 	$mail->IsSMTP();
 	$mail->SMTPAuth = true;
 	$mail->SMTPSecure = 'ssl';
