@@ -22,7 +22,7 @@ axios.post('/verify_user_session.php', {
     user_id: user_id,
 })
 .then(function(response) {
-    if (response.data !== true) {
+    if (response.data !== "true") {
         logMessage("Session verification failed for user_id: " + user_id);
         location.href = "/login.php";
     }
