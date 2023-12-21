@@ -35,9 +35,9 @@
         $request['twoFactorCode'] = $userCode;
 
         $response = $client->send_request($request);
-        
+        $data = json_decode($response);
         // Check the response message for success
-        if (isset($response['msg']) && $response['msg'] === "2FA verification successful") {
+        if ($data->{"msg"} === "2FA verification successful") {
             // Set cookie and redirect to dashboard
             $name = "user_id";
             $value = $userId; // Consider encrypting this value
