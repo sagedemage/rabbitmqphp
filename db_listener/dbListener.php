@@ -384,8 +384,7 @@ function verify2FACode($username, $code) {
 		echo 'Current Time: ' . $currentDateTime->format('Y-m-d H:i:s') . '<br>';
 		echo 'Expiry Time: ' . $expiryDateTime->format('Y-m-d H:i:s') . '<br>';
 		echo 'Database Code: ' . $row['two_factor_code'] . '<br>';
-		echo 'User Code: ' . $userCode . '<br>';
-
+		echo 'User Code: ' . $code . '<br>';
 		
         if ($code === $row['two_factor_code'] && $currentDateTime < new DateTime($row['code_expiry'])) {
             // Code is correct and not expired
