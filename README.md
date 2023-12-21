@@ -20,3 +20,6 @@
 
 ## Setup Firewall
 [Firewall Guide](./docs/setup_firewall.md)
+
+## Setup SetupD
+[SystemD Guide](./docs/systemd_guide.md)
