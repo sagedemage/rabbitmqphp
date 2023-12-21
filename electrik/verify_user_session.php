@@ -10,7 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$data = json_decode(file_get_contents('php://input'), true);
 	if (isset($data["user_id"])) {
 		$user_id = $data["user_id"];
-		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+		try {
+			$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+		} catch (Exception $e) {
+			$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
+		}
 		
 		/* Send login request to server */
 		$request = array();

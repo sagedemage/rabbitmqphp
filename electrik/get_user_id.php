@@ -9,7 +9,11 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 function get_user_id() {
 	/* Get User ID */
 	// Prepare RabbitMQ client
-	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+	try {
+		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+	} catch (Exception $e) {
+		$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
+	}
 
 	$cookie_value = $_COOKIE['user_id'];
 

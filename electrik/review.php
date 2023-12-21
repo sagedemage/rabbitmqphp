@@ -26,7 +26,11 @@
     $imageUrl = isset($appId) ? "https://steamcdn-a.akamaihd.net/steam/apps/{$appId}/header.jpg" : "path/to/default/image.jpg";
 
     // Request reviews for the current game
-    $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+    try {
+        $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+    } catch (Exception $e) {
+        $client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
+    }
     $request = array();
     $request['type'] = "GetReviews";
     $request['appId'] = $appId;

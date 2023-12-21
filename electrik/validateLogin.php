@@ -31,7 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 	}
 
 	if (!$error) {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+		try {
+            $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+        } catch (Exception $e) {
+            $client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
+        }
 		/* Send login request to server */
 		$request = array();
 		$request['type'] = "Login";

@@ -12,7 +12,11 @@ $gameName = isset($_GET['name']) ? urldecode($_GET['name']) : "Unknown Game";
 
 /* Get User ID */
 // Prepare RabbitMQ client
-$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+try {
+	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+} catch (Exception $e) {
+	$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
+}
 
 /* Game Review Post Request */
 
@@ -26,7 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 	// Prepare RabbitMQ client
-	$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+	try {
+		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+	} catch (Exception $e) {
+		$client = new rabbitMQClient("testRabbitMQ.ini", "secondaryServer");
+	}
 
 	// Construct request
 	$request = array();
