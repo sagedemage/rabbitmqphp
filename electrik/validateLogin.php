@@ -7,6 +7,7 @@ require_once('../rabbitmq_lib/rabbitMQLib.inc');
 
 /* Client */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+	echo '<script>console.log("Processing POST request for login");</script>';
 	$user = $_POST['id'];
 	$pwd = $_POST['pwd'];
 	$error = false;
@@ -28,34 +29,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 	}
 
 	if (!$error) {
-		$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+		echo '<script>console.log("No errors found in user input, proceeding with RabbitMQ client setup");</script>';
+        $client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+        echo '<script>console.log("RabbitMQ client initialized");</script>';
+
 		/* Send login request to server */
 		$request = array();
 		$request['type'] = "Login";
 		$request['username'] = $user;
 		$request['password'] = $pwd;
 
-		$response = $client->send_request($request);
+        $response = $client->send_request($request);
 
 		// Only encrypt the value of the cookie
 		$data = json_decode($response);
 
 		// Check if the login response is successful, and then set a session cookie
 		if ($data->{"msg"} === "Authentication successful.") {
-			// Cookie attributes
-			$name = "user_id";
-			$value = $data->{"cipher_text"};
-			$expires_or_options = time() + 3600;
-			$path = "/";
-			$domain = "";
-			$secure = false;
-			$http_only = false;
 
-			// Set a session cookie to persist authentication
-			setcookie($name, $value, $expires_or_options, $path, $domain, $secure, $http_only);
-
-			// Redirect to the dashboard
-			header("Location: dashboard.php");
+			header("Location: twoFactorVerify.php?user_id=" . urlencode($user));
+			// Redirect to the 2FA verification page
 			exit;
 		}
 		else if ($data->{"msg"} === "Authentication failed. Invalid username or password.") {
