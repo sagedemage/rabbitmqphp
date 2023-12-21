@@ -148,6 +148,34 @@ function getReviews($appId) {
         $result = $stmt->get_result();
         $reviews = $result->fetch_all(MYSQLI_ASSOC);
 
+		/* Set username for each review */
+		foreach ($reviews as $key => $review) {
+			$userId = $review['userId'];
+
+			$userRequest = "SELECT username FROM Users WHERE id = ?";
+			$userStmt = $db->prepare($userRequest);
+
+			if (!$userStmt) {
+				echo "Prepare failed: (" . $db->errno . ") " . $db->error . "<br>";
+				continue;
+			}
+
+			$userStmt->bind_param("i", $userId);
+			if ($userStmt->execute()) {
+				$userResult = $userStmt->get_result();
+				if ($userRow = $userResult->fetch_assoc()) {
+					$reviews[$key]['userName'] = $userRow['username'];
+				} else {
+					$reviews[$key]['userName'] = 'Unknown User';
+					echo "No user found for userID: " . $userId . "<br>";
+				}
+				$userStmt->close();
+			} else {
+				echo "Execute failed: (" . $userStmt->errno . ") " . $userStmt->error . "<br>";
+				$reviews[$key]['userName'] = 'Unknown User';
+			}
+		}
+
         $stmt->close();
         $db->close();
         return json_encode($reviews);
