@@ -6,6 +6,17 @@ require_once('rabbitmq_lib/path.inc');
 require_once('rabbitmq_lib/get_host_info.inc');
 require_once('rabbitmq_lib/rabbitMQLib.inc');
 /* Server */
+
+function generateRandomCode($length = 6) {
+    $characters = '0123456789';
+    $charactersLength = strlen($characters);
+    $randomCode = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomCode .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomCode;
+}
+
 function doLogin($username, $password) {
     // Connect to Database
     $env = parse_ini_file('env.ini');
