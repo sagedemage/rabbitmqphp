@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Replace this with your actual PHP script path
-PHP_SCRIPT_PATH="~/rabbitmqphp/db_listener/db_listener.php"
+PHP_SCRIPT_PATH="~/rabbitmqphp/db_listener/dbListener.php"
 
 # Service file content
 SERVICE_FILE_CONTENT="[Unit]
