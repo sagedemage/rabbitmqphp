@@ -1,26 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Two-Factor Authentication</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <!-- Link to your CSS stylesheet for additional styling -->
+    <!-- ... [rest of the head section] ... -->
 </head>
-
 <body>
     <!-- Include the common header and navbar -->
     <?php include('navbar.php'); ?>
 
     <?php
-    ini_set('display_errors', 1);
-    ob_start(); // Start output buffering
-    error_reporting(E_ALL); // Enable error reporting for debugging
     session_start();
     require_once('../rabbitmq_lib/path.inc');
     require_once('../rabbitmq_lib/get_host_info.inc');
-    require_once('../rabbitmq_lib/rabbitMQLib.inc');// include RabbitMQ required files
+    require_once('../rabbitmq_lib/rabbitMQLib.inc'); // Include RabbitMQ required files
 
     $errorMsg = '';
 
@@ -45,7 +36,8 @@
 
         $response = $client->send_request($request);
         
-        if ($response["success"]) {
+        // Check the response message for success
+        if (isset($response['msg']) && $response['msg'] === "2FA verification successful") {
             // Set cookie and redirect to dashboard
             $name = "user_id";
             $value = $userId; // Consider encrypting this value
@@ -53,13 +45,13 @@
             $path = "/";
             $secure = false; // Set to true if using HTTPS
             $http_only = true; // Set to true to make cookie accessible only through the HTTP protocol
-            echo 'Set cookie';
+
             setcookie($name, $value, $expires_or_options, $path, "", $secure, $http_only);
-            echo 'Redirect';
+
             header("Location: dashboard.php");
             exit;
         } else {
-            $errorMsg = $response["msg"] ?? 'Invalid or expired code. Please try again.';
+            $errorMsg = $response['msg'] ?? 'Invalid or expired code. Please try again.';
         }
     }
     ?>
@@ -81,5 +73,4 @@
     <?php include('footer.php'); ?>
 
 </body>
-
 </html>

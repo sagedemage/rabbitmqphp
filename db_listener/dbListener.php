@@ -389,7 +389,7 @@ function verify2FACode($username, $code) {
         if ($code === $row['two_factor_code'] && $currentDateTime < new DateTime($row['code_expiry'])) {
             // Code is correct and not expired
 			echo 'Success!';
-            return json_encode(["success" => true]);
+            return json_encode(["msg" => "2FA verification successful"]);
         } else {
 			echo 'Error!';
             return json_encode(["success" => false, "msg" => "Invalid or expired code."]);
