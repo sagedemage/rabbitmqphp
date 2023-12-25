@@ -1,4 +1,5 @@
-# rabbitmqphp
+# Steam Game Review
+A website to review Steam games you own and games recommended to you.
 
 ## Ubuntu VM Dependencies
 [Ubuntu VM Dependencies](./docs/ubuntu_vm_dependencies.md)
